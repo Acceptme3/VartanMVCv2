@@ -1,0 +1,40 @@
+﻿
+<!-- basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- site metas -->
+@{
+    if (ViewBag.Title != null)
+    {
+        <title>@ViewBag.Title</title>
+    }
+    else
+    {
+        <title>Вартанов</title>
+    }
+
+    if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@ViewBag.Description">
+    }
+    else
+    {
+        <meta name="description" content="None">
+    }
+
+    if (ViewBag.Keywords != null)
+    {
+        <meta name="keywords" content="@ViewBag.Keywords">
+    }
+    else
+    {
+        <meta name="keywords" content="None">
+    }
+}
+<meta name="author" content="">
+
+

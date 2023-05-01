@@ -1,0 +1,12 @@
+[
+  {
+    "outputFileName": "wwwroot/js/scripts.bundle.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.min.js",
+      "wwwroot/js/jquery-3.0.0.min.js",
+      "wwwroot/js/bootstrap.bundle.min.js",
+      "wwwroot/js/popper.min.js",
+      "wwwroot/js/plugin.js"
+    ]
+  }
+]
