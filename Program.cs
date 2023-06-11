@@ -1,3 +1,13 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using VartanMVCv2.Domain;
+using VartanMVCv2.Domain.Repositories.Abstract;
+using VartanMVCv2.Domain.Repositories.EntityFramework;
+using VartanMVCv2.Services;
+using VartanMVCv2.ViewModels;
+using System.Collections.Generic;
+using VartanMVCv2.Domain.Entities;
+
 namespace VartanMVCv2
 {
     public class Program
@@ -7,6 +17,39 @@ namespace VartanMVCv2
             var builder = WebApplication.CreateBuilder(args);
             // add services
             builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider();
+            //сопостовляем конфигурационный json с классом
+            builder.Configuration.AddJsonFile("appsettings.json");
+            Config config = new Config();
+            builder.Configuration.Bind("Project", config);
+            //подключаем класс контекста базы данных
+            builder.Services.AddDbContext<AplicationDBContext>(x => x.UseSqlServer(Config.ConnectionString));
+            //подключаем нужный функционал в качестве сервисов
+            builder.Services.AddTransient<IEntityRepository<WorkServices>, EFEntitiesRepository<WorkServices>>();
+            builder.Services.AddTransient<IEntityRepository<WorksList>, EFEntitiesRepository<WorksList>>();
+            builder.Services.AddTransient<IEntityRepository<WorksName>, EFEntitiesRepository<WorksName>>();
+            builder.Services.AddTransient<IEntityRepository<CompletedProject>, EFEntitiesRepository<CompletedProject>>();
+            builder.Services.AddTransient<IEntityRepository<CompletedProjectPhoto>, EFEntitiesRepository<CompletedProjectPhoto>>();
+            builder.Services.AddTransient<DataManager>();
+            builder.Services.AddTransient<IndexViewModel>();
+            //настраиваем Identity 
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+            {
+                opts.User.RequireUniqueEmail = false;
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            }).AddEntityFrameworkStores<AplicationDBContext>().AddDefaultTokenProviders();
+            //autentificatio cookie
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "MyCompanyAuth";
+                options.Cookie.HttpOnly = true;
+                options.LoginPath = "/account/login";
+                options.AccessDeniedPath = "/account/accesdenied";
+                options.SlidingExpiration = true;
+            });
 
             var app = builder.Build();
 
@@ -21,27 +64,15 @@ namespace VartanMVCv2
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
+            
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
-            /*app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapControllerRoute(
-                name: "about",
-                pattern: "{controller=Home}/{action=About}/{id?}");
-            app.MapControllerRoute(
-                name: "contact",
-                pattern: "{controller=Home}/{action=Contact}/{id?}");
-            app.MapControllerRoute(
-                name: "shop",
-                pattern: "{controller=Home}/{action=Shop}/{id?}");
-            app.MapControllerRoute(
-                name: "services",
-                pattern: "{controller=Home}/{action=Services}/{id?}");
-            */
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{action}",
+                pattern: "{action}/{id?}",
                 defaults: new { controller = "Home", action = "Index" });
                 
             app.MapControllerRoute(
@@ -50,19 +81,30 @@ namespace VartanMVCv2
                 defaults: new { controller = "Home", action = "Services" });
 
             app.MapControllerRoute(
+                name: "servicesByID",
+                pattern: "{action}/{id?}",
+                defaults: new { controller = "Home", action = "ServicesByID" });
+
+            app.MapControllerRoute(
                 name: "aboutUs",
-                pattern: "{action}",
+                pattern: "{action}/{id?}",
                 defaults: new { controller = "Home", action = "About" });
 
             app.MapControllerRoute(
                 name: "feedback",
-                pattern: "{action}",
+                pattern: "{action}/{id?}",
                 defaults: new { controller = "Home", action = "Feedback" });
 
             app.MapControllerRoute(
                 name: "contactUs",
-                pattern: "{action}",
+                pattern: "{action}/{id?}",
                 defaults: new { controller = "Home", action = "Contact" });
+
+            app.MapControllerRoute(
+                name: "resourseUsed",
+                pattern: "{action}",
+                defaults: new { controller = "Home", action = "ResourseUsed" });
+
 
             app.MapFallbackToController("ErrorPage", "ErrorAplication");
 

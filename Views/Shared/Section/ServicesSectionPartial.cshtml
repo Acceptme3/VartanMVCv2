@@ -1,0 +1,33 @@
+﻿@using VartanMVCv2.Domain.Entities
+@using VartanMVCv2.ViewModels
+@model IndexViewModel
+
+<!-- furnitures section start -->
+<div class="furnitures_section layout_padding">
+    <div class="container">
+        <h1 class="our_text">Перечень услуг</h1>
+        <p class="ipsum_text">Самый широкий спектр услуг</p>
+        <div class="furnitures_section2 layout_padding">
+            <div class="row">
+                @{
+                    foreach( WorkServices service in IndexViewModel.workServicesList)
+                {
+                    <div class="col-md-6">
+                        <div class="container_main">
+                            <img src="@service.TitleImagePath" alt="Avatar" class="image">
+                            <div class="overlay">
+                                <a href="@Url.Action("ServicesByID","Home",new {service.ID})" class="icon" title="User Profile" id="cat_full">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <h3 class="temper_text">@service.Title</h3>
+                        <p class="dololr_text">@service.Description</p>
+                    </div>
+                }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- furnitures section end -->

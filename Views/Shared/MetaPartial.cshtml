@@ -1,4 +1,4 @@
-﻿
+﻿@using VartanMVCv2.Services;
 <!-- basic -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
     }
     else
     {
-        <title>Вартанов</title>
+        <title>@Config.CompanyName</title>
     }
 
     if (ViewBag.Description != null)

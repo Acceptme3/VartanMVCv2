@@ -14,14 +14,11 @@
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Models\ViewComponents\" />
-    <Folder Include="Views\EntryForm\" />
+    <Folder Include="TagHelpers\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\fonts\" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\sass\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Services\" />
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
   <ItemGroup>

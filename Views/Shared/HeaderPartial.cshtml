@@ -3,7 +3,7 @@
 <div class="header_section">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="logo"><a href="index.html"><img src="/images/logo.png"></a></div>
+            <div class="logo"><a href="@Url.Action("Index", "Home")"><img src="/images/logo.png"></a></div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,9 +28,9 @@
                 <form class="form-inline my-2 my-lg-0">
                     <div class="search_icon">
                         <ul>
-                            <li><a href="#"><img src="/images/search-icon.png"></a></li>
-                            <li><a href="#">+7 988 878 88 77</a></li>
-                            <li><a href="#">+7 499 000 00 77</a></li>
+                            <li><a><&#9742></a></li>
+                            <li><a href="#" class="ref_phone" id="ref_phone">+7 988 878 88 77</a></li>
+                            <li><a href="#" class="ref_phone" id="ref_phone">+7 499 000 00 77</a></li>
                         </ul>
                     </div>
                     <div class="search_icon">
@@ -49,23 +49,68 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <h1 class="furniture_text">Гарантия</h1>
-                        <p class="there_text">Мы занимаемся ремонтом квартир и частных домов более 8 лет и даем 100 процентную гарантию качества. Профессионализм наших специалистов, эффективные технологии и новейшие материалы обеспечивают прочность и надежность всех аспектов ремонта. В договоре, заключаемом с заказчиком, официально зафиксированы гарантийные обязательства, которые возлагает на себя наша компания.</p>
+                        <p class="second_text">Ремонт вашего жилища в Краснодаре и Краснодарском крае с гарантией</p>
+                        <p class="there_text">Даем 100 процентную гарантию качества. Профессионализм наших специалистов, эффективные технологии и новейшие материалы обеспечивают прочность и надежность всех аспектов ремонта.</p>
+                        <div class="carousel_grid_container">
+                            <div class="carousel_grid_item">
+                                <img src="~/images/measuring-tape.png" />
+                                <p class="s_text">Выезд замерщика бесплатно.</p>
+                            </div>
+                            <div class="carousel_grid_item">
+                                <img src="~/images/shield.png" />
+                                <p class="s_text">Гарантия на ремонт 3 года.</p>
+                            </div>
+                            <div class ="carousel_grid_item" id="item_3">
+                                <img src="~/images/offer.png" />
+                                <p class="s_text">Персональные предложения.</p>
+                            </div>
+                        </div>
                         <div class="contact_bt_main">
-                            <div class="contact_bt"><a href="contact.html">Связаться с нами</a></div>
+                            <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Связаться с нами</a></div>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <h1 class="furniture_text">Скорость</h1>
-                        <p class="there_text">Мы уважаем ваше время так же как и ваш комфорт. По этому, мы даем вам слово, что управимся точно в срок.</p>
+                        <h1 class="furniture_text">Опыт</h1>
+                        <p class="second_text">Мы занимаемся ремонтом квартир и частных домов более 8 лет </p>
+                        <p class="there_text">Мы гарантируем соблюдение сроков, чтобы вы могли наслаждаться обновленной квартирой в кратчайшие сроки.</p>
+                        <div class="carousel_grid_container">
+                            <div class="carousel_grid_item">
+                                <img src="~/images/clock.png" />
+                                <p class="s_text">Прораб доступен 24/7</p>
+                            </div>
+                            <div class="carousel_grid_item">
+                                <img src="~/images/megaphone.png" />
+                                <p class="s_text">Скидки на стройматериалы.</p>
+                            </div>
+                            <div class="carousel_grid_item" id="item_3">
+                                <img src="~/images/home.png" />
+                                <p class="s_text">Соблюдаем страховые соглашения.</p>
+                            </div>
+                        </div>
                         <div class="contact_bt_main">
                             <div class="contact_bt"><a href="contact.html">Рассчитать стоимость</a></div>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <h1 class="furniture_text">Опыт</h1>
-                        <p class="there_text">Наши мастера проходят обучение, проверки и постоянно подтверждают свою квалификацию.</p>
+                        <h1 class="furniture_text">Доверие</h1>
+                        <p class="second_text">Мы бережно относимся к вашему бюджету</p>
+                        <p class="there_text"> Всегда стараемся предложить оптимальное решение для вас. Мы работаем без посредников, что позволяет нам предлагать конкурентные цены на рынке ремонтных услуг.</p>
+                        <div class="carousel_grid_container">
+                            <div class="carousel_grid_item">
+                                <img src="~/images/file.png" />
+                                <p class="s_text">Не выходим за рамки сметы.</p>
+                            </div>
+                            <div class="carousel_grid_item">
+                                <img src="~/images/offer.png" />
+                                <p class="s_text">Крутой оффер который всем интересен</p>
+                            </div>
+                            <div class="carousel_grid_item" id="item_3">
+                                <img src="~/images/offer.png" />
+                                <p class="s_text">Самый крутой оффер</p>
+                            </div>
+                        </div>
                         <div class="contact_bt_main">
-                            <div class="contact_bt"><a href="contact.html">Заказать звонок</a></div>
+                            <div class="contact_bt" id="btn_show_entryForm_2"><a href="#">Заказать звонок</a></div>
                         </div>
                     </div>
                 </div>

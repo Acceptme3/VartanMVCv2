@@ -1,0 +1,45 @@
+﻿@using VartanMVCv2.ViewModels
+@using VartanMVCv2.Domain.Entities
+@model IndexViewModel
+@await Html.PartialAsync("HeaderWithoutSliderPartial")
+<!-- furnitures section start -->
+<div class="furnitures_section layout_padding">
+    <div class="container">
+        <h1 class="our_text">Перечень услуг</h1>
+        <p class="ipsum_text">@IndexViewModel.workServicesList.ToList().Find(x=>x.ID==ViewBag.SelectedServicesID)!.Title</p>
+        <div class="furnitures_section2 layout_padding">
+            <div class="row">
+                @{
+                    foreach (WorksList worksList in IndexViewModel.sortWorksList)
+                    {
+                        <div class="col-md-6">
+                            <div class="container_main">
+                                <h2 class="temper_text">@worksList.Title</h2>
+                                <ul>
+                                    @foreach(WorksName name in IndexViewModel.worksNames)
+                                    {
+                                        if(name.WorksCategory.ID==worksList.ID)
+                                        {
+                                            <li>
+                                                <h2>@name.Title</h2>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- furnitures section end -->
+@await Html.PartialAsync("FooterPartial")
+<!-- copyright section start -->
+<div class="copyright_section" />
+<div class="container">
+    @await Html.PartialAsync("AutorPartial")
+</div>
+<!-- copyright section end -->
+@await Html.PartialAsync("ScriptsPartial")
