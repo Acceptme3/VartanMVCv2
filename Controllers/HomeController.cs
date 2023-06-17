@@ -13,6 +13,8 @@ namespace VartanMVCv2.Controllers
         //глобальная переменная для хранения списка объектов WorkServices
         private readonly IndexViewModel _indexViewModel;
 
+        
+
         public HomeController(AplicationDBContext appDbContext, IndexViewModel indexViewModel) 
         {
             _dbContext = appDbContext;
@@ -22,7 +24,20 @@ namespace VartanMVCv2.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _indexViewModel.ViewModelInitialAsync());
+            await _indexViewModel.ViewModelInitialAsync();
+
+            foreach (var feedbacks in IndexViewModel.feedbacksList)
+            {
+                Debug.WriteLine(feedbacks.FeedbackClientName);
+            }
+            Debug.WriteLine("___________________________________________________--");
+            IndexViewModel.feedbacksList.ToList().Reverse();
+            foreach (var feedbacks in IndexViewModel.feedbacksList)
+            {
+                Debug.WriteLine(feedbacks.FeedbackClientName);
+            }
+            
+            return View();
         }
 
 
@@ -49,19 +64,24 @@ namespace VartanMVCv2.Controllers
         {
             int selectedServicesID = id;
             ViewBag.SelectedServicesID = selectedServicesID;
-           // IndexViewModel indexViewModel = await ModelInitializeAsync();
             IndexViewModel.sortWorksList = IndexViewModel.worksList.ToList().FindAll(delegate (WorksList works)  { return works.Services.ID == selectedServicesID; });
             foreach (WorksList work in IndexViewModel.sortWorksList)
             {
                 Debug.WriteLine(work.Services.ID);
             }
-            //indexViewModel = new() { worksList = worksLists };
-           // indexViewModel.worksNames = works;
+
             return View("ServicesByID", _indexViewModel);
         }
 
         public IActionResult Feedback()
         {
+            return View();
+        }
+
+        public IActionResult FeedbackPhoto(int id) 
+        {
+            int selectedCompletedProjectID = id;
+            ViewBag.SelectedCompletedProjectID = selectedCompletedProjectID;
             return View();
         }
 
@@ -79,24 +99,5 @@ namespace VartanMVCv2.Controllers
         {
             return View();
         }
-
-        /*private async Task<IndexViewModel> ModelInitializeAsync() 
-        {
-            services = await eFWorkServices.GetAllAsync();
-            worksCategory = await eFWorksListRepositories.GetAllAsync();
-            *//*foreach(WorksList work in worksCategory) 
-            {
-                Debug.WriteLine(work.Services.ID);
-            }*//*
-            works = await eFWorksNameRepository.GetAllAsync();
-            *//*foreach (WorksName work in works)
-            {
-                Debug.WriteLine(work.WorksCategory.ID);
-            }*//*
-            //сборка viewModel 
-            IndexViewModel indexModelWorkServices = new() { WorkServicesList = services };
-            return indexModelWorkServices;
-        }*/
-
     }
 }

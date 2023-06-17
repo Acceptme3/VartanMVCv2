@@ -496,6 +496,17 @@ button {
     padding-bottom: 0px;
 }
 
+
+.about_section_2 {
+    width: 100%;
+    float: left;
+    background-image:url(/images/working-pla.png);
+    height: auto;
+    padding-bottom: 0px;
+}
+
+
+
 .image_1 {
     width: 100%;
     float: left;

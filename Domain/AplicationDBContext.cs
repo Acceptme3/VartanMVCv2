@@ -16,6 +16,7 @@ namespace VartanMVCv2.Domain
         public DbSet<WorksName> WorksName { get; set; }
         public DbSet<CompletedProject> CompletedProjects { get; set; }
         public DbSet<CompletedProjectPhoto> CompletedProjectPhotos { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,6 +46,9 @@ namespace VartanMVCv2.Domain
 
             builder.Entity<CompletedProject>().HasData(new CompletedProject { ID = 1, Title = "Ремонт ванной 6 кв.м", TitleImagePath = "/images/img-5.png" });
             builder.Entity<CompletedProject>().HasData(new CompletedProject { ID = 2, Title = "Гостинная 18 кв.м", TitleImagePath = "/images/img-4.png" });
+
+            builder.Entity<Feedback>().HasData(new Feedback { ID = 1, TitleImagePath = "/images/img-7.png", FeedbackClientName = "Антон", FeedbackText = "Все просто шикаорно! Парни красавцы" });
+            builder.Entity<Feedback>().HasData(new Feedback { ID = 2, TitleImagePath = "/images/img-8.png", FeedbackClientName = "Асламбек", FeedbackText = "Аллах Свидетель лучший ремонт прихожей в моей жизни" });
         }
     }
 }

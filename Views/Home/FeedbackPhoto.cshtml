@@ -1,0 +1,29 @@
+﻿@using VartanMVCv2.ViewModels
+@using VartanMVCv2.Models
+@using VartanMVCv2.Domain.Entities
+@model IndexViewModel
+@await Html.PartialAsync("HeaderWithoutSliderPartial")
+
+<div>
+    <h6 class="furnitures_text">@IndexViewModel.completedProjectsList.ToList().Find(x=>x.ID==ViewBag.SelectedCompletedProjectID)!.Title</h6>
+    <div>
+        @foreach (CompletedProjectPhoto photo in IndexViewModel.completedProjectsPhotoList)
+        {
+            if (photo.Project.ID == ViewBag.SelectedCompletedProjectID)
+            {
+               <img src="@photo.ImagePath"/> 
+            }
+            
+        }
+    </div>
+
+</div>
+
+@await Html.PartialAsync("FooterPartial")
+<!-- copyright section start -->
+<div class="copyright_section" />
+<div class="container">
+    @await Html.PartialAsync("AutorPartial")
+</div>
+<!-- copyright section end -->
+@await Html.PartialAsync("ScriptsPartial")

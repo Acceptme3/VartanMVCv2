@@ -29,6 +29,7 @@ namespace VartanMVCv2
             builder.Services.AddTransient<IEntityRepository<WorksName>, EFEntitiesRepository<WorksName>>();
             builder.Services.AddTransient<IEntityRepository<CompletedProject>, EFEntitiesRepository<CompletedProject>>();
             builder.Services.AddTransient<IEntityRepository<CompletedProjectPhoto>, EFEntitiesRepository<CompletedProjectPhoto>>();
+            builder.Services.AddTransient<IEntityRepository<Feedback>, EFEntitiesRepository<Feedback>>();
             builder.Services.AddTransient<DataManager>();
             builder.Services.AddTransient<IndexViewModel>();
             //настраиваем Identity 
