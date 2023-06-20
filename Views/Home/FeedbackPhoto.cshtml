@@ -5,9 +5,9 @@
 @await Html.PartialAsync("HeaderWithoutSliderPartial")
 
 <div>
-    <h6 class="furnitures_text">@IndexViewModel.completedProjectsList.ToList().Find(x=>x.ID==ViewBag.SelectedCompletedProjectID)!.Title</h6>
+    <h6 class="furnitures_text">@Model.modelinitializer.completedProjectsList.ToList().Find(x=>x.ID==ViewBag.SelectedCompletedProjectID)!.Title</h6>
     <div>
-        @foreach (CompletedProjectPhoto photo in IndexViewModel.completedProjectsPhotoList)
+        @foreach (CompletedProjectPhoto photo in Model.modelinitializer.completedProjectPhotosList)
         {
             if (photo.Project.ID == ViewBag.SelectedCompletedProjectID)
             {

@@ -24,14 +24,18 @@ namespace VartanMVCv2
             //подключаем класс контекста базы данных
             builder.Services.AddDbContext<AplicationDBContext>(x => x.UseSqlServer(Config.ConnectionString));
             //подключаем нужный функционал в качестве сервисов
+            builder.Services.AddMemoryCache();
+            builder.Services.AddScoped<Modelinitializer>();
             builder.Services.AddTransient<IEntityRepository<WorkServices>, EFEntitiesRepository<WorkServices>>();
             builder.Services.AddTransient<IEntityRepository<WorksList>, EFEntitiesRepository<WorksList>>();
             builder.Services.AddTransient<IEntityRepository<WorksName>, EFEntitiesRepository<WorksName>>();
             builder.Services.AddTransient<IEntityRepository<CompletedProject>, EFEntitiesRepository<CompletedProject>>();
             builder.Services.AddTransient<IEntityRepository<CompletedProjectPhoto>, EFEntitiesRepository<CompletedProjectPhoto>>();
             builder.Services.AddTransient<IEntityRepository<Feedback>, EFEntitiesRepository<Feedback>>();
+            
             builder.Services.AddTransient<DataManager>();
             builder.Services.AddTransient<IndexViewModel>();
+            
             //настраиваем Identity 
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts =>
             {

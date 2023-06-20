@@ -1,6 +1,11 @@
 ﻿@using VartanMVCv2.Domain.Entities
 @using VartanMVCv2.ViewModels
-@model IndexViewModel
+@model IndexViewModel 
+
+@{
+    int parityCounter = (Model.modelinitializer.feedbackList.Count % 2 == 0) ? Model.modelinitializer.feedbackList.Count : Model.modelinitializer.feedbackList.Count - 1;
+}
+
 <!-- projects section start -->
 <div class="projects_section layout_padding">
     <div class="container">
@@ -10,7 +15,7 @@
             <div class="carousel-inner">
                 @{
                     int i = 0;
-                    while (i < IndexViewModel.projectCounter)
+                    while (i < Model.modelinitializer.completedProjectsList.Count())
                     {
                         if (i == 0)
                         {
@@ -20,14 +25,14 @@
                                         <div class="row">
                                             @{
                                                 int j = 0;
-                                                while (j < 3 && i < IndexViewModel.projectCounter)
+                                                while (j < 3 && i < Model.modelinitializer.completedProjectsList.Count())
                                                 {
                                                     <div class="col-sm-4">
                                                         <div class="container_main1">
-                                                            <img src="@IndexViewModel.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
-                                                            <h1 class="modern_text">@IndexViewModel.completedProjectsList.ToList()[i].Title</h1>
+                                                            <img src="@Model.modelinitializer.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
+                                                            <h1 class="modern_text">@Model.modelinitializer.completedProjectsList.ToList()[i].Title</h1>
                                                             <div class="middle">
-                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{IndexViewModel.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
+                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{Model.modelinitializer.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -48,14 +53,14 @@
                                         <div class="row">
                                             @{
                                                 int j = 0;
-                                                while (j < 3 && i < IndexViewModel.projectCounter)
+                                                while (j < 3 && i < Model.modelinitializer.completedProjectsList.Count())
                                                 {
                                                     <div class="col-sm-4">
                                                         <div class="container_main1">
-                                                            <img src="@IndexViewModel.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
-                                                            <h1 class="modern_text">@IndexViewModel.completedProjectsList.ToList()[i].Title</h1>
+                                                            <img src="@Model.modelinitializer.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
+                                                            <h1 class="modern_text">@Model.modelinitializer.completedProjectsList.ToList()[i].Title</h1>
                                                             <div class="middle">
-                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{IndexViewModel.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
+                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{Model.modelinitializer.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -88,7 +93,7 @@
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 @{
-                    int indicatorsCount = (IndexViewModel.parityCounter / 2) - 1;
+                    int indicatorsCount = (parityCounter / 2) - 1;
                     int c = 0;
                     while (c < indicatorsCount)
                     {
@@ -104,7 +109,7 @@
                 @{
                     string carouselItemAction = "";                   
                     int a = 0;
-                    while (a < IndexViewModel.parityCounter)
+                    while (a < parityCounter)
                     {
                         if (a == 0)
                         {
@@ -116,21 +121,22 @@
                             <p class="ipsum_text">Отзывы о нашей работе</p>
                             <div class="clients_section2 layout_padding">
                                 @{
+                                    
                                     string clientClassPosition = "";
                                     int k = 0;
-                                    while (k < 2 && a < IndexViewModel.parityCounter)
+                                    while (k < 2 && a < parityCounter)
                                     {
-                                        @if ((IndexViewModel.feedbacksList.ToList()[a].ID % 2) == 0) { clientClassPosition = "client_2"; }
+                                        @if ((Model.modelinitializer.feedbackList.ToList()[a].ID % 2) == 0) { clientClassPosition = "client_2"; }
                                         else { clientClassPosition = "client_1"; }
 
                                         <div class="@clientClassPosition">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <div class="image_7"><img src="@IndexViewModel.feedbacksList.ToList()[a].TitleImagePath"></div>
+                                                    <div class="image_7"><img src="@Model.modelinitializer.feedbackList.ToList()[a].TitleImagePath"></div>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                    <h1 class="loksans_text">@IndexViewModel.feedbacksList.ToList()[a].FeedbackClientName</h1>
-                                                    <p class="dolor_ipsum_text">@IndexViewModel.feedbacksList.ToList()[a].FeedbackText</p>
+                                                    <h1 class="loksans_text">@Model.modelinitializer.feedbackList.ToList()[a].FeedbackClientName</h1>
+                                                    <p class="dolor_ipsum_text">@Model.modelinitializer.feedbackList.ToList()[a].FeedbackText</p>
                                                 </div>
                                             </div>
                                         </div>

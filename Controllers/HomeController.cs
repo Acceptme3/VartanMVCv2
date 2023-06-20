@@ -13,31 +13,44 @@ namespace VartanMVCv2.Controllers
         //глобальная переменная для хранения списка объектов WorkServices
         private readonly IndexViewModel _indexViewModel;
 
-        
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(AplicationDBContext appDbContext, IndexViewModel indexViewModel) 
+        private Modelinitializer modelinitializer;   // экземпляр класса инициализатора модели один на все время жизни приложения 
+
+        public HomeController(AplicationDBContext appDbContext, IndexViewModel indexViewModel, ILogger<HomeController> logger, Modelinitializer modelinitial) 
         {
             _dbContext = appDbContext;
-            _indexViewModel = indexViewModel;         
+            _indexViewModel = indexViewModel;
+            _logger = logger;
+            modelinitializer = modelinitial;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            await _indexViewModel.ViewModelInitialAsync();
-
-            foreach (var feedbacks in IndexViewModel.feedbacksList)
+            //await _indexViewModel.ViewModelInitialAsync();
+            if (!modelinitializer.InitialFlag) // проверяем проинициализированы ли списки с данными модели если нет то получаем данные из бд
             {
-                Debug.WriteLine(feedbacks.FeedbackClientName);
+               await modelinitializer.ModelInitialAsync();
             }
-            Debug.WriteLine("___________________________________________________--");
-            IndexViewModel.feedbacksList.ToList().Reverse();
-            foreach (var feedbacks in IndexViewModel.feedbacksList)
+
+            if (_indexViewModel.modelinitializer == null) // экземпляр IndexViewModel пойдет в представления поэтому нужно предоставить ему доступ к инициализатору данных. проверяем есть ли ссылка на экземпляр инициализатора
             {
-                Debug.WriteLine(feedbacks.FeedbackClientName);
+                _indexViewModel.GetInstance(modelinitializer.InitialFlag);// если ссылки нет то задаем только в случае успешной инициализации списков
+            }
+
+            foreach (Feedback feedback in _indexViewModel!.modelinitializer!.feedbackList)
+            {
+                _logger.LogInformation($"feedbackList содержит следующие имена в данном порядке:  {feedback.FeedbackClientName}");
+            }
+            _logger.LogInformation($"Indexing feedback list");
+            _indexViewModel.modelinitializer.feedbackList.ToList().Reverse();
+            foreach (Feedback feedback in modelinitializer.feedbackList)
+            {
+                _logger.LogInformation($"feedbackList содержит следующие имена в порядке, определенном сортировкой:  {feedback.FeedbackClientName}");
             }
             
-            return View();
+            return View(_indexViewModel);
         }
 
 
@@ -64,10 +77,11 @@ namespace VartanMVCv2.Controllers
         {
             int selectedServicesID = id;
             ViewBag.SelectedServicesID = selectedServicesID;
-            IndexViewModel.sortWorksList = IndexViewModel.worksList.ToList().FindAll(delegate (WorksList works)  { return works.Services.ID == selectedServicesID; });
-            foreach (WorksList work in IndexViewModel.sortWorksList)
+            _indexViewModel.sortWorksList = _indexViewModel.modelinitializer.worksList.ToList().FindAll(delegate (WorksList works)  { return works.Services.ID == selectedServicesID; });
+
+            foreach (WorksList work in _indexViewModel.sortWorksList)
             {
-                Debug.WriteLine(work.Services.ID);
+                _logger.LogInformation($"Имена работ выбранной услуги: {work.Title}");
             }
 
             return View("ServicesByID", _indexViewModel);

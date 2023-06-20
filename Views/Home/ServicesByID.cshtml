@@ -6,17 +6,17 @@
 <div class="furnitures_section layout_padding">
     <div class="container">
         <h1 class="our_text">Перечень услуг</h1>
-        <p class="ipsum_text">@IndexViewModel.workServicesList.ToList().Find(x=>x.ID==ViewBag.SelectedServicesID)!.Title</p>
+        <p class="ipsum_text">@Model.modelinitializer.workServicesList.ToList().Find(x=>x.ID==ViewBag.SelectedServicesID)!.Title</p>
         <div class="furnitures_section2 layout_padding">
             <div class="row">
                 @{
-                    foreach (WorksList worksList in IndexViewModel.sortWorksList)
+                    foreach (WorksList worksList in Model.sortWorksList)
                     {
                         <div class="col-md-6">
                             <div class="container_main">
                                 <h2 class="temper_text">@worksList.Title</h2>
                                 <ul>
-                                    @foreach(WorksName name in IndexViewModel.worksNames)
+                                    @foreach(WorksName name in Model.modelinitializer.worksNameList)
                                     {
                                         if(name.WorksCategory.ID==worksList.ID)
                                         {
