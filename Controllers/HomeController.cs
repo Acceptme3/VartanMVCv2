@@ -15,29 +15,24 @@ namespace VartanMVCv2.Controllers
 
         private readonly ILogger<HomeController> _logger;
 
-        private Modelinitializer modelinitializer;   // экземпляр класса инициализатора модели один на все время жизни приложения 
+        DataModel? _dataModel;
+        private readonly Modelinitializer _modelinitializer;   // экземпляр класса инициализатора модели один на все время жизни приложения 
 
-        public HomeController(AplicationDBContext appDbContext, IndexViewModel indexViewModel, ILogger<HomeController> logger, Modelinitializer modelinitial) 
+        public HomeController(AplicationDBContext appDbContext, IndexViewModel indexViewModel, ILogger<HomeController> logger, Modelinitializer modelinitializer) 
         {
             _dbContext = appDbContext;
             _indexViewModel = indexViewModel;
             _logger = logger;
-            modelinitializer = modelinitial;
+            _modelinitializer = modelinitializer;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            //await _indexViewModel.ViewModelInitialAsync();
-            if (!modelinitializer.InitialFlag) // проверяем проинициализированы ли списки с данными модели если нет то получаем данные из бд
-            {
-               await modelinitializer.ModelInitialAsync();
-            }
-
-            if (_indexViewModel.modelinitializer == null) // экземпляр IndexViewModel пойдет в представления поэтому нужно предоставить ему доступ к инициализатору данных. проверяем есть ли ссылка на экземпляр инициализатора
-            {
-                _indexViewModel.GetInstance(modelinitializer.InitialFlag);// если ссылки нет то задаем только в случае успешной инициализации списков
-            }
+            _dataModel = await _modelinitializer.GetDataModelAsync(0);
+            _indexViewModel.GetInstance(_dataModel);
+            // c этого места продолжим
+            
 
             foreach (Feedback feedback in _indexViewModel!.modelinitializer!.feedbackList)
             {
