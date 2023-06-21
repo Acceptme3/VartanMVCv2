@@ -19,7 +19,7 @@ namespace VartanMVCv2.ViewModels
         private readonly DbContext _dbContext;
         private readonly ILogger<IndexViewModel> _logger;
 
-        public Modelinitializer modelinitializer = Modelinitializer.CreateInstance();
+        DataModel dataModelExample;
 
         public IndexViewModel( AplicationDBContext appDBContext, ILogger<IndexViewModel> logger) 
         {        
@@ -27,12 +27,11 @@ namespace VartanMVCv2.ViewModels
             _logger = logger;          
         }
 
-        public void GetInstance(bool initialStatus)
+        public void GetInstance(DataModel model)
         {
-            if (initialStatus) 
-            {
-                modelinitializer = Modelinitializer.CreateInstance();
-            }           
+
+            dataModelExample = model;
+                     
         }
        
     }
