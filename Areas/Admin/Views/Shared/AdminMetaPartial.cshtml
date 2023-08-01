@@ -1,0 +1,15 @@
+﻿@using VartanMVCv2.Services;
+<!-- basic -->
+<meta charset="UTF-8">
+<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+<!-- site metas -->
+@{
+    if (ViewBag.Title != null)
+    {
+        <title>@ViewBag.Title</title>
+    }
+    else
+    {
+        <title>@Config.CompanyName</title>
+    }
+}

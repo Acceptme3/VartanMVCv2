@@ -18,6 +18,8 @@ namespace VartanMVCv2.Domain
         public DbSet<CompletedProjectPhoto> CompletedProjectPhotos { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
 
+        public DbSet<Client> DbClients { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

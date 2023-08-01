@@ -5,45 +5,47 @@
         <div class="row">
             <div class="col-lg-3 col-sm-6">
                 <h1 class="customer_text">Мы находимся по адресу:</h1>
-                <p class="footer_lorem_text">
-                    Россия, Краснодарский край, г.Краснодар ул.Ленина 144
-                </p>
+                <p class="footer_lorem_text">@Config.CompanyAddress</p>
+                <a class="footer_contact" href="tel:@Config.CompanyPhoneShort">@Config.CompanyPhone</a>
+                <a class="footer_contact" href="tel:@Config.CompanySecondPhoneShort">@Config.CompanySecondPhone</a>
+                <p class="footer_lorem_text">@Config.CompanyWorkTime</p>               
+                <a class="footer_contact" href="#" data-copy="true">@Config.CompanyEmail</a>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <h1 class="customer_text">LET US HELP YOU</h1>
+                <h1 class="customer_text">Компания "@Config.CompanyName"</h1>
+                <a href="@Url.Action("About","Home")">
+                    <img class ="footer_img" src ="~/images/4318759.jpg"/>
+                </a>
                 <p class="footer_lorem_text">
-                    There are many variat
-                    ions of passages of L
-                    orem Ipsum available
-                    , but the majority h
-                    ave suffered altera
-                    tion in some form, by
+                    Компания «RENOVO» – строительная компания с большим опытом в ремонтных работах, гарантия качества и профессионализм штата сотрудников.
                 </p>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <h1 class="customer_text">Навигация по сайту</h1>
-                <p class="footer_lorem_text1">
-                    О нас<br>
-                    Проэкты<br>
-                    Услуги<br>
-                    Отзывы<br>
-                    Предложение<br>
-                    Контакты
-                </p>
+                <ol class="footer_lorem_text1" title="Навигация по сайту">
+                    <li><a class="footer_contact" href="@Url.Action("About", "Home")">Информация</a></li>
+                    <li><a class="footer_contact" href="@Url.Action("Services", "Home")">Услуги</a></li>
+                    <li><a class="footer_contact" href="@Url.Action("Feedback", "Home")">Портфолио</a></li>
+                    <li><a class="footer_contact" href="@Url.Action("Contact", "Home")">Контакты</a></li>                 
+                </ol>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <h1 class="customer_text">Место для чего нибудь</h1>
-                <a class="footer_lorem_text" href="@Url.Action("ResourseUsed", "Home")">
-                    Нужно подумать что можно здесь разместить
-                </a>
+                <h1 class="customer_text">Дополнительная информация</h1>
+                <a class="footer_contact" href="@Url.Action("ResourseUsed", "Home")">Special thanks to</a>
+                <a class="footer_contact" href="#">Политика конфиденциальности</a>
+                <h2 class="footer_lorem_text1" style="font-size:18px; margin:0px; padding:3px" > По вопросам сотрудничества: </h2> 
+                <a class="footer_contact" style="margin-top:3px" href="tel:@Config.CompanyCooperationPhoneShort">@Config.CompanyCooperationPhone</a>
+                <a class="footer_contact" href="#">Вакансии в @Config.CompanyName</a>
             </div>
         </div>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Enter your email" aria-label="Enter your email" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2"><a href="#">Subscribe</a></span>
+        <div class="row">
+            <div class="footer_grid">
+                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/watsapp.png" alt="WhatsApp" /></a>
+                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/telegram.png" alt="Telegram" /></a>
+                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/insta.png" alt="Instagram" /></a>
+                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/youtube.png" alt="YouTube" /></a>
             </div>
-        </div>
-    </div>
+        </div>      
+    </div>  
 </div>
 <!--  footer section end -->

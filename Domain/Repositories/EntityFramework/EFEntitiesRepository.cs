@@ -7,10 +7,12 @@ namespace VartanMVCv2.Domain.Repositories.EntityFramework
     public class EFEntitiesRepository <T> : IEntityRepository<T> where T  :EntitiesBase
     {
         private readonly AplicationDBContext _dbContext;
+        private readonly ILogger<EFEntitiesRepository<T>> _logger;
 
-        public EFEntitiesRepository(AplicationDBContext dBContext)
+        public EFEntitiesRepository(AplicationDBContext dBContext, ILogger<EFEntitiesRepository<T>> logger)
         {
             _dbContext = dBContext;
+            _logger = logger;
         }
 
         public void DeleteEntity(int id)
@@ -54,5 +56,11 @@ namespace VartanMVCv2.Domain.Repositories.EntityFramework
             _dbContext.SaveChanges();
         }
 
+        public async Task AddedAsync(T entity)
+        {
+            await _dbContext.Set<T>().AddAsync(entity);
+            _logger.LogInformation($"Объект {entity.Title} успешно добавлен. Завершил выполнение асинхронный метод Home/???/EFRepository/AddedAsync");
+            await _dbContext.SaveChangesAsync();          
+        }
     }
 }

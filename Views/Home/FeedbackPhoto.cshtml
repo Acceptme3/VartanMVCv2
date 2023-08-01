@@ -2,21 +2,27 @@
 @using VartanMVCv2.Models
 @using VartanMVCv2.Domain.Entities
 @model IndexViewModel
+
 @await Html.PartialAsync("HeaderWithoutSliderPartial")
 
 <div>
-    <h6 class="furnitures_text">@Model.modelinitializer.completedProjectsList.ToList().Find(x=>x.ID==ViewBag.SelectedCompletedProjectID)!.Title</h6>
-    <div>
-        @foreach (CompletedProjectPhoto photo in Model.modelinitializer.completedProjectPhotosList)
+    @{
+        var selectedProject = Model.dataModelExample!.completedProjectsList.ToList().Find(x => x.ID == ViewBag.SelectedCompletedProjectID)!;
+    }
+    <h6 class="furnitures_text">@selectedProject.Title</h6>
+    <h2 class="furnitures_text">@selectedProject.Description </h2>
+    <div class="grid-container_photo_box" >
+        @foreach (CompletedProjectPhoto photo in Model.dataModelExample.completedProjectPhotosList)
         {
             if (photo.Project.ID == ViewBag.SelectedCompletedProjectID)
             {
-               <img src="@photo.ImagePath"/> 
-            }
-            
+                <img src="@photo.ImagePath" data-fancybox = "gallery" />
+            }          
         }
     </div>
-
+    <div class="contact_bt_main">
+        <div class="contact_bt"><a href="@Url.Action("Feedback", "Home")">Назад</a></div>
+    </div>
 </div>
 
 @await Html.PartialAsync("FooterPartial")
