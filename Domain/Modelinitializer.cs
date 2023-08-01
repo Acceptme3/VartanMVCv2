@@ -1,15 +1,12 @@
 ﻿using VartanMVCv2.Domain.Repositories.Abstract;
 using VartanMVCv2.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace VartanMVCv2.Domain
 {
-    public class Modelinitializer : IDisposable
+    public class Modelinitializer 
     {
-        private bool _disposed = false;
-
         private readonly IEntityRepository<WorkServices> _workServicesRepository;
         private readonly IEntityRepository<WorksList> _worksListRepository;
         private readonly IEntityRepository<WorksName> _workNameRepository;
@@ -22,15 +19,8 @@ namespace VartanMVCv2.Domain
         private readonly DbContext _dbContext;
 
         private IMemoryCache cache;
-
-        public DataModel dataModel { get; set; }  
-        /*public List<WorkServices> workServicesList { get; set; } = new List<WorkServices>();
-        public List<WorksList> worksList { get; set; } = new List<WorksList>();
-        public List<WorksName> worksNameList { get; set; } = new List<WorksName>();
-        public List<CompletedProject> completedProjectsList { get; set; } = new List<CompletedProject>();
-        public List<CompletedProjectPhoto> completedProjectPhotosList { get; set; } = new List<CompletedProjectPhoto>();
-        public List<Feedback> feedbackList { get; set; } = new List<Feedback>();*/
-
+        //свойство которое хранит инициализированный объект класса DataModel
+        public DataModel dataModel { get; set; } = DataModel.GetInstance();  
 
         public Modelinitializer(IEntityRepository<WorkServices> workServicesRepository, IEntityRepository<WorksList> worksListRepository, IEntityRepository<WorksName> workNameRepository, IEntityRepository<CompletedProject> completedProject, IEntityRepository<CompletedProjectPhoto> completedProjectPhoto, IEntityRepository<Feedback> feedback, AplicationDBContext appDBContext, ILogger<Modelinitializer> logger, IMemoryCache cache)
         {
@@ -46,21 +36,28 @@ namespace VartanMVCv2.Domain
             this.cache = cache;
         }
 
-        public async Task ModelInitialAsync()
+        public DataModel GetModelObject() 
         {
-            dataModel.workServicesList = await _workServicesRepository.GetAllAsync();
-            dataModel.worksList = await _worksListRepository.GetAllAsync();
-            dataModel.worksNameList = await _workNameRepository.GetAllAsync();
-            dataModel.completedProjectsList = await _completedProjectRepository.GetAllAsync();
-            dataModel.completedProjectPhotosList = await _completedProjectPhotoRepository.GetAllAsync();
-            dataModel.feedbackList = await _feedbackRepository.GetAllAsync();
+            return dataModel;
+        }
+
+        public async Task<DataModel> ModelInitialAsync(DataModel dataModelInstance)
+        {
+            dataModelInstance.workServicesList = await _workServicesRepository.GetAllAsync();
+            dataModelInstance.worksList = await _worksListRepository.GetAllAsync();
+            dataModelInstance.worksNameList = await _workNameRepository.GetAllAsync();
+            dataModelInstance.completedProjectsList = await _completedProjectRepository.GetAllAsync();
+            dataModelInstance.completedProjectPhotosList = await _completedProjectPhotoRepository.GetAllAsync();
+            dataModelInstance.feedbackList = await _feedbackRepository.GetAllAsync();
 
             _logger.LogInformation($"Инициализация списков, в рамках вызова метода ModelInitialAsync () завершена. Колличество элементов WorkServices: {dataModel.workServicesList.Count} \n" +
                 $"WorksList: {dataModel.worksList.Count} \n" +
                 $"WorksName: {dataModel.worksNameList.Count} \n" +
                 $"CompletedProjectList: {dataModel.completedProjectsList.Count} \n" +
                 $"CompletedProjectPhoto: {dataModel.completedProjectPhotosList.Count} \n" +
-                $"Feedback: {dataModel.feedbackList.Count}");  
+                $"Feedback: {dataModel.feedbackList.Count}"); 
+
+            return dataModelInstance;
         }
 
         public async Task<DataModel?> GetDataModelAsync(int id) 
@@ -68,7 +65,7 @@ namespace VartanMVCv2.Domain
             cache.TryGetValue(id, out DataModel? _dataModel);
             if (_dataModel == null)
             {
-                await ModelInitialAsync();
+                await ModelInitialAsync(dataModel);
                 _dataModel = dataModel;
                 _logger.LogInformation($"Model created and cashing {id}");
                 cache.Set(id, _dataModel);
@@ -80,26 +77,8 @@ namespace VartanMVCv2.Domain
             return _dataModel;
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+       
 
-        protected virtual void Dispose(bool disposing) 
-        {
-            if (_disposed) return;
-            if (disposing) 
-            {
-                // позже нужно реализовать удаление управляемых ресурсов 
-            }
-            // тут очистка неуправляемых ресурсов
-            _disposed = true;
-        }
-
-        ~Modelinitializer() 
-        {
-            Dispose(false);
-        }
+        
     }
 }
