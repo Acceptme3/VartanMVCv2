@@ -10,6 +10,9 @@
             popUp.classList.add('active');
         })
     }
-
-    popUpClose.addEventListener('click', () => { popUp.classList.remove('active'); })
+    if (openPopUp != null)
+    {
+        popUpClose.addEventListener('click', () => { popUp.classList.remove('active'); })
+    }
+    
 });

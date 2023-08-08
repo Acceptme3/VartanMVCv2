@@ -6,7 +6,7 @@
 <div class="furnitures_section layout_padding">
     <div class="container">
         <h1 class="our_text">Перечень услуг</h1>
-        <p class="ipsum_text">@Model.dataModelExample.workServicesList.ToList().Find(x=>x.ID==ViewBag.SelectedServicesID)!.Title</p>
+        <p class="ipsum_text">@Model.dataModelExample!.workServicesList.ToList().Find(x=>x.ID==ViewBag.SelectedServicesID)!.Title</p>
         <div class="furnitures_section2 layout_padding">
             <div class="row">
                 @{
@@ -30,6 +30,12 @@
                         </div>
                     }
                 }
+            </div>
+            <div class="price_section">
+                <h1 class="price_h">Стоимость услуги</h1>
+                <h1 class="price_num">1445 рублей кв.м</h1>
+                <div class="read_bt"><a href="#">Получить пример сметы</a> </div>
+                <p class="micro_p">*стоимость на комплексные услуги складывается из множества факторов и меняется время от времени, пожалуйста, уточняйте цены по телефону.</p>             
             </div>
         </div>
     </div>
