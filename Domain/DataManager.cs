@@ -7,11 +7,20 @@ namespace VartanMVCv2.Domain
     {
         public IEntityRepository<WorkServices> WorkServices {  get; set; }
         public IEntityRepository<WorksList> WorksList { get; set; }
+        public IEntityRepository<WorksName> WorksName { get; set; }
+        public IEntityRepository<Feedback> Feedback  { get; set; }
+        public IEntityRepository<CompletedProject> CompletedProject { get; set; }
 
-        public DataManager(IEntityRepository<WorkServices> workServicesRepository, IEntityRepository<WorksList> worksListRepository)
+        public IClientRepository ClientRepository { get; set; }
+
+        public DataManager(IEntityRepository<WorkServices> workServicesRepository, IEntityRepository<WorksList> worksListRepository, IEntityRepository<WorksName> worksName, IEntityRepository<Feedback> feedback, IEntityRepository<CompletedProject> completedProject, IClientRepository clientRepository)
         {
             WorkServices = workServicesRepository;
             WorksList = worksListRepository;
+            WorksName = worksName;
+            Feedback = feedback;
+            CompletedProject = completedProject;
+            ClientRepository = clientRepository;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace VartanMVCv2.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -151,13 +151,13 @@ namespace VartanMVCv2.Migrations
                         {
                             Id = "9690ccb5-3b89-457b-a2ee-b7dfab3526a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e49949a-74e0-4582-b5f8-c6733f2a4d35",
+                            ConcurrencyStamp = "45b6f2dc-0ed5-4f36-b99d-a9d45820ee0d",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBjmwAOFPacGFvFWPX8zuKtOGkRHh7B8/feimA8FjomTTNEHjvTZiIvXRu0tynblhg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBJMY9/MHr8dWT27yxkxoO4IePZICYsrktpNA/mvQ7K59rIV5cnmhFHOjOwSUr+VkA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -251,6 +251,39 @@ namespace VartanMVCv2.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("VartanMVCv2.Domain.Entities.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CallTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HisQuestion")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DbClients");
                 });
 
             modelBuilder.Entity("VartanMVCv2.Domain.Entities.CompletedProject", b =>
@@ -355,6 +388,12 @@ namespace VartanMVCv2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FeedbackEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeedbackPhone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FeedbackText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -372,8 +411,10 @@ namespace VartanMVCv2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TitleImagePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("registrationDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 
@@ -384,15 +425,21 @@ namespace VartanMVCv2.Migrations
                         {
                             ID = 1,
                             FeedbackClientName = "Антон",
+                            FeedbackEmail = "",
+                            FeedbackPhone = "",
                             FeedbackText = "Все просто шикаорно! Парни красавцы",
-                            TitleImagePath = "/images/img-7.png"
+                            TitleImagePath = "/images/img-7.png",
+                            registrationDate = new DateTime(2023, 7, 22, 18, 9, 0, 512, DateTimeKind.Local).AddTicks(5994)
                         },
                         new
                         {
                             ID = 2,
                             FeedbackClientName = "Асламбек",
+                            FeedbackEmail = "",
+                            FeedbackPhone = "",
                             FeedbackText = "Аллах Свидетель лучший ремонт прихожей в моей жизни",
-                            TitleImagePath = "/images/img-8.png"
+                            TitleImagePath = "/images/img-8.png",
+                            registrationDate = new DateTime(2023, 7, 22, 18, 9, 0, 512, DateTimeKind.Local).AddTicks(6018)
                         });
                 });
 

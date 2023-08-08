@@ -1,55 +1,49 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Azure;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.Policy;
 using VartanMVCv2;
 
 namespace VartanMVCv2.Domain.Entities
 {
-    public class Client
+    public class Client: IValidatableObject
     {
         [Required]
         public Guid Id { get; set; }
+        public DateTime RegistrationDate { get; set; }
 
-        [Required(ErrorMessage = "Это поле обязательно для заполнения")]
+        [Required(ErrorMessage = "Поле ИМЯ пустое, либо содержит некорректное значение.")]
         [StringLength(20, ErrorMessage = "Длина имени должна быть не более 20 символов")]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = "";
 
         [EmailAddress(ErrorMessage = "Введите корректный email")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Это поле обязательно для заполнения")]
+        [Required(ErrorMessage = "Поле ТЕЛЕФОН пустое, либо содержит некорректное значение.")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Введите корректный номер телефона")]
-        public string Phone { get; set; } = null!;
+        public string Phone { get; set; } = "";
+
+        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина текста не должна быть более 150 символов и менее 10 символов")]
+        public string? HisQuestion { get; set; }
 
         public DateTime? CallTime { get; set; }
 
-        public static List<Client> clients = new List<Client>();
-
         public Client() 
         {
-           Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
+            RegistrationDate = DateTime.Now;
         } 
 
-
-        public static void PrintClient()
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (clients.Count > 0) 
+            var errors = new List<ValidationResult>();
+
+            if (Name == "admin")
             {
-                foreach (var client in clients) 
-                {
-                    Debug.WriteLine(
-                        $"Объект #{clients.IndexOf(client)}: " +
-                        $"Id Объекта: {client.Id.ToString()} " +
-                        $"Имя объекта {client.Name} " +
-                        $"Телефон {client.Phone} " +
-                        $"Email {client.Email} " +
-                        $"Время звонка {client.CallTime} ");
-                }
+                errors.Add(new ValidationResult("Некорректное имя", new List<string>() { "Name" }));
             }
-            else { Debug.WriteLine("Список объектов пуст"); }
+
+            return errors;
         }
-
-
-
     }
 }

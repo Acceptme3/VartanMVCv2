@@ -952,3 +952,14 @@
         max-width: 30px;
     }
 }
+
+@media (max-height: 896px) {
+    
+    .pop_up_body p {
+        font-family: Oswald;
+        font-size: 16px;
+        font-weight: 400;
+        color: black;
+        margin-bottom: 15px;
+    }
+}

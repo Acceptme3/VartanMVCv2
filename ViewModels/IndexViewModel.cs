@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics;
 using VartanMVCv2.Domain;
 using VartanMVCv2.Domain.Entities;
 using VartanMVCv2.Domain.Repositories.Abstract;
@@ -12,27 +10,30 @@ namespace VartanMVCv2.ViewModels
     {
         public _ViewStartModel _viewStartModel = new _ViewStartModel();
 
-        public Client ClientExample { get; set; } = new Client();
+        public Client? ClientExample { get; set; } = null;
+        public Feedback? FeedbackExample { get; set; } = null;
 
         public IEnumerable<WorksList> sortWorksList { get; set; } = new List<WorksList>();
   
-        private readonly DbContext _dbContext;
-        private readonly ILogger<IndexViewModel> _logger;
+        private readonly DbContext? _dbContext;
+        private readonly ILogger<IndexViewModel>? _logger;
+        private readonly Modelinitializer? _initializer;
 
-        public Modelinitializer modelinitializer = Modelinitializer.CreateInstance();
+        public  DataModel? dataModelExample;
 
-        public IndexViewModel( AplicationDBContext appDBContext, ILogger<IndexViewModel> logger) 
+        public IndexViewModel() {}
+
+        public  IndexViewModel( AplicationDBContext appDBContext, ILogger<IndexViewModel> logger, Modelinitializer modelinitializer) 
         {        
             _dbContext = appDBContext;
-            _logger = logger;          
+            _logger = logger; 
+            _initializer = modelinitializer;
+            dataModelExample = _initializer.dataModel;
         }
 
-        public void GetInstance(bool initialStatus)
+        public void SetInstance(DataModel model)
         {
-            if (initialStatus) 
-            {
-                modelinitializer = Modelinitializer.CreateInstance();
-            }           
+            dataModelExample = model;                   
         }
        
     }

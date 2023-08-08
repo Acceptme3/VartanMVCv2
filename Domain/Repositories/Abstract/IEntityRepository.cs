@@ -9,6 +9,7 @@ namespace VartanMVCv2.Domain.Repositories.Abstract
         T GetByTitle(string title);
         void SaveEntities(T entity);
         void Added(T entity);
+        Task AddedAsync(T entity);
         void DeleteEntity(int id);
         Task<List<T>> GetAllAsync();
     }

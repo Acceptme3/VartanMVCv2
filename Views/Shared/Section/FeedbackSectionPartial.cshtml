@@ -1,9 +1,17 @@
 ﻿@using VartanMVCv2.Domain.Entities
 @using VartanMVCv2.ViewModels
-@model IndexViewModel 
+@model IndexViewModel
 
 @{
-    int parityCounter = (Model.modelinitializer.feedbackList.Count % 2 == 0) ? Model.modelinitializer.feedbackList.Count : Model.modelinitializer.feedbackList.Count - 1;
+    int parityCounter = (Model.dataModelExample!.feedbackList.Count % 2 == 0) ? Model.dataModelExample.feedbackList.Count : Model.dataModelExample.feedbackList.Count - 1;
+    int indicatorsCount = parityCounter / 2;
+    int feedbackOnPageCount = 8;
+
+    if (parityCounter > feedbackOnPageCount)
+    {
+        parityCounter = feedbackOnPageCount;
+        indicatorsCount = feedbackOnPageCount/2;
+    }
 }
 
 <!-- projects section start -->
@@ -15,7 +23,7 @@
             <div class="carousel-inner">
                 @{
                     int i = 0;
-                    while (i < Model.modelinitializer.completedProjectsList.Count())
+                    while (i < Model.dataModelExample.completedProjectsList.Count())
                     {
                         if (i == 0)
                         {
@@ -25,14 +33,14 @@
                                         <div class="row">
                                             @{
                                                 int j = 0;
-                                                while (j < 3 && i < Model.modelinitializer.completedProjectsList.Count())
+                                                while (j < 3 && i < Model.dataModelExample.completedProjectsList.Count())
                                                 {
                                                     <div class="col-sm-4">
                                                         <div class="container_main1">
-                                                            <img src="@Model.modelinitializer.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
-                                                            <h1 class="modern_text">@Model.modelinitializer.completedProjectsList.ToList()[i].Title</h1>
+                                                            <img src="@Model.dataModelExample.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
+                                                            <h1 class="modern_text">@Model.dataModelExample.completedProjectsList.ToList()[i].Title</h1>
                                                             <div class="middle">
-                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{Model.modelinitializer.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
+                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{Model.dataModelExample.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -53,14 +61,14 @@
                                         <div class="row">
                                             @{
                                                 int j = 0;
-                                                while (j < 3 && i < Model.modelinitializer.completedProjectsList.Count())
+                                                while (j < 3 && i < Model.dataModelExample.completedProjectsList.Count())
                                                 {
                                                     <div class="col-sm-4">
                                                         <div class="container_main1">
-                                                            <img src="@Model.modelinitializer.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
-                                                            <h1 class="modern_text">@Model.modelinitializer.completedProjectsList.ToList()[i].Title</h1>
+                                                            <img src="@Model.dataModelExample.completedProjectsList.ToList()[i].TitleImagePath" alt="Avatar" class="image" style="width:100%">
+                                                            <h1 class="modern_text">@Model.dataModelExample.completedProjectsList.ToList()[i].Title</h1>
                                                             <div class="middle">
-                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{Model.modelinitializer.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
+                                                                <a class="text" href="@Url.Action("FeedbackPhoto", "Home", new{Model.dataModelExample.completedProjectsList.ToList()[i].ID})">VIEW MORE</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -91,23 +99,26 @@
     <div class="container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 @{
-                    int indicatorsCount = (parityCounter / 2) - 1;
-                    int c = 0;
-                    while (c < indicatorsCount)
+                    int counter = 0;
+                    while (counter < indicatorsCount)
                     {
-                       <li data-target="#carouselExampleIndicators" data-slide-to="@c + 1"></li> 
-                       c++;
+                        if (counter == 0)
+                        {
+                            <li data-target="#carouselExampleIndicators" data-slide-to="@counter" class="active"></li>
+                        }
+                        else
+                        {
+                            <li data-target="#carouselExampleIndicators" data-slide-to="@counter"></li>
+                        }
+                        counter++;
                     }
                 }
-                @*
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>*@
+
             </ol>
             <div class="carousel-inner">
                 @{
-                    string carouselItemAction = "";                   
+                    string carouselItemAction = "";
                     int a = 0;
                     while (a < parityCounter)
                     {
@@ -116,27 +127,27 @@
                             carouselItemAction = "carousel-item active";
                         }
                         else { carouselItemAction = "carousel-item"; }
+
                         <div class="@carouselItemAction">
                             <h1 class="client_text">Что говорят о нас, наши клиенты</h1>
                             <p class="ipsum_text">Отзывы о нашей работе</p>
                             <div class="clients_section2 layout_padding">
                                 @{
-                                    
                                     string clientClassPosition = "";
                                     int k = 0;
                                     while (k < 2 && a < parityCounter)
                                     {
-                                        @if ((Model.modelinitializer.feedbackList.ToList()[a].ID % 2) == 0) { clientClassPosition = "client_2"; }
+                                        @if ((Model.dataModelExample.feedbackList.ToList()[a].ID % 2) == 0) { clientClassPosition = "client_2"; }
                                         else { clientClassPosition = "client_1"; }
 
                                         <div class="@clientClassPosition">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <div class="image_7"><img src="@Model.modelinitializer.feedbackList.ToList()[a].TitleImagePath"></div>
+                                                    <div class="image_7"><img src="@Model.dataModelExample.feedbackList.ToList()[a].TitleImagePath"></div>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                    <h1 class="loksans_text">@Model.modelinitializer.feedbackList.ToList()[a].FeedbackClientName</h1>
-                                                    <p class="dolor_ipsum_text">@Model.modelinitializer.feedbackList.ToList()[a].FeedbackText</p>
+                                                    <h1 class="loksans_text">@Model.dataModelExample.feedbackList.ToList()[a].FeedbackClientName</h1>
+                                                    <p class="dolor_ipsum_text">@Model.dataModelExample.feedbackList.ToList()[a].FeedbackText</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -152,4 +163,11 @@
         </div>
     </div>
 </div>
+
+<h1 class="present_text">Уже стали нашим клиентом? Оставьте отзыв о нас.</h1>
+
+<div class="contact_bt_main" >
+    <div class="contact_bt" style="margin-top:25px; margin-bottom:20px"><a id="feedbackForm_open" href="#">Добавить отзыв</a></div>
+</div>
 <!-- client section end -->
+

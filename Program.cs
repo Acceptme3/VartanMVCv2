@@ -5,8 +5,8 @@ using VartanMVCv2.Domain.Repositories.Abstract;
 using VartanMVCv2.Domain.Repositories.EntityFramework;
 using VartanMVCv2.Services;
 using VartanMVCv2.ViewModels;
-using System.Collections.Generic;
 using VartanMVCv2.Domain.Entities;
+using Serilog;
 
 namespace VartanMVCv2
 {
@@ -14,106 +14,143 @@ namespace VartanMVCv2
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-            // add services
-            builder.Services.AddControllersWithViews().AddSessionStateTempDataProvider();
-            //сопостовляем конфигурационный json с классом
-            builder.Configuration.AddJsonFile("appsettings.json");
-            Config config = new Config();
-            builder.Configuration.Bind("Project", config);
-            //подключаем класс контекста базы данных
-            builder.Services.AddDbContext<AplicationDBContext>(x => x.UseSqlServer(Config.ConnectionString));
-            //подключаем нужный функционал в качестве сервисов
-            builder.Services.AddMemoryCache();
-            builder.Services.AddScoped<Modelinitializer>();
-            builder.Services.AddTransient<IEntityRepository<WorkServices>, EFEntitiesRepository<WorkServices>>();
-            builder.Services.AddTransient<IEntityRepository<WorksList>, EFEntitiesRepository<WorksList>>();
-            builder.Services.AddTransient<IEntityRepository<WorksName>, EFEntitiesRepository<WorksName>>();
-            builder.Services.AddTransient<IEntityRepository<CompletedProject>, EFEntitiesRepository<CompletedProject>>();
-            builder.Services.AddTransient<IEntityRepository<CompletedProjectPhoto>, EFEntitiesRepository<CompletedProjectPhoto>>();
-            builder.Services.AddTransient<IEntityRepository<Feedback>, EFEntitiesRepository<Feedback>>();
-            
-            builder.Services.AddTransient<DataManager>();
-            builder.Services.AddTransient<IndexViewModel>();
-            
-            //настраиваем Identity 
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts =>
-            {
-                opts.User.RequireUniqueEmail = false;
-                opts.Password.RequiredLength = 6;
-                opts.Password.RequireNonAlphanumeric = false;
-                opts.Password.RequireLowercase = false;
-                opts.Password.RequireUppercase = false;
-                opts.Password.RequireDigit = false;
-            }).AddEntityFrameworkStores<AplicationDBContext>().AddDefaultTokenProviders();
-            //autentificatio cookie
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.Name = "MyCompanyAuth";
-                options.Cookie.HttpOnly = true;
-                options.LoginPath = "/account/login";
-                options.AccessDeniedPath = "/account/accesdenied";
-                options.SlidingExpiration = true;
-            });
+            //настраивваем логгер 
+            var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
 
-            var app = builder.Build();
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateBootstrapLogger();
 
-            // app 
-            if (app.Environment.IsDevelopment())
+            try
             {
-                app.UseDeveloperExceptionPage();
+                Log.Debug("Web-приложение Vartan запущено.");
+                var builder = WebApplication.CreateBuilder(args);
+                builder.Host.UseSerilog();
+                // add services
+                //настраиваем Identity 
+                builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts =>
+                {
+                    opts.User.RequireUniqueEmail = false;
+                    opts.Password.RequiredLength = 6;
+                    opts.Password.RequireNonAlphanumeric = false;
+                    opts.Password.RequireLowercase = false;
+                    opts.Password.RequireUppercase = false;
+                    opts.Password.RequireDigit = false;
+                }).AddEntityFrameworkStores<AplicationDBContext>().AddDefaultTokenProviders();
+                //autentificatio cookie
+                builder.Services.ConfigureApplicationCookie(options =>
+                {
+                    options.Cookie.Name = "MyCompanyAuth";
+                    options.Cookie.HttpOnly = true;
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/Accesdenied";
+                    options.SlidingExpiration = true;
+                });
+                // устанавливаем соглашение
+                builder.Services.AddAuthorization(x =>
+                {
+                    x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+                });
+                builder.Services.AddControllersWithViews(x =>
+                {
+                    x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+                }).AddSessionStateTempDataProvider();
+                //сопостовляем конфигурационный json с классом
+                builder.Configuration.AddJsonFile("appsettings.json");
+                Config config = new Config();
+                builder.Configuration.Bind("Project", config);
+                //подключаем класс контекста базы данных
+                builder.Services.AddDbContext<AplicationDBContext>(x => x.UseSqlServer(Config.ConnectionString));
+                //подключаем нужный функционал в качестве сервисов
+                builder.Services.AddMemoryCache();
+                builder.Services.AddScoped<Modelinitializer>();
+                builder.Services.AddTransient<IEntityRepository<WorkServices>, EFEntitiesRepository<WorkServices>>();
+                builder.Services.AddTransient<IEntityRepository<WorksList>, EFEntitiesRepository<WorksList>>();
+                builder.Services.AddTransient<IEntityRepository<WorksName>, EFEntitiesRepository<WorksName>>();
+                builder.Services.AddTransient<IEntityRepository<CompletedProject>, EFEntitiesRepository<CompletedProject>>();
+                builder.Services.AddTransient<IEntityRepository<CompletedProjectPhoto>, EFEntitiesRepository<CompletedProjectPhoto>>();
+                builder.Services.AddTransient<IEntityRepository<Feedback>, EFEntitiesRepository<Feedback>>();
+                builder.Services.AddTransient <IClientRepository, ClientRepository>();
+                builder.Services.AddTransient<DataManager>();
+                builder.Services.AddTransient<IndexViewModel>();
+
+                var app = builder.Build();
+
+                // app 
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+                app.UseHttpsRedirection();
+
+                app.UseStaticFiles();
+
+                app.UseSerilogRequestLogging();
+
+                app.UseRouting();
+
+                app.UseCookiePolicy();
+
+                app.UseAuthentication();
+
+                app.UseAuthorization();
+
+                app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                app.MapControllerRoute(
+                    name: "services",
+                    pattern: "services/{action}",
+                    defaults: new { controller = "Home", action = "Services" });
+                app.MapControllerRoute(
+                    name: "servicesByID",
+                    pattern: "services/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "ServicesByID" });
+                app.MapControllerRoute(
+                    name: "aboutUs",
+                    pattern: "about/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "About" });
+                app.MapControllerRoute(
+                    name: "feedback",
+                    pattern: "feedback/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Feedback" });
+                app.MapControllerRoute(
+                    name: "Addfeedback",
+                    pattern: "feedback/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "AddFeedback" });
+                app.MapControllerRoute(
+                    name: "contactUs",
+                    pattern: "contact/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Contact" });
+                app.MapControllerRoute(
+                    name: "resourseUsed",
+                    pattern: "resourseused/{action}",
+                    defaults: new { controller = "Home", action = "ResourseUsed" });
+                app.MapAreaControllerRoute(
+                    name: "admin",
+                    areaName: "Admin",
+                    pattern: "admin/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Owner", action = "Index" });
+                app.MapControllerRoute(
+                    name: "account",
+                    pattern: "account/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Account", action = "Login" });
+            
+                app.MapFallbackToController("ErrorPage", "ErrorAplication");
+
+                app.Run();
             }
-            app.UseHttpsRedirection();
-
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseCookiePolicy();
-            
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{action}/{id?}",
-                defaults: new { controller = "Home", action = "Index" });
-                
-            app.MapControllerRoute(
-                name: "services",
-                pattern: "{action}",
-                defaults: new { controller = "Home", action = "Services" });
-
-            app.MapControllerRoute(
-                name: "servicesByID",
-                pattern: "{action}/{id?}",
-                defaults: new { controller = "Home", action = "ServicesByID" });
-
-            app.MapControllerRoute(
-                name: "aboutUs",
-                pattern: "{action}/{id?}",
-                defaults: new { controller = "Home", action = "About" });
-
-            app.MapControllerRoute(
-                name: "feedback",
-                pattern: "{action}/{id?}",
-                defaults: new { controller = "Home", action = "Feedback" });
-
-            app.MapControllerRoute(
-                name: "contactUs",
-                pattern: "{action}/{id?}",
-                defaults: new { controller = "Home", action = "Contact" });
-
-            app.MapControllerRoute(
-                name: "resourseUsed",
-                pattern: "{action}",
-                defaults: new { controller = "Home", action = "ResourseUsed" });
-
-
-            app.MapFallbackToController("ErrorPage", "ErrorAplication");
-
-            app.Run();
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Фатальная ошибка. Приложение не было запущено.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
+
     }
 }

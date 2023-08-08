@@ -1,0 +1,44 @@
+﻿@model VartanMVCv2.ViewModels.IndexViewModel
+
+<div class="pop_up" id="feedback_pop_up">
+    <div class="pop_up_container">
+        <div class="pop_up_body">
+            <div class="grid_form_container">
+                <div class="grid_item">
+                    <div id="p_div_conteiner">
+                        <p id="p_textForm">Если вы уже являетесь нашим клиентом, оставьте свой отзыв о работе компании. Мы ценим мнение наших клиентов.</p>
+                    </div>
+                    <form asp-controller="home" asp-action="AddFeedback" method="post" id="feedbackForm">
+                        <p2 class="validation_text">
+                            <input class="text_input_form" placeholder="Ваше имя" asp-for="@Model.FeedbackExample!.FeedbackClientName"  />
+                            <span asp-validation-for="@Model.FeedbackExample!.FeedbackClientName" />
+                        </p2>
+                        <p2 class="validation_text">
+                            <input class="text_input_form" type="tel" data-tel-input maxlength="18" placeholder="Телефон(Не виден другим пользователям)" asp-for="@Model.FeedbackExample!.FeedbackPhone" />
+                            <span asp-validation-for="@Model.FeedbackExample!.FeedbackPhone" />
+                        </p2>
+                        <p2 class="validation_text">
+                            <input class="text_input_form" type="email" placeholder="Email(Не виден другим пользователям)" asp-for="@Model.FeedbackExample!.FeedbackEmail" data-val-email="Некорректный Email адрес" />
+                            <span asp-validation-for="@Model.FeedbackExample!.FeedbackEmail" />
+                        </p2>
+                        <p2 class="validation_text">
+                            <textarea class="text_input_form" type="text" placeholder="Текст отзыва" asp-for="@Model.FeedbackExample!.FeedbackText" ></textarea>
+                            <span asp-validation-for="@Model.FeedbackExample!.FeedbackText" />
+                        </p2>                     
+                        <button name="acceptFeedback" id="feedback_accept" type="submit" value="Send">Добавить отзыв</button>
+                        <label class="lab_chk_time" id="feedback_label"> Ваши контактные данные недоступны другим пользователям. Поля "Email" и "Телефон" необязательны. </label>
+                    </form>
+
+                    <div class="pop_up_close" id="feedback_pop_up_close">&#10006</div>
+                </div>
+                <div class="grid_item_1">
+                    <div class="image_person"><img src="~/images/form_person1.png"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
