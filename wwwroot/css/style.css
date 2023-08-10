@@ -328,6 +328,7 @@ button {
     color: #090808;
     text-align: center;
     font-weight: normal;
+    line-height: 1.0;
 }
 
 .there_text {
@@ -1509,6 +1510,21 @@ textarea#comment::placeholder {
 
 .micro_p {
 
+}
+
+.swiper {
+    position: relative;
+}
+
+
+.swiper-wrapper {
+   
+}
+.swiper-slide {
+    position: relative;
+    display: block;
+    align-items: center;
+    width: 100%;
 }
 
 

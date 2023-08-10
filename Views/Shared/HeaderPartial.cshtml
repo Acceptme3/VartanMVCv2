@@ -47,9 +47,9 @@
     <!-- banner section start -->
     <div class="banner_section layout_padding">
         <div class="container">
-            <div id="costum_slider" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
                         <h1 class="furniture_text">Гарантия</h1>
                         <p class="second_text">Ремонт вашего жилища в Краснодаре и Краснодарском крае с гарантией</p>
                         <p class="there_text">Даем 100 процентную гарантию качества. Профессионализм наших специалистов, эффективные технологии и новейшие материалы обеспечивают прочность и надежность всех аспектов ремонта.</p>
@@ -71,7 +71,7 @@
                             <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Связаться с нами</a></div>
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="swiper-slide">
                         <h1 class="furniture_text">Опыт</h1>
                         <p class="second_text">Мы занимаемся ремонтом квартир и частных домов более 8 лет </p>
                         <p class="there_text">Мы гарантируем соблюдение сроков, чтобы вы могли наслаждаться обновленной квартирой в кратчайшие сроки.</p>
@@ -90,10 +90,10 @@
                             </div>
                         </div>
                         <div class="contact_bt_main">
-                            <div class="contact_bt"><a href="contact.html">Рассчитать стоимость</a></div>
+                            <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Узнать стоимость</a></div>
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="swiper-slide">
                         <h1 class="furniture_text">Доверие</h1>
                         <p class="second_text">Мы бережно относимся к вашему бюджету</p>
                         <p class="there_text"> Всегда стараемся предложить оптимальное решение для вас. Мы работаем без посредников, что позволяет нам предлагать конкурентные цены на рынке ремонтных услуг.</p>
@@ -116,12 +116,9 @@
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#costum_slider" role="button" data-slide="prev">
-                    <i class=""><img src="images/left-arrow.png"></i>
-                </a>
-                <a class="carousel-control-next" href="#costum_slider" role="button" data-slide="next">
-                    <i class=""><img src="images/right-arrow.png"></i>
-                </a>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-scrollbar"></div>
             </div>
         </div>
     </div>
