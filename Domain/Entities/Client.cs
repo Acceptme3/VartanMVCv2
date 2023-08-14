@@ -21,6 +21,7 @@ namespace VartanMVCv2.Domain.Entities
 
         [Required(ErrorMessage = "Поле ТЕЛЕФОН пустое, либо содержит некорректное значение.")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Введите корректный номер телефона")]
+        [StringLength(18, MinimumLength = 16, ErrorMessage = "Введите корректный номер телефона")]
         public string Phone { get; set; } = "";
 
         [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина текста не должна быть более 150 символов и менее 10 символов")]

@@ -427,7 +427,7 @@ button {
 .many_taital {
     width: 100%;
     float: left;
-    font-size: 16px;
+    font-size: 18px;
     color: #090808;
     text-align: center;
     margin-left: 0px;
@@ -454,7 +454,7 @@ button {
 .dummy_text {
     width: 100%;
     float: left;
-    font-size: 16px;
+    font-size: 18px;
     color: #090808;
     text-align: center;
     margin-left: 0px;
@@ -611,7 +611,7 @@ button {
 .ipsum_text {
     width: 100%;
     float: left;
-    font-size: 16px;
+    font-size: 18px;
     color: #090808;
     text-align: center;
     margin-left: 0px;
@@ -773,7 +773,9 @@ a:hover {
 .projects_section2 {
     width: 100%;
     float: left;
-    padding-top: 60px;
+    padding-top: 34px;
+    padding-left: 70px;
+    padding-right: 70px;
 }
 
 .container_main1 {
@@ -903,8 +905,8 @@ a:hover {
 .client_1 {
     width: 60%;
     float: left;
-    border: 1px solid #000;
-    border-radius:15px;
+    border: 3px solid #1da2e1;
+    border-radius: 15px;
     padding: 10px 10px 10px 10px;
 }
 
@@ -941,7 +943,7 @@ a:hover {
 .client_2 {
     width: 60%;
     float: right;
-    border: 1px solid #000;
+    border: 3px solid #1da2e1;
     border-radius:15px;
     padding: 10px 10px 10px 10px;
     margin-top: 30px;
@@ -1219,31 +1221,33 @@ textarea#comment::placeholder {
 
 .pop_up_container {
     display: flex;
+    justify-content: center;
     width: 100%;
     height: 100%;
 }
 
 .pop_up_body {
-    margin: auto;
+    margin: 18vh auto 18vh auto;
     width: auto;
     height: auto;
     background-color: white;
     border-radius: 10px;
     text-align: center;
-    padding: 40px 15px 50px 15px;
+    padding: 5px;
     position: relative;
+    overflow: auto;
 }
 
 .grid_form_container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: inline-flex;
+    flex-direction: initial;
+    width: min-content;
+    align-items: flex-end;
 }
 
 .image_person {
-    position: absolute;
     inline-size: 400px;
-    bottom: 0px;
-    right: 0px;
+    height:483px;
     overflow-block: inherit;
 }
 
@@ -1305,6 +1309,7 @@ textarea#comment::placeholder {
     right: 15px;
     font-size: 21px;
     cursor: pointer;
+    z-index:600;
 }
 
 .time_selection {
@@ -1525,6 +1530,71 @@ textarea#comment::placeholder {
     display: block;
     align-items: center;
     width: 100%;
+}
+
+.road_map {
+    display: flex;
+    width: 50%;
+    height: fit-content;
+    padding: 10px;
+    border: 4px solid #00adff;
+    border-radius: 30px;
+    background-color: #fff;
+    overflow: hidden;
+}
+    .road_map:hover{
+        background-color:cornflowerblue;
+    }
+
+.road_map_summary {
+    color: #000;
+    font-weight: bold;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+}
+
+.road_map:hover > .road-map_summary:before {
+    color: #07d9ff;
+}
+
+.road_map[open] > summary:before {
+    left: 0rem;
+    color: #CCC;
+    transform: rotate(90deg);
+    margin-left: 0.4rem;
+    transition: color ease 2s, transform ease 1s, margin ease 1s;
+}
+
+@supports (-webkit-touch-callout: none) {
+    .road_map summary::before {
+        top: 1.6rem;
+    }
+
+    .road_map[open] > summary:before {
+        top: 1.3rem;
+        transition: all 0.8s;
+    }
+}
+
+.road_map[open] div#map {
+    display: block;
+}
+
+.road_map div#map {
+    display: none;
+    width: 100%;
+    height: 400px;
+}
+
+.road_map .col-md-6 {
+    max-width: 100%;
+    
+}
+
+.road_map .map_main {
+    padding-bottom:10px;
 }
 
 

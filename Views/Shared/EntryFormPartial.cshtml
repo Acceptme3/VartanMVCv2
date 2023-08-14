@@ -10,30 +10,29 @@
                     </div>                  
                     <form asp-controller="home" asp-action="index" method="post" id="entryForm">
                         <p2 class="validation_text">
-                            <input class="text_input_form"  placeholder="Имя" asp-for="@Model.ClientExample.Name" data-val-required="Это поле не должно быть пустым" />
-                            <span asp-validation-for="@Model.ClientExample.Name" />
+                            <input class="text_input_form"  placeholder="Имя" asp-for="@Model.ClientExample!.Name" data-val-required="Это поле не должно быть пустым" />
+                            <span asp-validation-for="@Model.ClientExample!.Name" />
                         </p2>
                         <p2 class ="validation_text">
-                            <input class="text_input_form" type="tel" data-tel-input maxlength="18" placeholder="Телефон" asp-for="@Model.ClientExample.Phone" data-val-required="Это поле не должно быть пустым" />
-                            <span asp-validation-for="@Model.ClientExample.Phone" />
+                            <input class="text_input_form" type="tel" data-tel-input maxlength="18" placeholder="Телефон" asp-for="@Model.ClientExample!.Phone" data-val-required="Это поле не должно быть пустым" />
+                            <span asp-validation-for="@Model.ClientExample!.Phone" />
                         </p2>
                         <p2 class="validation_text">
-                            <input class="text_input_form" type="email" placeholder="Email" asp-for="@Model.ClientExample.Email" data-val-email="Некорректный Email адрес" />
-                            <span asp-validation-for="@Model.ClientExample.Email" />
+                            <input class="text_input_form" type="email" placeholder="Email" asp-for="@Model.ClientExample!.Email" data-val-email="Некорректный Email адрес" />
+                            <span asp-validation-for="@Model.ClientExample!.Email" />
                         </p2>
                         <div class="time_selection">
                             <label for="time" class="lab_chk_time">Позвонить с: </label>
-                            <input type="datetime-local" id="time" asp-for="@Model.ClientExample.CallTime" />
+                            <input type="datetime-local" id="time" asp-for="@Model.ClientExample!.CallTime" />
                         </div>
                         <button name="acceptBtn" id="accept" type="submit" value="Send">Создать заявку</button>
                         <label class="lab_chk_time"> Создавая заявку, вы даёте согласие на обработку персональных данных. </label>
                     </form>
-
-                    <div class="pop_up_close" id="pop_up_close">&#10006</div>
                 </div>
                 <div class="grid_item_1" >
                     <div class="image_person"><img src="~/images/form_person1.png"></div>
                 </div>
+                <div class="pop_up_close" id="pop_up_close">&#10006</div>
             </div>
             
         </div>
