@@ -1224,6 +1224,7 @@ textarea#comment::placeholder {
     justify-content: center;
     width: 100%;
     height: 100%;
+    overflow:auto;
 }
 
 .pop_up_body {
@@ -1246,6 +1247,7 @@ textarea#comment::placeholder {
     width: min-content;
     align-items: flex-end;
     flex-direction: row;
+    overflow:auto;
 }
 
 .image_person {
@@ -1259,10 +1261,21 @@ textarea#comment::placeholder {
         grid-template-columns: 1fr;
         height: 40em;
         width: 26em;
+        overflow:auto;
     }
 
     .image_person {
         display: none;
+    }
+}
+
+@media(max-height:400px) {
+
+    .grid_form_container {
+        height: auto;
+    }
+    .pop_up_body {
+        height:390px;
     }
 }
 
