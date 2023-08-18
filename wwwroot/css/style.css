@@ -1227,9 +1227,11 @@ textarea#comment::placeholder {
 }
 
 .pop_up_body {
-    margin: 18vh auto 18vh auto;
+    margin: auto auto auto auto;
     width: auto;
     height: auto;
+    min-height: 40em;
+   
     background-color: white;
     border-radius: 10px;
     text-align: center;
@@ -1243,6 +1245,7 @@ textarea#comment::placeholder {
     flex-direction: initial;
     width: min-content;
     align-items: flex-end;
+    flex-direction: row;
 }
 
 .image_person {
@@ -1254,6 +1257,8 @@ textarea#comment::placeholder {
 @media(max-width:800px) {
     .grid_form_container {
         grid-template-columns: 1fr;
+        height: 40em;
+        width: 26em;
     }
 
     .image_person {
@@ -1314,6 +1319,12 @@ textarea#comment::placeholder {
 
 .time_selection {
     margin: 20px auto 2px auto
+}
+
+.grid_item {
+    margin: auto;
+    width: auto;
+    height: auto;
 }
 
 .pop_up_confirm {
