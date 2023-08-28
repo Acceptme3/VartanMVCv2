@@ -58,7 +58,7 @@ namespace VartanMVCv2.Controllers
             if (ModelState.IsValid) 
             {
                 _logger.LogInformation("Екземпляр клиента успешно прошел валидацию на стороне сервера [VALIDATE]");
-                await _dataManager.ClientRepository.AddedAsync(client.ClientExample);
+                await _dataManager.ClientRepository.AddedAsync(client.ClientExample!);
                 return View("Confirm");
             }
             _logger.LogInformation("Екземпляр клиента НЕ прошел валидацию на стороне сервера [NOT VALID]");
@@ -85,7 +85,7 @@ namespace VartanMVCv2.Controllers
             if (ModelState.IsValid)
             {
                 _logger.LogInformation("Екземпляр отзыва клиента успешно прошел валидацию на стороне сервера [VALIDATE]");
-                await _dataManager.Feedback.AddedAsync(feedback.FeedbackExample);
+                await _dataManager.Feedback.AddedAsync(feedback.FeedbackExample!);
                 return View("Confirm");
             }
             _logger.LogInformation("Екземпляр клиента НЕ прошел валидацию на стороне сервера [NOT VALID]");

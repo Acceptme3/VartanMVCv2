@@ -11,6 +11,7 @@ namespace VartanMVCv2.Domain.Entities
         [Required]
         public Guid Id { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public bool IsComplete { get; set; }
 
         [Required(ErrorMessage = "Поле ИМЯ пустое, либо содержит некорректное значение.")]
         [StringLength(20, ErrorMessage = "Длина имени должна быть не более 20 символов")]
@@ -33,6 +34,7 @@ namespace VartanMVCv2.Domain.Entities
         {
             Id = Guid.NewGuid();
             RegistrationDate = DateTime.Now;
+            IsComplete = false;
         } 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

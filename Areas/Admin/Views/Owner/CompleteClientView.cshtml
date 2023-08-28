@@ -20,9 +20,9 @@
     </div>
 </div>
 
-<div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i class="material-icons">menu</i></a><h1 class="page-announce-text valign">Клиенты</h1></div>
+<div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i class="material-icons">menu</i></a><h1 class="page-announce-text valign">Активные</h1></div>
 <div id="posttable" class="container">
-    <table class="responsive-table striped hover centered" id="names-table">
+    <table class="responsive-table striped hover centered" id="comp_names-table">
         <thead>
             <tr>
                 <th>Идентификатор</th>
@@ -52,23 +52,19 @@
                                 <form method="post" id="moveForm" action="">
                                     <input type="hidden" name="id" value="@client.Id" />
                                     <input type="hidden" name="operation" value="to" />
-                                    <button class="btn green" data-id="@client.Id" type="button">Активировать</button>
+                                    <button class="btn green" data-id="@client.Id" type="button">Переместить</button>
                                 </form>
 
-                                <form method="post" id="deleteForm" action="">
+                               @* <form method="post" id="deleteForm" action="">
                                     <input type="hidden" name="id" value="@client.Id" />
                                     <input type="hidden" name="operation" value="del" />
                                     <button class="btn red" data-id="@client.Id" type="button">Удалить</button>
-                                </form>
+                                </form>*@
                             </div>
                         </td>
                     </tr>
                 }
-            }        
+            }
         </tbody>
     </table>
-
-
-    
-
 </div>

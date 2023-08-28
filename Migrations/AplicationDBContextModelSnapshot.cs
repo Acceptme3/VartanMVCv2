@@ -151,13 +151,13 @@ namespace VartanMVCv2.Migrations
                         {
                             Id = "9690ccb5-3b89-457b-a2ee-b7dfab3526a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "45b6f2dc-0ed5-4f36-b99d-a9d45820ee0d",
+                            ConcurrencyStamp = "031ac4ac-d4d9-4806-9ce4-6b3aa7430533",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBJMY9/MHr8dWT27yxkxoO4IePZICYsrktpNA/mvQ7K59rIV5cnmhFHOjOwSUr+VkA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDwjPBjBbD8kryuMvJTOVFU+RZlvH3B63crUB0ay82Sk7GczSrx6Qoit4v/MJBPy9Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -269,6 +269,9 @@ namespace VartanMVCv2.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -276,7 +279,8 @@ namespace VartanMVCv2.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
@@ -429,7 +433,7 @@ namespace VartanMVCv2.Migrations
                             FeedbackPhone = "",
                             FeedbackText = "Все просто шикаорно! Парни красавцы",
                             TitleImagePath = "/images/img-7.png",
-                            registrationDate = new DateTime(2023, 7, 22, 18, 9, 0, 512, DateTimeKind.Local).AddTicks(5994)
+                            registrationDate = new DateTime(2023, 8, 23, 20, 41, 17, 782, DateTimeKind.Local).AddTicks(9882)
                         },
                         new
                         {
@@ -439,7 +443,7 @@ namespace VartanMVCv2.Migrations
                             FeedbackPhone = "",
                             FeedbackText = "Аллах Свидетель лучший ремонт прихожей в моей жизни",
                             TitleImagePath = "/images/img-8.png",
-                            registrationDate = new DateTime(2023, 7, 22, 18, 9, 0, 512, DateTimeKind.Local).AddTicks(6018)
+                            registrationDate = new DateTime(2023, 8, 23, 20, 41, 17, 782, DateTimeKind.Local).AddTicks(9914)
                         });
                 });
 

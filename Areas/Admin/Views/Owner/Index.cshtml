@@ -1,4 +1,6 @@
-﻿<div>
+﻿@model VartanMVCv2.ViewModels.IndexViewModel
+
+<div>
     <div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i class="material-icons">menu</i></a><h1 class="page-announce-text valign">Панель Администратора</h1></div>
     <!-- Stat Boxes -->
     <div class="row">
@@ -6,52 +8,52 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
-                    <h3>420</h3>
-                    <p>Accounts</p>
+                    <h3>@ViewBag.ClientCount</h3>
+                    <p>Всего клиентов</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer" class="animsition-link">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer" class="animsition-link">Подробнее <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
         <div class="col l3 s6">
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>69</h3>
-                    <p>New Toons</p>
+                    <h3>@ViewBag.TodayClientCount</h3>
+                    <p>За сегодня</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer" class="animsition-link">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer" class="animsition-link">Подробнее <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
         <div class="col l3 s6">
             <!-- small box -->
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3>36</h3>
-                    <p>Support Emails</p>
+                    <h3>@ViewBag.MonthClientCount</h3>
+                    <p>За текущий месяц</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-email"></i>
                 </div>
-                <a href="#" class="small-box-footer" class="animsition-link">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer" class="animsition-link">Подробнее <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
         <div class="col l3 s6">
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>1337</h3>
-                    <p>Unique Visitors</p>
+                    <h3>@ViewBag.YearClientCount</h3>
+                    <p>За текущий год</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer" class="animsition-link">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer" class="animsition-link">Подробнее <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 

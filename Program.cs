@@ -7,6 +7,7 @@ using VartanMVCv2.Services;
 using VartanMVCv2.ViewModels;
 using VartanMVCv2.Domain.Entities;
 using Serilog;
+using VartanMVCv2.Models;
 
 namespace VartanMVCv2
 {
@@ -14,7 +15,7 @@ namespace VartanMVCv2
     {
         public static void Main(string[] args)
         {
-            //настраивваем логгер 
+            /*//настраивваем логгер */
             var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
@@ -75,6 +76,8 @@ namespace VartanMVCv2
                 builder.Services.AddTransient <IClientRepository, ClientRepository>();
                 builder.Services.AddTransient<DataManager>();
                 builder.Services.AddTransient<IndexViewModel>();
+                builder.Services.AddTransient<ClientViewModel>();
+                builder.Services.AddTransient<SortingManager>();
 
                 var app = builder.Build();
 
@@ -97,6 +100,33 @@ namespace VartanMVCv2
 
                 app.UseAuthorization();
 
+                //Маршруты защищенной области
+                app.MapAreaControllerRoute(
+                   name: "admin",
+                   areaName: "Admin",
+                   pattern: "admin/{controller}/{action}/{id?}",
+                   defaults: new { controller = "Owner", action = "Index" });
+                app.MapAreaControllerRoute(
+                    name: "client",
+                    areaName: "Admin",
+                    pattern: "admin/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Owner", action = "ClientView" });
+                app.MapAreaControllerRoute(
+                   name: "commits",
+                   areaName: "Admin",
+                   pattern: "admin/{controller}/{action}/{id?}",
+                   defaults: new { controller = "Owner", action = "Commits" });
+                app.MapAreaControllerRoute(
+                   name: "feedbackView",
+                   areaName: "Admin",
+                   pattern: "admin/{controller}/{action}/{id?}",
+                   defaults: new { controller = "Owner", action = "FeedbackView" });
+                app.MapAreaControllerRoute(
+                   name: "selector",
+                   areaName: "Admin",
+                   pattern: "admin/{controller}/{action}/{id?}",
+                   defaults: new { controller = "Owner", action = "Selector" });
+                //Маршруты
                 app.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -128,11 +158,6 @@ namespace VartanMVCv2
                     name: "resourseUsed",
                     pattern: "resourseused/{action}",
                     defaults: new { controller = "Home", action = "ResourseUsed" });
-                app.MapAreaControllerRoute(
-                    name: "admin",
-                    areaName: "Admin",
-                    pattern: "admin/{controller}/{action}/{id?}",
-                    defaults: new { controller = "Owner", action = "Index" });
                 app.MapControllerRoute(
                     name: "account",
                     pattern: "account/{controller}/{action}/{id?}",

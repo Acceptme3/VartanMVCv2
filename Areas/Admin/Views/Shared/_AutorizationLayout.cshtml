@@ -1,5 +1,4 @@
-﻿@using VartanMVCv2.Models
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,7 @@
     @await Html.PartialAsync("~/Areas/Admin/Views/Shared/AdminCssPartial.cshtml")
 </head>
 <body>
+    
 <!-- Sidebar -->
     <ul id="slide-out" class="side-nav fixed z-depth-4">
         <li>
@@ -33,6 +33,7 @@
 
         <li><a class="subheader">Management</a></li>
         <li><a href="@Url.Action("ClientView","Owner","Admin")"><i class="material-icons pink-item">thumbs_up_down</i>Клиенты</a></li>
+        <li><a href="@Url.Action("CompleteClientView","Owner","Admin")"><i class="material-icons pink-item">thumbs_up_down</i>Активные</a></li>
         <li><a href="@Url.Action("FeedbackView","Owner","Admin")"><i class="material-icons pink-item">note_add</i>Отзывы</a></li>
 
         <li class="no-padding">
@@ -64,9 +65,11 @@
                 </li>
             </ul>
         </li>
+        <li id="hide_sidebar"><a href="/Home/index">Вернуться на главную </a></li>
     </ul>
 <!-- Content Zone -->
     <main>
+        
         <section class="content">
             @RenderBody()
         </section>
@@ -75,7 +78,7 @@
     <footer class="page-footer">
         <div class="footer-copyright">
             <div class="container">
-                © 2017 Farooq Designs. All rights reserved.
+                © 2023 Dmitry Kudryavtsev. All rights reserved.
             </div>
         </div>
     </footer>
@@ -83,21 +86,7 @@
     <!-- So this is basically a hack, until I come up with a better solution. autocomplete is overridden
     in the materialize js file & I don't want that.
     -->
-    <!-- Yo dawg, I heard you like hacks. So I hacked your hack. (moved the sidenav js up so it actually works) -->
-    <script>
-        // Hide sideNav
-        $('.button-collapse').sideNav({
-            menuWidth: 300, // Default is 300
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: true // Choose whether you can drag to open on touch screens
-        });
-        $(document).ready(function () {
-            $('.tooltipped').tooltip({ delay: 50 });
-        });
-        $('select').material_select();
-        $('.collapsible').collapsible();
-    </script>
+   
 
     <div class="fixed-action-btn horizontal tooltipped" data-position="top" dattooltipped" data-position="top" data-delay="50" data-tooltip="Quick Links">
         <a class="btn-floating btn-large red">

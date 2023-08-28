@@ -1267,6 +1267,8 @@ textarea#comment::placeholder {
     .image_person {
         display: none;
     }
+
+   
 }
 
 @media(max-height:400px) {
@@ -1394,6 +1396,8 @@ textarea#comment::placeholder {
        
     }
 }
+
+
 
 
 .carousel_grid_container {
@@ -1619,6 +1623,12 @@ textarea#comment::placeholder {
 
 .road_map .map_main {
     padding-bottom:10px;
+}
+
+@media (max-width:800px) {
+    .road_map {
+        width: 100%;
+    }
 }
 
 

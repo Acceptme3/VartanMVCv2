@@ -12,8 +12,8 @@ using VartanMVCv2.Domain;
 namespace VartanMVCv2.Migrations
 {
     [DbContext(typeof(AplicationDBContext))]
-    [Migration("20230719145423__feedback07")]
-    partial class _feedback07
+    [Migration("20230823174117__clien")]
+    partial class _clien
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,13 +154,13 @@ namespace VartanMVCv2.Migrations
                         {
                             Id = "9690ccb5-3b89-457b-a2ee-b7dfab3526a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "269edd1c-01d7-4b2f-849c-4a09dcab03a4",
+                            ConcurrencyStamp = "031ac4ac-d4d9-4806-9ce4-6b3aa7430533",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENm/nT9pPHjD1OBsVhoEjqNk5+mhnDTnK1fX/U0RNEaVxzDSskQYUlhJbGJKbHqueA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDwjPBjBbD8kryuMvJTOVFU+RZlvH3B63crUB0ay82Sk7GczSrx6Qoit4v/MJBPy9Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -272,6 +272,9 @@ namespace VartanMVCv2.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -279,7 +282,11 @@ namespace VartanMVCv2.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -425,17 +432,21 @@ namespace VartanMVCv2.Migrations
                         {
                             ID = 1,
                             FeedbackClientName = "Антон",
+                            FeedbackEmail = "",
+                            FeedbackPhone = "",
                             FeedbackText = "Все просто шикаорно! Парни красавцы",
                             TitleImagePath = "/images/img-7.png",
-                            registrationDate = new DateTime(2023, 7, 19, 17, 54, 23, 568, DateTimeKind.Local).AddTicks(2938)
+                            registrationDate = new DateTime(2023, 8, 23, 20, 41, 17, 782, DateTimeKind.Local).AddTicks(9882)
                         },
                         new
                         {
                             ID = 2,
                             FeedbackClientName = "Асламбек",
+                            FeedbackEmail = "",
+                            FeedbackPhone = "",
                             FeedbackText = "Аллах Свидетель лучший ремонт прихожей в моей жизни",
                             TitleImagePath = "/images/img-8.png",
-                            registrationDate = new DateTime(2023, 7, 19, 17, 54, 23, 568, DateTimeKind.Local).AddTicks(2962)
+                            registrationDate = new DateTime(2023, 8, 23, 20, 41, 17, 782, DateTimeKind.Local).AddTicks(9914)
                         });
                 });
 

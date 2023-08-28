@@ -11,9 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Models\ViewComponents\" />
-    <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\js\pages\" />
     <Folder Include="wwwroot\sass\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>

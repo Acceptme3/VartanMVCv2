@@ -52,7 +52,11 @@ function genKey() {
 }
 var ids = [];
 var currentActive2 = '';
-var children = document.getElementById('objects').children;     
+var doc = document.getElementById('objects');
+var children = '';
+if (doc != null) {
+    children = doc.children;
+}
 var childrenLength = children.length;
 for(var i = 0; i < childrenLength; i++){
     if(children[i].nodeName.toLowerCase() === 'div'){

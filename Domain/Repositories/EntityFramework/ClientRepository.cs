@@ -23,6 +23,12 @@ namespace VartanMVCv2.Domain.Repositories.EntityFramework
             _logger.LogInformation($"Объект {client.Name} успешно добавлен. Завершил выполнение метод Home/???/ClientRepository/Added");
         }
 
+        public void Update(Client client)
+        {
+            _context.Entry(client).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
         public async Task AddedAsync (Client client) 
         {
             await _context.Set<Client>().AddAsync(client);
