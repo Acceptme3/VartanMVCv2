@@ -26,6 +26,10 @@
                             <textarea class="massage-bt" placeholder="Вопрос или услуга" rows="5" id="comment" asp-for="@Model.ClientExample!.HisQuestion" data-val-length="Длина текста не должна быть более 150 символов и менее 10 символов"></textarea>
                             <span asp-validation-for="@Model.ClientExample!.HisQuestion" />
                         </div>
+                        <div class="time_selection">
+                            <label for="time" class="lab_chk_time">Позвонить с: </label>
+                            <input type="datetime-local" id="time" asp-for="@Model.ClientExample!.CallTime" />
+                        </div>
                         <div>
                             <button class="button_submit" type="submit" value="send">Создать заявку</button>
                         </div>                      

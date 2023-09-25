@@ -5,10 +5,8 @@
     const openPopUpGreen = document.querySelectorAll("div.btn-toolbar button.btn.green");
     console.log("Колличество зеленых кнопок "+openPopUpGreen.length);
     const openPopUpRed = document.querySelectorAll("div.btn-toolbar button.btn.red");
-    console.log("Колличество красных кнопок " + openPopUpRed.length);
-    
+    console.log("Колличество красных кнопок " + openPopUpRed.length);  
     const popUpNo = document.getElementById("pop_up_No");
-    
 
 
     if (openPopUpGreen != null) {
@@ -17,9 +15,13 @@
                 popUpPar.innerText = "Пометить данную запись как исполненную?";
                 popUp.classList.add('active');
                 var clientId = button.getAttribute('data-id');
-                var clientOperation = document.getElementById('moveForm').querySelector('input[name="operation"]').value;
+                if (document.getElementById('moveForm') != null) {
+                    var clientOperation = document.getElementById('moveForm').querySelector('input[name="operation"]').value;
+                    var currentViewName = document.getElementById('moveForm').querySelector('input[name="viewName"]').value;
+                }
                 console.log("Операции над клиентом " + clientOperation);
-                showModal(clientId, clientOperation);
+                console.log("View " + currentViewName);
+                showModal(clientId, clientOperation, currentViewName);
             });
         });
     }
@@ -32,9 +34,13 @@
                 popUpPar.innerText = "Удалить данную запись?";
                 popUp.classList.add('active');
                 var clientId = button.getAttribute('data-id');
-                var clientOperation = document.getElementById('deleteForm').querySelector('input[name="operation"]').value;
+                if (document.getElementById('deleteForm') != null) {
+                    var clientOperation = document.getElementById('deleteForm').querySelector('input[name="operation"]').value;
+                    var currentViewName = document.getElementById('deleteForm').querySelector('input[name="viewName"]').value;
+                }
                 console.log("Операции над клиентом " + clientOperation);
-                showModal(clientId, clientOperation);
+                console.log("View " + currentViewName);
+                showModal(clientId, clientOperation, currentViewName);
             });
         });
     }
@@ -48,10 +54,10 @@
 
 });
 
-function showModal(clientId, clientOperation) {
+function showModal(clientId, clientOperation, currentViewName) {
     var modal = document.getElementById('confirm-form');
     modal.querySelector('input[name="id"]').value = clientId;
-    console.log("Идентификатор клиента " + modal.querySelector('input[name="id"]').value );
     modal.querySelector('input[name="operation"]').value = clientOperation;
-    console.log("Идентификатор опирации над клиентом " + modal.querySelector('input[name="operation"]').value);
+    modal.querySelector('input[name="viewName"]').value = currentViewName;
+
 }

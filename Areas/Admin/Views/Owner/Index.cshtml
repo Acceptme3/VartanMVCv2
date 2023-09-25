@@ -1,4 +1,9 @@
-﻿@model VartanMVCv2.ViewModels.IndexViewModel
+﻿@model VartanMVCv2.ViewModels.ClientViewModel
+
+@{
+    var clients = Model.clients;
+    string calltime = "";
+}
 
 <div>
     <div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i class="material-icons">menu</i></a><h1 class="page-announce-text valign">Панель Администратора</h1></div>
@@ -59,9 +64,9 @@
 
         <div class="container">
             <div class="quick-links center-align">
-                <h3>Quick Links</h3>
+                <h3>Быстрая навигация</h3>
                 <div class="row">
-                    <div class="col l3 s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Mod Handbook"><a class="waves-effect waves-light btn-large" href="#">Mod Handbook</a></div>
+                    <div class="col l3 s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Обновление модели после добовления новых услуг"><a class="waves-effect waves-light btn-large" style="background-color:red;" href="@Url.Action("DataInit", "Owner", "Admin")">Обновить модель</a></div>
                     <div class="col l3 s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Staff Applications"><a class="waves-effect waves-light btn-large" href="#">Staff Applications</a></div>
                     <div class="col l3 s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Name Guidelines"><a class="waves-effect waves-light btn-large" href="#">User Guidelines</a></div>
                     <div class="col l3 s12 tooltipped" data-position="top" data-delay="50" data-tooltip="Issue Tracker"><a class="waves-effect waves-light btn-large" href="#">Issue Tracker</a></div>
@@ -69,50 +74,38 @@
                 </div>
             </div>
 
-            <h3 class="center-align">Current Staff Members</h3>
+            <h3 class="center-align">Клиенты за сегодня</h3>
             <div class="custom-responsive">
-                <table class="striped hover centered">
+                <table class="striped hover centered" id="today_client">
                     <thead>
                         <tr>
-                            <th>Username</th>
-                            <th>Access Level</th>
-                            <th>Last Site Login</th>
-                            <th>TFA Active?</th>
+                            <th>Имя клиента</th>
+                            <th>Телефон</th>
+                            <th>Еmail</th>
+                            <th>Время для звонка</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>MichaelGScott</td>
-                            <td>Administrator</td>
-                            <td>2017-03-31</td>
-                            <td><i class="text-green material-icons">check</i></td>
-                        </tr>
-                        <tr>
-                            <td>JimHalpert</td>
-                            <td>Sales</td>
-                            <td>2017-03-31</td>
-                            <td><i class="text-green material-icons">check</i></td>
-                        </tr>
-                        <tr>
-                            <td>KevinMalone</td>
-                            <td>Accounting</td>
-                            <td>2017-03-31</td>
-                            <td><i class="text-red material-icons">close</i></td>
-                        </tr>
-                        <tr>
-                            <td>PamBeesly</td>
-                            <td>Reception</td>
-                            <td>2017-03-31</td>
-                            <td><i class="text-green material-icons">check</i></td>
-                        </tr>
+                        @{
+                            foreach (Client client in clients)
+                            {
+                                calltime = $"{@client.CallTime:g}";
+                                <tr>
+                                    <td>@client.Name</td>
+                                    <td>@client.Phone</td>
+                                    <td>@client.Email</td>
+                                    <td>@calltime</td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <form asp-area = "" action="/Account/Logout" method="post">
-        <div>
-            <input type="submit" value="Выйти" />
-        </div>      
+    <form asp-area="" asp-action="Logout" asp-controller="Account" method="post">
+        <div style="display: flex; margin-top: 4em; flex-wrap: nowrap;justify-content: center;">
+            <input type="submit" value="Выйти" id="element" style="position:center; border: 4px dashed rgba(100, 100, 100, 1); border-radius: 31px; background-color: rgba(212, 17, 17, 0.39);box-shadow: 10px 13px 0px 0px rgba(0, 0, 0, 0.3); width:10em; height:4em" />
+        </div>
     </form>
 </div>

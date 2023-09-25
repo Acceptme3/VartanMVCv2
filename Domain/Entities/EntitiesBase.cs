@@ -4,8 +4,9 @@ namespace VartanMVCv2.Domain.Entities
 {
     public abstract class EntitiesBase
     {
+        [Key]
         [Required]
-        public int ID { get; set; }
+        public Guid ID { get; set; }
 
         [Display(Name = "Название (Заголовок)")]
         public virtual string? Title { get; set; }
@@ -25,4 +26,5 @@ namespace VartanMVCv2.Domain.Entities
         [Display(Name = "SEO-Метатэг Keywords")]
         public string? MetaKeywords { get; set; }
     }
+
 }

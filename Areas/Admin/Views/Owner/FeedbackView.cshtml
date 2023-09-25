@@ -1,98 +1,81 @@
-﻿<div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i class="material-icons">menu</i></a><h1 class="page-announce-text valign">Обратная связь</h1></div>
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using VartanMVCv2.Domain.Entities
+@using VartanMVCv2.Services
+@inject CurrentViewContext _currentViewContext;
+@model VartanMVCv2.ViewModels.FeedbackViewModel
+
+@{
+    var feedbacks = Model.feedbacks;
+    _currentViewContext.CurrentViewName = "FeedbackView";
+}
+
+<div class="pop_up" id="pop_up">
+    <div class="pop_up_container">
+        <div class="pop_up_action" id="pop_up_action">
+            <p class="pop_up_p" id="pop_up_paragraph"></p>
+            <form id="confirm-form" asp-area="Admin" asp-controller="Owner" method="post" asp-action="EntitySelector">
+                <input type="hidden" name="id" value="" />
+                <input type="hidden" name="operation" value="" />
+                <input type="hidden" name="viewName" value="" />
+                <button class="btn_accept" type="submit">Да</button>
+                <button class="btn_decline" id="pop_up_No" type="button">Нет</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i class="material-icons">menu</i></a><h1 class="page-announce-text valign">Обратная связь</h1></div>
 <div id="posttable" class="container">
     <div class="custom-responsive">
-        <table class="striped hover centered">
+        <table class="striped hover centered" id="feedback_table">
             <thead>
                 <tr>
-                    <th>Username:</th>
-                    <th>Date Posted:</th>
-                    <th>Comment Posted:</th>
-                    <th>Post Commented On</th>
-                    <th>Comment Actions:</th>
+                    <th>Имя клиента</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Путь к изображению</th>
+                    <th>Отзыв</th>
+                    <th>Отметка публикации</th>
+                    <th>Дата создания</th>
+                    <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><a>CreedBratton</a></td>
-                    <td><a>2017-03-30</a></td>
-                    <td><a>"What is wrong with this woman? She's asking about stuff that's nobody's business. 'What do I do?'... Really, what do I do here? I should've written it down. "Qua" something, uh... qua... quar... quibo, qual...quir-quabity. Quabity assuance! No. No, no, no, no, but I'm getting close."</a></td>
-                    <td><a>New Update blog</a></td>
-                    <td>
-                        <div class="btn-toolbar">
-                            <a href="#">
-                                <button class="btn green" type="submit" value="Accept">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </a>
-                            <a href="#">
-                                <button class="btn red" type="submit" value="Reject">
-                                    <i class="material-icons">remove</i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a>AngelaMartin</a></td>
-                    <td><a>2017-03-30</a></td>
-                    <td><a>"I heard a joke today."</a></td>
-                    <td><a>New Update blog</a></td>
-                    <td>
-                        <div class="btn-toolbar">
-                            <a href="#">
-                                <button class="btn green" type="submit" value="Accept">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </a>
-                            <a href="#">
-                                <button class="btn red" type="submit" value="Reject">
-                                    <i class="material-icons">remove</i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a>DwightSchrute</a></td>
-                    <td><a>2017-03-30</a></td>
-                    <td><a>"That's funny."</a></td>
-                    <td><a>New Update blog</a></td>
-                    <td>
-                        <div class="btn-toolbar">
-                            <a href="#">
-                                <button class="btn green" type="submit" value="Accept">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </a>
-                            <a href="#">
-                                <button class="btn red" type="submit" value="Reject">
-                                    <i class="material-icons">remove</i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><a>AngelaMartin</a></td>
-                    <td><a>2017-03-30</a></td>
-                    <td><a>"Yes, it was."</a></td>
-                    <td><a>New Update blog</a></td>
-                    <td>
-                        <div class="btn-toolbar">
-                            <a href="#">
-                                <button class="btn green" type="submit" value="Accept">
-                                    <i class="material-icons">done</i>
-                                </button>
-                            </a>
-                            <a href="#">
-                                <button class="btn red" type="submit" value="Reject">
-                                    <i class="material-icons">remove</i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                
+                    @{
+                        foreach (Feedback feedback in feedbacks)
+                        {
+                        <tr>
+                            <td><a href="" id="selectorFeedback">@feedback.FeedbackClientName</a></td>
+                            <td>@feedback.FeedbackPhone</td>
+                            <td>@feedback.FeedbackEmail</td>
+                            <td>@feedback.TitleImagePath</td>
+                            <td>@feedback.FeedbackText</td>
+                            <td>@feedback.FeedbackEnabled</td>
+                            <td>@feedback.registrationDate</td>
+                            <td>
+                                <div class="btn-toolbar">
+                                    <form method="post" id="moveForm" action="">
+                                        <input type="hidden" name="id" value="@feedback.ID" />
+                                        <input type="hidden" name="operation" value="upd" />
+                                        <input type="hidden" name="viewName" value="@_currentViewContext.CurrentViewName" />
+                                        <button class="btn green" id="upd" data-id="@feedback.ID" type="button"><i class="material-icons">done</i></button>
+                                    </form>
+
+                                    <form method="post" id="deleteForm" action="">
+                                        <input type="hidden" name="id" value="@feedback.ID" />
+                                        <input type="hidden" name="operation" value="del" />
+                                        <input type="hidden" name="viewName" value="@_currentViewContext.CurrentViewName" />
+                                        <button class="btn red" data-id="@feedback.ID" type="button"><i class="material-icons">remove</i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    }
             </tbody>
         </table>
     </div>
+
 </div>

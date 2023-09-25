@@ -18,6 +18,7 @@ namespace VartanMVCv2
             /*//настраивваем логгер */
             var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
+            
             .Build();
 
             Log.Logger = new LoggerConfiguration()
@@ -66,6 +67,15 @@ namespace VartanMVCv2
                 builder.Services.AddDbContext<AplicationDBContext>(x => x.UseSqlServer(Config.ConnectionString));
                 //подключаем нужный функционал в качестве сервисов
                 builder.Services.AddMemoryCache();
+                builder.Services.AddDistributedMemoryCache();
+                builder.Services.AddSession(options =>
+                {
+                    options.Cookie.Name = "CurrentViewName";
+                    options.IdleTimeout = TimeSpan.FromMinutes(30);
+                    options.Cookie.IsEssential = true;
+                });
+                builder.Services.AddHttpContextAccessor();
+                builder.Services.AddScoped<CurrentViewContext>();
                 builder.Services.AddScoped<Modelinitializer>();
                 builder.Services.AddTransient<IEntityRepository<WorkServices>, EFEntitiesRepository<WorkServices>>();
                 builder.Services.AddTransient<IEntityRepository<WorksList>, EFEntitiesRepository<WorksList>>();
@@ -91,6 +101,8 @@ namespace VartanMVCv2
                 app.UseStaticFiles();
 
                 app.UseSerilogRequestLogging();
+
+                app.UseSession();
 
                 app.UseRouting();
 
@@ -126,6 +138,7 @@ namespace VartanMVCv2
                    areaName: "Admin",
                    pattern: "admin/{controller}/{action}/{id?}",
                    defaults: new { controller = "Owner", action = "Selector" });
+               
                 //Маршруты
                 app.MapControllerRoute(
                     name: "default",

@@ -1,8 +1,15 @@
-﻿@model WorkServicesViewModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using VartanMVCv2.Domain.Entities
+@using VartanMVCv2.ViewModels
+@using VartanMVCv2.Services
+@inject CurrentViewContext _currentViewContext;
+@model CompletedProjectViewModel
+
 
 @{
-    var WSList = Model.workServices!;   
-    _currentViewContext.CurrentViewName = "WorkServicesView";
+    var CPList = Model.completedProjects!;
+    var CPPhotos = Model.completedProjectPhotos!;
+    _currentViewContext.CurrentViewName = "CompletedProjectView";
 }
 
 <div class="pop_up" id="pop_up">
@@ -23,28 +30,30 @@
 
 <div class="page-announce valign-wrapper"><a href="#" data-activates="slide-out" class="button-collapse valign hide-on-large-only"><i class="material-icons">menu</i></a><h1 class="page-announce-text valign">Завершенные объекты</h1></div>
 <div id="posttable" class="container">
-    <table class="responsive-table striped hover centered" id="ws-table">
+    <table class="responsive-table striped hover centered" id="cp-table">
         <thead>
             <tr>
                 <th>Заголовок</th>
                 <th style="max-width:200px; overflow-wrap:break-word;">Описание</th>
+                <th>Колличество изображений</th>
                 <th>Действия</th>
             </tr>
         </thead>
         <tbody>
             @{
-                foreach (WorkServices WS in WSList)
+                foreach (CompletedProject CP in CPList)
                 {
                     <tr>
-                        <td><a>@WS.Title</a></td>
-                        <td style="max-width:200px; overflow-wrap:break-word;"><a>@WS.Description</a></td>
+                        <td><a>@CP.Title</a></td>
+                        <td style="max-width:200px; overflow-wrap:break-word;"><a>@CP.Description</a></td>
+                        <td><a>@CPPhotos.Where(CPP => CPP.Project.ID==CP.ID).Count()</a></td>
                         <td>
                             <div class="btn-toolbar">
                                 <form method="post" id="deleteForm" action="">
-                                    <input type="hidden" name="id" value="@WS.ID" />
+                                    <input type="hidden" name="id" value="@CP.ID" />
                                     <input type="hidden" name="operation" value="del" />
                                     <input type="hidden" name="viewName" value="@_currentViewContext.CurrentViewName" />
-                                    <button class="btn red" data-id="@WS.ID" type="button"><i class="material-icons">remove</i></button>
+                                    <button class="btn red" data-id="@CP.ID" type="button"><i class="material-icons">remove</i></button>
                                 </form>
                             </div>
                         </td>
@@ -53,4 +62,7 @@
             }
         </tbody>
     </table>
+    <div>
+        <p>@ViewBag.Message</p>
+    </div>
 </div>

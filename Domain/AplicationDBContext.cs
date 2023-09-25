@@ -24,6 +24,8 @@ namespace VartanMVCv2.Domain
         {
             base.OnModelCreating(builder);
 
+            
+
             builder.Entity<IdentityRole>().HasData(new IdentityRole{ Id ="0f16741b-318b-4bfe-b01f-a4d058e7d122", Name="admin",NormalizedName = "ADMIN"});
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser
@@ -44,13 +46,13 @@ namespace VartanMVCv2.Domain
             builder.ApplyConfiguration(new WorksListConfiguration());
             builder.ApplyConfiguration(new WorksNameConfiguration());
 
-            builder.Entity<WorkServices>().HasData(new WorkServices { ID = 1, Title = "Дизайн-проект", Description = "Разработка индивидуального дизайн-проекта.", TitleImagePath = "/images/img-2.png" });
+            builder.Entity<WorkServices>().HasData(new WorkServices { Title = "Дизайн-проект", Description = "Разработка индивидуального дизайн-проекта.", TitleImagePath = "/images/img-2.png" });
 
-            builder.Entity<CompletedProject>().HasData(new CompletedProject { ID = 1, Title = "Ремонт ванной 6 кв.м", TitleImagePath = "/images/img-5.png" });
-            builder.Entity<CompletedProject>().HasData(new CompletedProject { ID = 2, Title = "Гостинная 18 кв.м", TitleImagePath = "/images/img-4.png" });
+            builder.Entity<CompletedProject>().HasData(new CompletedProject { Title = "Ремонт ванной 6 кв.м", TitleImagePath = "/images/img-5.png" });
+            builder.Entity<CompletedProject>().HasData(new CompletedProject { Title = "Гостинная 18 кв.м", TitleImagePath = "/images/img-4.png" });
 
-            builder.Entity<Feedback>().HasData(new Feedback { ID = 1, TitleImagePath = "/images/img-7.png", FeedbackClientName = "Антон", FeedbackText = "Все просто шикаорно! Парни красавцы" });
-            builder.Entity<Feedback>().HasData(new Feedback { ID = 2, TitleImagePath = "/images/img-8.png", FeedbackClientName = "Асламбек", FeedbackText = "Аллах Свидетель лучший ремонт прихожей в моей жизни" });
+            builder.Entity<Feedback>().HasData(new Feedback { TitleImagePath = "/images/img-7.png", FeedbackClientName = "Антон", FeedbackText = "Все просто шикаорно! Парни красавцы" });
+            builder.Entity<Feedback>().HasData(new Feedback { TitleImagePath = "/images/img-8.png", FeedbackClientName = "Асламбек", FeedbackText = "Аллах Свидетель лучший ремонт прихожей в моей жизни" });
         }
     }
 }

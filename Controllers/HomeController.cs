@@ -35,6 +35,10 @@ namespace VartanMVCv2.Controllers
         public async Task<IActionResult> Index()
         {
             _logger.LogInformation("Начинает выполнение Home/Index [тип запроса: GET]");
+
+            
+            
+
             _dataModel = await _modelinitializer.GetDataModelAsync(DataModel.identificator);
             if (_dataModel == null) 
             {
@@ -42,6 +46,7 @@ namespace VartanMVCv2.Controllers
                 _logger.LogError(ex.Message);
             }
             else { _logger.LogInformation("Объект _dataModel (Home/Index) инициализирован."); }
+            FeedbackInit();
             return View(_indexViewModel);
         }
 
@@ -116,10 +121,10 @@ namespace VartanMVCv2.Controllers
         }
 
 
-        public IActionResult ServicesByID(int id) 
+        public IActionResult ServicesByID(Guid id) 
         {
             _logger.LogInformation("Начинает выполнение Home/ServicesByID [тип запроса: GET]");
-            int selectedServicesID = id;
+            Guid selectedServicesID = id;
             ViewBag.SelectedServicesID = selectedServicesID;
 
             _indexViewModel.sortWorksList = _indexViewModel.dataModelExample!.worksList.ToList().FindAll(delegate (WorksList works)  { return works.Services.ID == selectedServicesID; });
@@ -134,12 +139,13 @@ namespace VartanMVCv2.Controllers
 
         public IActionResult Feedback(IndexViewModel feedback)
         {
+            FeedbackInit();
             return View(_indexViewModel);
         }
 
-        public IActionResult FeedbackPhoto(int id) 
+        public IActionResult FeedbackPhoto(Guid id) 
         {
-            int selectedCompletedProjectID = id;
+            Guid selectedCompletedProjectID = id;
             ViewBag.SelectedCompletedProjectID = selectedCompletedProjectID;
             return View(_indexViewModel);
         }
@@ -163,6 +169,12 @@ namespace VartanMVCv2.Controllers
         public IActionResult ResourseUsed()
         {
             return View();
+        }
+
+        [NonAction]
+        private void FeedbackInit() 
+        {
+            _indexViewModel.sortFeedbackList = from f in _indexViewModel.dataModelExample!.feedbackList where f.FeedbackEnabled == true select f;
         }
     }
 }

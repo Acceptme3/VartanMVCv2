@@ -12,8 +12,8 @@ using VartanMVCv2.Domain;
 namespace VartanMVCv2.Migrations
 {
     [DbContext(typeof(AplicationDBContext))]
-    [Migration("20230823174117__clien")]
-    partial class _clien
+    [Migration("20230910043528__initial")]
+    partial class _initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,13 +154,13 @@ namespace VartanMVCv2.Migrations
                         {
                             Id = "9690ccb5-3b89-457b-a2ee-b7dfab3526a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "031ac4ac-d4d9-4806-9ce4-6b3aa7430533",
+                            ConcurrencyStamp = "c894fa69-fdc8-4010-9d01-1da72d565fbe",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDwjPBjBbD8kryuMvJTOVFU+RZlvH3B63crUB0ay82Sk7GczSrx6Qoit4v/MJBPy9Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKQXlzxmrZ+YfLdlCzBWZAJQzM9/UBECftbwmFeNkI2yd5ORXkzdSFo1nAln69X7OQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -295,11 +295,9 @@ namespace VartanMVCv2.Migrations
 
             modelBuilder.Entity("VartanMVCv2.Domain.Entities.CompletedProject", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -328,13 +326,13 @@ namespace VartanMVCv2.Migrations
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            ID = new Guid("c77299a5-8484-4cbd-8377-5e767251cb77"),
                             Title = "Ремонт ванной 6 кв.м",
                             TitleImagePath = "/images/img-5.png"
                         },
                         new
                         {
-                            ID = 2,
+                            ID = new Guid("c461c0d1-81d5-40b3-b0d1-c8833a261716"),
                             Title = "Гостинная 18 кв.м",
                             TitleImagePath = "/images/img-4.png"
                         });
@@ -342,11 +340,9 @@ namespace VartanMVCv2.Migrations
 
             modelBuilder.Entity("VartanMVCv2.Domain.Entities.CompletedProjectPhoto", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -364,8 +360,8 @@ namespace VartanMVCv2.Migrations
                     b.Property<string>("MetaTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProjectID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProjectID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -382,11 +378,9 @@ namespace VartanMVCv2.Migrations
 
             modelBuilder.Entity("VartanMVCv2.Domain.Entities.Feedback", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -397,6 +391,9 @@ namespace VartanMVCv2.Migrations
 
                     b.Property<string>("FeedbackEmail")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("FeedbackEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FeedbackPhone")
                         .HasColumnType("nvarchar(max)");
@@ -430,33 +427,33 @@ namespace VartanMVCv2.Migrations
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            ID = new Guid("cb90d389-065f-460c-b5bd-16c1b6edb521"),
                             FeedbackClientName = "Антон",
                             FeedbackEmail = "",
+                            FeedbackEnabled = false,
                             FeedbackPhone = "",
                             FeedbackText = "Все просто шикаорно! Парни красавцы",
                             TitleImagePath = "/images/img-7.png",
-                            registrationDate = new DateTime(2023, 8, 23, 20, 41, 17, 782, DateTimeKind.Local).AddTicks(9882)
+                            registrationDate = new DateTime(2023, 9, 10, 7, 35, 27, 909, DateTimeKind.Local).AddTicks(567)
                         },
                         new
                         {
-                            ID = 2,
+                            ID = new Guid("d2017fbf-e62b-4f09-8f2d-55b807288164"),
                             FeedbackClientName = "Асламбек",
                             FeedbackEmail = "",
+                            FeedbackEnabled = false,
                             FeedbackPhone = "",
                             FeedbackText = "Аллах Свидетель лучший ремонт прихожей в моей жизни",
                             TitleImagePath = "/images/img-8.png",
-                            registrationDate = new DateTime(2023, 8, 23, 20, 41, 17, 782, DateTimeKind.Local).AddTicks(9914)
+                            registrationDate = new DateTime(2023, 9, 10, 7, 35, 27, 909, DateTimeKind.Local).AddTicks(606)
                         });
                 });
 
             modelBuilder.Entity("VartanMVCv2.Domain.Entities.WorkServices", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
@@ -487,7 +484,7 @@ namespace VartanMVCv2.Migrations
                     b.HasData(
                         new
                         {
-                            ID = 1,
+                            ID = new Guid("affed361-3592-4734-82d7-a02d0b05b5f5"),
                             Description = "Разработка индивидуального дизайн-проекта.",
                             Title = "Дизайн-проект",
                             TitleImagePath = "/images/img-2.png"
@@ -496,11 +493,9 @@ namespace VartanMVCv2.Migrations
 
             modelBuilder.Entity("VartanMVCv2.Domain.Entities.WorksList", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -514,8 +509,8 @@ namespace VartanMVCv2.Migrations
                     b.Property<string>("MetaTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ServicesID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ServicesID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -534,11 +529,9 @@ namespace VartanMVCv2.Migrations
 
             modelBuilder.Entity("VartanMVCv2.Domain.Entities.WorksName", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -559,8 +552,8 @@ namespace VartanMVCv2.Migrations
                     b.Property<string>("TitleImagePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WorksCategoryID")
-                        .HasColumnType("int");
+                    b.Property<Guid>("WorksCategoryID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
 

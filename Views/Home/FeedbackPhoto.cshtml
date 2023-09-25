@@ -10,7 +10,7 @@
         var selectedProject = Model.dataModelExample!.completedProjectsList.ToList().Find(x => x.ID == ViewBag.SelectedCompletedProjectID)!;
     }
     <h6 class="furnitures_text">@selectedProject.Title</h6>
-    <h2 class="furnitures_text">@selectedProject.Description </h2>
+    <p class="furnitures_text">@selectedProject.Description </p>
     <div class="grid-container_photo_box" >
         @foreach (CompletedProjectPhoto photo in Model.dataModelExample.completedProjectPhotosList)
         {

@@ -10,5 +10,13 @@ namespace VartanMVCv2.Domain.Entities
         [Required]
         [Display(Name = "Титульная картинка")]
         public override string? TitleImagePath { get => base.TitleImagePath; set => base.TitleImagePath = value; }
+
+        public CompletedProject()
+        {
+           ID = Guid.NewGuid();
+
+           TitleImagePath = $"/images/projectPhotos/default.png";
+        }
     }
+
 }

@@ -42,7 +42,7 @@
                     <a class="collapsible-header">Управление веб-приложением<i class="material-icons pink-item">person</i></a>
                     <div class="collapsible-body">
                         <ul>
-                            <li><a href="userdetails.html">Метрики</a></li>
+                            <li><a href="@Url.Action("Metrick","Owner","Admin")">Метрики</a></li>
                             <li><a href="@Url.Action("UserSettings","Owner","Admin")">Настройки</a></li>
                             <li><a href="recentusers.html">Ссылки</a></li>
                             <li><a href="reports.html">Логи</a></li>
@@ -60,6 +60,8 @@
                         <ul>
                             <li><a href="@Url.Action("AddWorkServices","Owner","Admin")">Добавить услугу</a></li>
                             <li><a href="@Url.Action("WorkServicesView","Owner","Admin")">Список услуг</a></li>
+                            <li><a href="@Url.Action("AddCompletedProject","Owner","Admin")">Добавить готовый объект</a></li>
+                            <li><a href="@Url.Action("CompletedProjectView","Owner","Admin")">Список готовых объектов</a></li>
                         </ul>
                     </div>
                 </li>
@@ -67,6 +69,7 @@
         </li>
         <li id="hide_sidebar"><a href="/Home/index">Вернуться на главную </a></li>
     </ul>
+
 <!-- Content Zone -->
     <main>
         

@@ -2,7 +2,7 @@
 
 namespace VartanMVCv2.Domain.Repositories.Abstract
 {
-    public interface IClientRepository
+    public interface IClientRepository 
     {
         IQueryable<Client> GetAll();
         Client? GetById(Guid id);

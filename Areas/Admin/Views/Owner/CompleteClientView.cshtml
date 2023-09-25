@@ -1,18 +1,24 @@
 ﻿@using VartanMVCv2.Domain.Entities
+@using VartanMVCv2.Services
+@inject CurrentViewContext _currentViewContext;
 @model VartanMVCv2.ViewModels.ClientViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     var clients = Model.clients!;
+    string calltime = "";
+    string regdate = "";
+    _currentViewContext.CurrentViewName = "CompleteClientView";
 }
 
 <div class="pop_up" id="pop_up">
     <div class="pop_up_container">
         <div class="pop_up_action" id="pop_up_action">
             <p class="pop_up_p" id="pop_up_paragraph"></p>
-            <form id="confirm-form" asp-area="Admin" asp-controller="Owner" method="post" asp-action="Selector">
+            <form id="confirm-form" asp-area="Admin" asp-controller="Owner" method="post" asp-action="EntitySelector">
                 <input type="hidden" name="id" value="" />
                 <input type="hidden" name="operation" value="" />
+                <input type="hidden" name="viewName" value="" />
                 <button class="btn_accept" type="submit">Да</button>
                 <button class="btn_decline" id="pop_up_No" type="button">Нет</button>
             </form>
@@ -24,12 +30,11 @@
 <div id="posttable" class="container">
     <table class="responsive-table striped hover centered" id="comp_names-table">
         <thead>
-            <tr>
-                <th>Идентификатор</th>
+            <tr>               
                 <th>Имя клиента</th>
                 <th>Телефон</th>
                 <th>E-mail</th>
-                <th>Вопрос</th>
+                <th style="max-width:200px; overflow-wrap:break-word;">Вопрос</th>
                 <th>Время звонка</th>
                 <th>Дата регистрации</th>
                 <th>Действия</th>
@@ -39,27 +44,23 @@
             @{
                 foreach (Client client in clients)
                 {
-                    <tr>
-                        <td><a>@client.Id</a></td>
+                    regdate = $"{client.RegistrationDate:g}";
+                    calltime = $"{client.CallTime:g}";
+                    <tr>                       
                         <td><a>@client.Name</a></td>
                         <td><a>@client.Phone</a></td>
                         <td><a>@client.Email</a></td>
-                        <td><a>@client.HisQuestion</a></td>
-                        <td><a>@client.CallTime</a></td>
-                        <td><a>@client.RegistrationDate</a></td>
+                        <td style="max-width:200px; overflow-wrap:break-word;"><a>@client.HisQuestion</a></td>
+                        <td><a>@calltime</a></td>
+                        <td><a>@regdate</a></td>
                         <td>
                             <div class="btn-toolbar">
                                 <form method="post" id="moveForm" action="">
                                     <input type="hidden" name="id" value="@client.Id" />
                                     <input type="hidden" name="operation" value="to" />
-                                    <button class="btn green" data-id="@client.Id" type="button">Переместить</button>
+                                    <input type="hidden" name="viewName" value="@_currentViewContext.CurrentViewName" />
+                                    <button class="btn green" data-id="@client.Id" type="button"><i class="material-icons">done</i></button>
                                 </form>
-
-                               @* <form method="post" id="deleteForm" action="">
-                                    <input type="hidden" name="id" value="@client.Id" />
-                                    <input type="hidden" name="operation" value="del" />
-                                    <button class="btn red" data-id="@client.Id" type="button">Удалить</button>
-                                </form>*@
                             </div>
                         </td>
                     </tr>

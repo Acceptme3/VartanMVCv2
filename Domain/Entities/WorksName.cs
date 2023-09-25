@@ -8,5 +8,10 @@ namespace VartanMVCv2.Domain.Entities
         public override string? Title { get => base.Title; set => base.Title = value; }
         [Required]
         public WorksList WorksCategory { get; set; } = null!;
+            
+        public WorksName()
+        {
+            ID = Guid.NewGuid();
+        }
     }
 }

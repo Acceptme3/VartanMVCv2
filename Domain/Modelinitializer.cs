@@ -60,9 +60,15 @@ namespace VartanMVCv2.Domain
             return dataModelInstance;
         }
 
-        public async Task<DataModel?> GetDataModelAsync(int id) 
+        public async Task<DataModel?> GetDataModelAsync(int id, bool initFlag = false) 
         {
-            cache.TryGetValue(id, out DataModel? _dataModel);
+            DataModel? _dataModel = null;
+
+            if (!initFlag) 
+            {
+                cache.TryGetValue(id, out _dataModel);
+            }
+
             if (_dataModel == null)
             {
                 await ModelInitialAsync(dataModel);

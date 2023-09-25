@@ -3,7 +3,7 @@
 @model IndexViewModel
 
 @{
-    int parityCounter = (Model.dataModelExample!.feedbackList.Count % 2 == 0) ? Model.dataModelExample.feedbackList.Count : Model.dataModelExample.feedbackList.Count - 1;
+    int parityCounter = (Model.sortFeedbackList.ToList().Count % 2 == 0) ? Model.sortFeedbackList.ToList().Count : Model.sortFeedbackList.ToList().Count - 1;
     int indicatorsCount = parityCounter / 2;
     int feedbackOnPageCount = 8;
 
@@ -23,7 +23,7 @@
             <div class="swiper-wrapper">
                 @{
                     int i = 0;
-                    while (i < Model.dataModelExample.completedProjectsList.Count())
+                    while (i < Model.dataModelExample!.completedProjectsList.Count())
                     {
                          <div class="swiper-slide">
                                 <div class="projects_section2">
@@ -103,17 +103,17 @@
                                     int k = 0;
                                     while (k < 2 && a < parityCounter)
                                     {
-                                        @if ((Model.dataModelExample.feedbackList.ToList()[a].ID % 2) == 0) { clientClassPosition = "client_2"; }
+                                        @if (k == 1) { clientClassPosition = "client_2"; }
                                         else { clientClassPosition = "client_1"; }
 
                                         <div class="@clientClassPosition">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <div class="image_7"><img src="@Model.dataModelExample.feedbackList.ToList()[a].TitleImagePath"></div>
+                                                    <div class="image_7"><img src="@Model.sortFeedbackList.ToList()[a].TitleImagePath"></div>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                    <h1 class="loksans_text">@Model.dataModelExample.feedbackList.ToList()[a].FeedbackClientName</h1>
-                                                    <p class="dolor_ipsum_text">@Model.dataModelExample.feedbackList.ToList()[a].FeedbackText</p>
+                                                    <h1 class="loksans_text">@Model.sortFeedbackList.ToList()[a].FeedbackClientName</h1>
+                                                    <p class="dolor_ipsum_text">@Model.sortFeedbackList.ToList()[a].FeedbackText</p>
                                                 </div>
                                             </div>
                                         </div>

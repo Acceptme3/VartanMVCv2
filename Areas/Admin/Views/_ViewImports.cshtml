@@ -1,4 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using VartanMVCv2.Domain.Entities
 @using VartanMVCv2.ViewModels
-@model VartanMVCv2.Models.LoginViewModel
+@using VartanMVCv2.Services
+@inject VartanMVCv2.Services.CurrentViewContext _currentViewContext;

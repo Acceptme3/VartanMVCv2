@@ -15,7 +15,7 @@ namespace VartanMVCv2.Domain.Repositories.EntityFramework
             _logger = logger;
         }
 
-        public void DeleteEntity(int id)
+        public void DeleteEntity(Guid id)
         {
             var entity = GetById(id);
             _dbContext.Set<T>().Remove(entity);
@@ -34,7 +34,7 @@ namespace VartanMVCv2.Domain.Repositories.EntityFramework
             return entitiesList;
         }
 
-        public T GetById(int id)
+        public T GetById(Guid id)
         {
             return _dbContext.Set<T>().FirstOrDefault(x => x.ID == id)!;
         }

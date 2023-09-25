@@ -57,3 +57,10 @@
     height: 100%;
     overflow: auto;
 }
+
+#element {
+    border: 4px dashed rgba(100, 100, 100, 1);
+    border-radius: 31px;
+    background-color: rgba(212, 17, 17, 0.39);
+    box-shadow: 10px 13px 0px 0px rgba(0, 0, 0, 0.3);
+}
