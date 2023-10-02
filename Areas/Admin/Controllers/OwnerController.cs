@@ -5,8 +5,6 @@ using VartanMVCv2.Models;
 using VartanMVCv2.ViewModels;
 using VartanMVCv2.Services;
 using VartanMVCv2.Domain.Repositories.Abstract;
-using System.Security.Cryptography;
-using System.Drawing;
 
 namespace VartanMVCv2.Areas.Admin.Controllers
 {
@@ -56,7 +54,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         public IActionResult CompleteClientView(ClientViewModel clientViewModel)
         {
             DataModelInit();
-            clientViewModel.clients = SortingManager.GetAllClientForACondition(_clientDataModel.clientsList, false);        
+            clientViewModel.clients = SortingManager.GetAllClientForACondition(_clientDataModel.clientsList, false);
             return View(clientViewModel);
         }
 
@@ -67,15 +65,15 @@ namespace VartanMVCv2.Areas.Admin.Controllers
                 feedbackViewModel.feedbacks = _dataModel.feedbackList;
                 return View(feedbackViewModel);
             }
-            else 
+            else
             {
-               await DataInit();
-               await FeedbackView(feedbackViewModel);
+                await DataInit();
+                await FeedbackView(feedbackViewModel);
             }
-                return View(feedbackViewModel);
+            return View(feedbackViewModel);
         }
 
-        public IActionResult CompletedProjectView (CompletedProjectViewModel completedProjectViewModel)
+        public IActionResult CompletedProjectView(CompletedProjectViewModel completedProjectViewModel)
         {
             completedProjectViewModel.completedProjects = _dataModel!.completedProjectsList;
             completedProjectViewModel.completedProjectPhotos = _dataModel!.completedProjectPhotosList;
@@ -83,9 +81,9 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddCompletedProject ()
+        public IActionResult AddCompletedProject()
         {
-           return View();
+            return View();
         }
 
         [HttpPost]
@@ -95,46 +93,27 @@ namespace VartanMVCv2.Areas.Admin.Controllers
 
             FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(completedProjectViewModel.files, FileCheckResult.defaultExtensions);
 
-            if (fileCheck.Success==false)
+            if (fileCheck.Success == false)
             {
                 ViewBag.Message = fileCheck.Message;
                 return View(completedProjectViewModel);
             }
 
-            string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "projectPhotos",completedProjectViewModel.completedProjectExample!.Title!);
+            string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "projectPhotos", completedProjectViewModel.completedProjectExample!.Title!);
 
             _dataManager.CompletedProject.Added(CPExample!); // здесь добавляем в базу данных экземпляр CompletedProject
 
             fileCheck = await FileCheckResult.FileUpload(completedProjectViewModel.files, uploadPath, AddExampleAction);
             ViewBag.Message = fileCheck.Message;
-                
 
-            /*if (!Directory.Exists(uploadPath))
-            {
-                Directory.CreateDirectory(uploadPath);
-            }
-
-            foreach (var file in completedProjectViewModel.files)
-            {
-                if (file.Length > 0)
-                {
-                    var filePath = Path.Combine(uploadPath, file.FileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                    CompletedProjectPhoto exampleToDb = new CompletedProjectPhoto { Project = CPExample!, ImagePath = new string(String.Empty).RemoveSubstring(filePath,Path.Combine(Directory.GetCurrentDirectory(),"wwwroot"))};
-                    _dataManager.CompletedProjectPhoto.Added(exampleToDb); //здесь добавляем в базу данных экземпляр CompletedProjectPhoto
-                }          
-            }*/
             return RedirectToAction("CompletedProjectView");
 
-            void AddExampleAction (string filePath) 
+            void AddExampleAction(string filePath)
             {
                 CompletedProjectPhoto exampleToDb = new CompletedProjectPhoto { Project = CPExample!, ImagePath = new string(String.Empty).RemoveSubstring(filePath, Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")) };
                 _dataManager.CompletedProjectPhoto.Added(exampleToDb); //здесь добавляем в базу данных экземпляр CompletedProjectPhoto
             }
-        }    
+        }
 
         public IActionResult Metrick()
         {
@@ -144,7 +123,6 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddWorkServices()
         {
-            
             return View(_workServicesViewModel);
         }
 
@@ -154,13 +132,13 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             var WSExample = workServicesViewModel.workServicesExample;
             _workServicesViewModel.worksCategories = workServicesViewModel.worksCategories;
 
-            if (WSExample == null) 
+            if (WSExample == null)
             {
                 _logger.LogInformation("Объект NULL");
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
             }
-            
-            for (int i = 0; i < workServicesViewModel.worksCategories!.Count(); i++) 
+
+            for (int i = 0; i < workServicesViewModel.worksCategories!.Count(); i++)
             {
                 List<string> workNameStrings = workServicesViewModel.worksNames![i].SplitString(workServicesViewModel.worksNames[i], ",");
                 workServicesViewModel.worksCategories![i].worksNames = workNameStrings.Select(str => new WorksName { Title = str, WorksCategory = workServicesViewModel.worksCategories![i] }).ToList();
@@ -168,36 +146,30 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             WSExample.worksLists = workServicesViewModel.worksCategories!;
 
             FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(workServicesViewModel.files, FileCheckResult.defaultExtensions);
-
-            if (fileCheck.Success==false)
+            if (fileCheck.Success == false)
             {
-                ViewBag.ErrorMessage = fileCheck.Message;
-                _logger.LogInformation("Объект C ОШИБКОЙ");
+                ViewBag.Message = fileCheck.Message;
                 return View(workServicesViewModel);
             }
 
             string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "servicesImage", workServicesViewModel.workServicesExample!.Title!);
 
-            if (!Directory.Exists(uploadPath))
+            fileCheck = await FileCheckResult.FileUpload(workServicesViewModel.files, uploadPath, AddExampleAction);
+            if (fileCheck.Success == false) 
             {
-                Directory.CreateDirectory(uploadPath);
+                ViewBag.Message = fileCheck.Message;
+                return View(workServicesViewModel);
             }
 
-            foreach (var file in workServicesViewModel.files)
-            {
-                if (file.Length > 0)
-                {
-                    var filePath = Path.Combine(uploadPath, file.FileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                    WSExample.TitleImagePath = new string(String.Empty).RemoveSubstring(filePath, Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
-                }
-            }
             await _dataManager.WorkServices.AddedAsync(WSExample);
-            _logger.LogInformation("Объект Создан возрадуйся");
+
             return RedirectToAction("WorkServicesView");
+
+            void AddExampleAction(string filePath)
+            {
+                WSExample!.TitleImagePath = new string(String.Empty).RemoveSubstring(filePath, Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
+            }
+
         }
 
         public IActionResult WorkServicesView(WorkServicesViewModel workServicesViewModel)
@@ -221,7 +193,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DataInit ()
+        public async Task<IActionResult> DataInit()
         {
             _dataModel = await _modelInitializer.GetDataModelAsync(DataModel.identificator, true);
             return RedirectToAction("Index");
@@ -235,7 +207,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         /* **************Selectors Action***************/
         public async Task<IActionResult> EntitySelector(Guid id, string operation, string viewName)
         {
-            if (viewName == "ClientView" || viewName == "CompletedClientView")
+            if (viewName == nameof(ClientView) || viewName == nameof (CompleteClientView))
             {
                 IClientRepository repository = _dataManager.ClientRepository;
 
@@ -263,12 +235,12 @@ namespace VartanMVCv2.Areas.Admin.Controllers
                         _dataManager.ClientRepository.Update(client);
                         DataModelInit();
                         return RedirectToAction(viewName);
-                    }                  
+                    }
                 }
 
                 return RedirectToAction(viewName);
             }
-            if (viewName == "CompletedProjectView") 
+            if (viewName == nameof(CompletedProjectView))
             {
                 IEntityRepository<CompletedProject> repository = _dataManager.CompletedProject;
                 CompletedProject completedProject = repository.GetById(id);
@@ -285,7 +257,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
                 return RedirectToAction(viewName);
 
             }
-            if (viewName == "FeedbackView") 
+            if (viewName == nameof(FeedbackView))
             {
                 IEntityRepository<Feedback> repository = _dataManager.Feedback;
 
@@ -322,12 +294,16 @@ namespace VartanMVCv2.Areas.Admin.Controllers
                 _logger.LogInformation("Entyty Selector, EMPTY  Operation NONE");
                 return RedirectToAction("Index");
             }
+            if (viewName == nameof(WorkServicesView))
+            {
+                
+            }
 
             return RedirectToAction("Index");
         }
         /* **************NonActions***************/
         [NonAction]
-        void SmallBoxValueInit() 
+        void SmallBoxValueInit()
         {
             int clientCount = _clientDataModel.clientsList.Count();
             ViewBag.ClientCount = clientCount;
@@ -342,7 +318,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             ViewBag.YearClientCount = yearClientCount;
         }
         [NonAction]
-        void DataModelInit () 
+        void DataModelInit()
         {
             _clientDataModel.InstanceInit(_dataManager.ClientRepository.GetAll);
             _logger.LogInformation($"Элементы в коллекции + {_clientDataModel.clientsQuery.Count()}");
