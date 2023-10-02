@@ -1,6 +1,8 @@
 ﻿@model WorkServicesViewModel
 
 @{
+    List<WorksList> CategoryList = new List<WorksList>();
+    List<WorksName> WorksNameList = new List<WorksName>();
     var categoriesCount = 0;
 }
 
@@ -44,23 +46,21 @@
 
 
 <div class="form_conteier">
-    <form asp-area="Admin" asp-controller="Owner" asp-action="AddWorkServices" method="post" enctype="multipart/form-data">
+    <form area="Admin" controller="Owner" action="AddWorkServices" method="post" enctype="multipart/form-data">
         <p2>
             <input type="hidden" name="categoriesCount" id="categoriesCount" value="@categoriesCount" />
         </p2>      
         <p2 class="validation_text">
             <label>Заголовок</label>
-            <input class="text_input_form" autocomplete="off" placeholder="Заголовок" asp-for="@Model.workServicesExample!.Title" data-val-required="Это поле не должно быть пустым" />
-            <span asp-validation-for="@Model.workServicesExample!.Title" />
+            <input class="text_input_form" autocomplete="off" placeholder="Заголовок" name="workServicesExample.Title" value="@Model.workServicesExample!.Title" />
         </p2>
         <p2 class="validation_text">
             <label>Описание</label>
-            <input class="text_input_form" autocomplete="off" placeholder="Описание" asp-for="@Model.workServicesExample!.Description" />
-            <span asp-validation-for="@Model.workServicesExample!.Description" />
+            <input class="text_input_form" autocomplete="off" placeholder="Описание" name="workServicesExample.Description" value="@Model.workServicesExample!.Description" />
         </p2>
         <p2 class="validation_text">
             <label>Титульная картинка</label>
-            <input class="file_input_form" type="file" name="files" placeholder="Титульная картинка" accept=".jpg, .jpeg, .png" />
+            <input class="file_input_form" type="file" name="files"  placeholder="Титульная картинка" accept=".jpg, .jpeg, .png" />
         </p2>
         <p2>
             <div id="categories">
@@ -69,12 +69,11 @@
                 <div class="category">
                     <p2 class="validation_text">
                         <label>Название категории</label>
-                        <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" asp-for="@Model.worksCategories![i].Title" data-val-required="Это поле не должно быть пустым" />
-                        <span asp-validation-for="@Model.worksCategories![i]!.Title" />
+                        <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="worksCategories[@i].Title" value="@Model.worksCategories![i].Title" />
                     </p2>
                     <p2 class="validation_text">
                         <label>Перечень работ</label>
-                            <textarea autocomplete="off" placeholder="Перечень работ" asp-for="@Model.worksNames![i]"></textarea>
+                            <textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[@i]" value="@Model.worksNames![i]"></textarea>
                     </p2>
                     <p2>
                             <button type="button" class="remove-category">Удалить категорию</button>
@@ -101,12 +100,11 @@
             var categoryHtml = '<div class="category">' +
                 '<p2 class="validation_text">' +
                 '<label>Название категории</label>' +
-                '<input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" asp-for="@@Model.worksCategories[' + categoriesCount + '].Title" data-val-required="Это поле не должно быть пустым" />' +
-                '<span asp-validation-for="@@Model.worksCategories[' + categoriesCount + '].Title" />' +
+                '<input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="worksCategories[' + categoriesCount + '].Title" value="@@Model.worksCategories[' + categoriesCount + '].Title" data-val-required="Это поле не должно быть пустым" />' +
                 '</p2>' +
                 '<p2 class="validation_text">' +
                 '<label>Перечень работ</label>' +
-                '<textarea autocomplete="off" placeholder="Перечень работ" asp-for="@@Model.worksNames[' + categoriesCount + ']"></textarea>' +
+                '<textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[' + categoriesCount + ']" value="@@Model.worksNames[' + categoriesCount + ']"></textarea>' +
                 '</p2>' +
                 '<p2>' +
                 '<button type="button" class="remove-category">Удалить категорию</button>' +

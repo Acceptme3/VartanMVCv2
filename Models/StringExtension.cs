@@ -13,5 +13,21 @@
             List<string> result = substrings.ToList<string>();
             return result;
         }
+
+        public static string RemoveSubstring(this string str, string inputString, string substring)
+        {
+            // Проверка на пустую строку или пустой фрагмент
+            if (string.IsNullOrEmpty(inputString) || string.IsNullOrEmpty(substring))
+            {
+                return inputString;
+            }
+
+            // Удаление фрагмента из строки
+            string result = inputString.Replace(substring, string.Empty);
+
+            return result;
+        }
     }
+
+
 }

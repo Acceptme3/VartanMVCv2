@@ -25,6 +25,8 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         private ClientListDataModel _clientDataModel = null!;
         private List<WorksList> worksLists = new List<WorksList>();
 
+        private WorkServicesViewModel _workServicesViewModel = new WorkServicesViewModel();
+
         public OwnerController(AplicationDBContext dBContext, DataManager dataManager, ILogger<OwnerController> logger, Modelinitializer modelinitializer, SortingManager sortingManager, CurrentViewContext currentViewContext)
         {
             _dbContext = dBContext;
@@ -91,42 +93,28 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         {
             var CPExample = completedProjectViewModel.completedProjectExample;
 
-            long maxFileSize = 5 * 1024 * 1024; // Максимальный размер файла (5 МБ)
-            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" }; // Разрешенные расширения файлов
-            var files = completedProjectViewModel.files;
+            FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(completedProjectViewModel.files, FileCheckResult.defaultExtensions);
 
-            if (files == null)
+            if (fileCheck.Success==false)
             {
-                _logger.LogInformation("Список с фото пуст");
-                ModelState.AddModelError("files", "Вы не выбрали ни одного файла");
+                ViewBag.Message = fileCheck.Message;
                 return View(completedProjectViewModel);
             }
 
-            foreach(var file in files)
-            {
-                if (file.Length > maxFileSize)
-                {
-                    _logger.LogInformation("Фото слишком большое");
-                    ModelState.AddModelError("files", $"Файл '{file.FileName}' превышает максимальный размер {maxFileSize} байт");
-                    return View(completedProjectViewModel);
-                }
-                if (!allowedExtensions.Contains(Path.GetExtension(file.FileName).ToLower()))
-                {
-                    ModelState.AddModelError("files", $"Недопустимый тип файла '{file.FileName}'");
-                    return View(completedProjectViewModel);
-                }
-            }
             string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "projectPhotos",completedProjectViewModel.completedProjectExample!.Title!);
-            _logger.LogInformation($"{uploadPath}");
 
             _dataManager.CompletedProject.Added(CPExample!); // здесь добавляем в базу данных экземпляр CompletedProject
 
-            if (!Directory.Exists(uploadPath))
+            fileCheck = await FileCheckResult.FileUpload(completedProjectViewModel.files, uploadPath, AddExampleAction);
+            ViewBag.Message = fileCheck.Message;
+                
+
+            /*if (!Directory.Exists(uploadPath))
             {
                 Directory.CreateDirectory(uploadPath);
             }
 
-            foreach (var file in files)
+            foreach (var file in completedProjectViewModel.files)
             {
                 if (file.Length > 0)
                 {
@@ -135,26 +123,18 @@ namespace VartanMVCv2.Areas.Admin.Controllers
                     {
                         await file.CopyToAsync(stream);
                     }
-                    CompletedProjectPhoto exampleToDb = new CompletedProjectPhoto { Project = CPExample!, ImagePath = RemoveSubstring(filePath,Path.Combine(Directory.GetCurrentDirectory(),"wwwroot"))};
-                    _logger.LogInformation($"Поля экземпляра {exampleToDb.ID} ,{exampleToDb.ImagePath},");
+                    CompletedProjectPhoto exampleToDb = new CompletedProjectPhoto { Project = CPExample!, ImagePath = new string(String.Empty).RemoveSubstring(filePath,Path.Combine(Directory.GetCurrentDirectory(),"wwwroot"))};
                     _dataManager.CompletedProjectPhoto.Added(exampleToDb); //здесь добавляем в базу данных экземпляр CompletedProjectPhoto
                 }          
-            }
+            }*/
             return RedirectToAction("CompletedProjectView");
-        }
 
-        public string UploadFiles(IFormFile[] files, string finalCatalogName) 
-        {
-            
-        }
-
-
-        public bool CheckUploadFiles(IFormFile[] files, long maxFileSize, string[] extensions)
-        {
-
-            bool result;
-            return result;
-        }
+            void AddExampleAction (string filePath) 
+            {
+                CompletedProjectPhoto exampleToDb = new CompletedProjectPhoto { Project = CPExample!, ImagePath = new string(String.Empty).RemoveSubstring(filePath, Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")) };
+                _dataManager.CompletedProjectPhoto.Added(exampleToDb); //здесь добавляем в базу данных экземпляр CompletedProjectPhoto
+            }
+        }    
 
         public IActionResult Metrick()
         {
@@ -165,27 +145,59 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         public IActionResult AddWorkServices()
         {
             
-            return View();
+            return View(_workServicesViewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddWorkServices(WorkServicesViewModel workServicesViewModel)
         {
             var WSExample = workServicesViewModel.workServicesExample;
-            List<string> workNameStrings = new List<string>();
+            _workServicesViewModel.worksCategories = workServicesViewModel.worksCategories;
+
             if (WSExample == null) 
             {
+                _logger.LogInformation("Объект NULL");
                 return RedirectToAction("Index"); 
             }
             
             for (int i = 0; i < workServicesViewModel.worksCategories!.Count(); i++) 
             {
-                workNameStrings = workServicesViewModel.worksNames![i].SplitString(workServicesViewModel.worksNames[i], ",");
+                List<string> workNameStrings = workServicesViewModel.worksNames![i].SplitString(workServicesViewModel.worksNames[i], ",");
                 workServicesViewModel.worksCategories![i].worksNames = workNameStrings.Select(str => new WorksName { Title = str, WorksCategory = workServicesViewModel.worksCategories![i] }).ToList();
             }
             WSExample.worksLists = workServicesViewModel.worksCategories!;
-            
-            return View();
+
+            FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(workServicesViewModel.files, FileCheckResult.defaultExtensions);
+
+            if (fileCheck.Success==false)
+            {
+                ViewBag.ErrorMessage = fileCheck.Message;
+                _logger.LogInformation("Объект C ОШИБКОЙ");
+                return View(workServicesViewModel);
+            }
+
+            string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "servicesImage", workServicesViewModel.workServicesExample!.Title!);
+
+            if (!Directory.Exists(uploadPath))
+            {
+                Directory.CreateDirectory(uploadPath);
+            }
+
+            foreach (var file in workServicesViewModel.files)
+            {
+                if (file.Length > 0)
+                {
+                    var filePath = Path.Combine(uploadPath, file.FileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    WSExample.TitleImagePath = new string(String.Empty).RemoveSubstring(filePath, Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
+                }
+            }
+            await _dataManager.WorkServices.AddedAsync(WSExample);
+            _logger.LogInformation("Объект Создан возрадуйся");
+            return RedirectToAction("WorkServicesView");
         }
 
         public IActionResult WorkServicesView(WorkServicesViewModel workServicesViewModel)
@@ -263,8 +275,10 @@ namespace VartanMVCv2.Areas.Admin.Controllers
 
                 if (operation == "del")
                 {
+                    string directory = "projectPhotos";// не закончил
                     repository.DeleteEntity(id);
-                    FileRemove(completedProject.Title!);
+                    FileCheckResult fileCheck = FileCheckResult.FileRemove(directory, completedProject.Title!);
+                    ViewBag.Message = fileCheck.Message;
                     await DataInit();
                     return RedirectToAction(viewName);
                 }
@@ -333,49 +347,6 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             _clientDataModel.InstanceInit(_dataManager.ClientRepository.GetAll);
             _logger.LogInformation($"Элементы в коллекции + {_clientDataModel.clientsQuery.Count()}");
         }// функция ручной иницализации экземпляра с данными
-        [NonAction]
-        static string RemoveSubstring(string inputString, string substring)
-        {
-            // Проверка на пустую строку или пустой фрагмент
-            if (string.IsNullOrEmpty(inputString) || string.IsNullOrEmpty(substring))
-            {
-                return inputString;
-            }
-
-            // Удаление фрагмента из строки
-            string result = inputString.Replace(substring, string.Empty);
-
-            return result;
-        }
-        [NonAction]
-        string FileRemove(string catalogName) 
-        {
-            string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "projectPhotos");
-            string path = Path.Combine(dirPath, catalogName);
-            string resultMessage = "";
-
-            try
-            {
-                // Проверяем, существует ли указанный каталог
-                if (Directory.Exists(path))
-                {
-                    // Удаляем каталог и все его содержимое
-                    Directory.Delete(path, true);
-                    resultMessage = "Каталог успешно удален.";
-                    return resultMessage;
-                }
-                else
-                {
-                    resultMessage = "Каталог не существует.";
-                    return resultMessage;
-                }
-            }
-            catch (Exception ex)
-            {
-                resultMessage = $"Ошибка при удалении каталога: {ex.Message}";
-                return resultMessage;
-            }
-        }
 
     }
 
