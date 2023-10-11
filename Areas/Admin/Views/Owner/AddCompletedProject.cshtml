@@ -3,10 +3,9 @@
 
 <style>
     .form_conteier {
-        margin: 5em;
+        padding: 1em;
         background-color: #30a2ff85;
-        border-radius: 20px;
-        border-style: dotted;
+        border-radius: 5px;
     }
 
     form{
@@ -40,7 +39,7 @@
 
 </style>
 <div class="form_conteier">
-    <form asp-area="Admin" asp-controller="Owner" asp-action="AddCompletedProject" method="post" enctype="multipart/form-data">
+    <form id ="form_upload_id" asp-area="Admin" asp-controller="Owner" asp-action="AddCompletedProject" method="post" enctype="multipart/form-data" onsubmit="uploadPhotos('/Owner/AddCompletedProject')">
         <p2 class="validation_text">
             <label>Заголовок</label>
             <input class="text_input_form" placeholder="Заголовок" asp-for="@Model.completedProjectExample!.Title" data-val-required="Это поле не должно быть пустым" />
@@ -53,8 +52,9 @@
         </p2>
         <p2 class="validation_text">
             <label>Фото</label>
-            <input class="file_input_form" type="file" name="files" placeholder="Фото проекта" asp-for="@Model.completedProjectPhotos" multiple accept=".jpg, .jpeg, .png" />
+            <input class="file_input_form" type="file" name="files" id="fileInput" placeholder="Фото проекта" asp-for="@Model.completedProjectPhotos" multiple accept=".jpg, .jpeg, .png" />
             <span asp-validation-for="@Model.completedProjectPhotos" />
+            <progress id="progressBar" value="0" max="100"></progress>
         </p2>
         <p2 class="validation_text">
 

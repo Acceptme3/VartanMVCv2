@@ -75,11 +75,13 @@ namespace VartanMVCv2
                     options.Cookie.IsEssential = true;
                 });
                 builder.Services.AddHttpContextAccessor();
+                builder.Services.AddSignalR();
                 builder.Services.AddScoped<CurrentViewContext>();
                 builder.Services.AddScoped<Modelinitializer>();
                 builder.Services.AddTransient<IEntityRepository<WorkServices>, EFEntitiesRepository<WorkServices>>();
                 builder.Services.AddTransient<IEntityRepository<WorksList>, EFEntitiesRepository<WorksList>>();
                 builder.Services.AddTransient<IEntityRepository<WorksName>, EFEntitiesRepository<WorksName>>();
+                builder.Services.AddTransient<IEntityRepository<Works>, EFEntitiesRepository<Works>>();
                 builder.Services.AddTransient<IEntityRepository<CompletedProject>, EFEntitiesRepository<CompletedProject>>();
                 builder.Services.AddTransient<IEntityRepository<CompletedProjectPhoto>, EFEntitiesRepository<CompletedProjectPhoto>>();
                 builder.Services.AddTransient<IEntityRepository<Feedback>, EFEntitiesRepository<Feedback>>();
@@ -112,6 +114,9 @@ namespace VartanMVCv2
 
                 app.UseAuthorization();
 
+                //Маршруты для SignalR 
+                app.MapHub<ProgressHub>("/progressHub");
+
                 //Маршруты защищенной области
                 app.MapAreaControllerRoute(
                    name: "admin",
@@ -138,7 +143,12 @@ namespace VartanMVCv2
                    areaName: "Admin",
                    pattern: "admin/{controller}/{action}/{id?}",
                    defaults: new { controller = "Owner", action = "Selector" });
-               
+                app.MapAreaControllerRoute(
+                   name: "defaultErrorPage",
+                   areaName: "Admin",
+                   pattern: "admin/{controller}/{action}/{id?}",
+                   defaults: new { controller = "AdminError", action = "DefaultErrorPage" });
+
                 //Маршруты
                 app.MapControllerRoute(
                     name: "default",

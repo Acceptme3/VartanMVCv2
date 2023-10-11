@@ -1,13 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Linq.Expressions;
 using VartanMVCv2.Domain.Entities;
 using VartanMVCv2.Domain.Repositories.Abstract;
 
 namespace VartanMVCv2.Domain.Repositories.EntityFramework
 {
-    public class EFEntitiesRepository <T> : IEntityRepository<T> where T  :EntitiesBase
+    public class EFEntitiesRepository <T> : IEntityRepository<T> where T:EntitiesBase
     {
         private readonly AplicationDBContext _dbContext;
         private readonly ILogger<EFEntitiesRepository<T>> _logger;
+
+        public EFEntitiesRepository()
+        {
+            
+        }
 
         public EFEntitiesRepository(AplicationDBContext dBContext, ILogger<EFEntitiesRepository<T>> logger)
         {
@@ -61,6 +68,15 @@ namespace VartanMVCv2.Domain.Repositories.EntityFramework
             await _dbContext.Set<T>().AddAsync(entity);
             _logger.LogInformation($"Объект {entity.Title} успешно добавлен. Завершил выполнение асинхронный метод Home/???/EFRepository/AddedAsync");
             await _dbContext.SaveChangesAsync();          
+        }
+
+        public IEnumerable<EntitiesBase> GetAllWorksAsync()
+        {
+            IEnumerable<WorkServices> workServices = _dbContext.Set<WorkServices>().ToList();
+            IEnumerable<WorksList> workLists = _dbContext.Set<WorksList>().ToList();
+            IEnumerable<WorksName> workNames = _dbContext.Set<WorksName>().ToList();
+            IEnumerable<EntitiesBase> entities = workServices.Cast<EntitiesBase>().Concat(workLists.Cast<EntitiesBase>()).Concat(workNames.Cast<EntitiesBase>());          
+            return entities;
         }
     }
 }

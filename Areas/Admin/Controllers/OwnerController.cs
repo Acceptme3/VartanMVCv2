@@ -5,6 +5,9 @@ using VartanMVCv2.Models;
 using VartanMVCv2.ViewModels;
 using VartanMVCv2.Services;
 using VartanMVCv2.Domain.Repositories.Abstract;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.SignalR;
+using VartanMVCv2.Domain.Repositories.EntityFramework;
 
 namespace VartanMVCv2.Areas.Admin.Controllers
 {
@@ -17,6 +20,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         private readonly Modelinitializer _modelInitializer;
         private readonly SortingManager _sortingManager;
         private readonly CurrentViewContext _currentViewContext;
+        private readonly IHubContext<ProgressHub> _hubContext;
 
         private DataModel? _dataModel = DataModel.GetInstance();
 
@@ -25,7 +29,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
 
         private WorkServicesViewModel _workServicesViewModel = new WorkServicesViewModel();
 
-        public OwnerController(AplicationDBContext dBContext, DataManager dataManager, ILogger<OwnerController> logger, Modelinitializer modelinitializer, SortingManager sortingManager, CurrentViewContext currentViewContext)
+        public OwnerController(AplicationDBContext dBContext, DataManager dataManager, ILogger<OwnerController> logger, Modelinitializer modelinitializer, SortingManager sortingManager, CurrentViewContext currentViewContext, IHubContext<ProgressHub> hubContext)
         {
             _dbContext = dBContext;
             _dataManager = dataManager;
@@ -33,6 +37,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             _modelInitializer = modelinitializer;
             _sortingManager = sortingManager;
             _currentViewContext = currentViewContext;
+            _hubContext = hubContext;
 
             _clientDataModel = ClientListDataModel.GetInstance();
         }
@@ -91,25 +96,44 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         {
             var CPExample = completedProjectViewModel.completedProjectExample;
 
-            FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(completedProjectViewModel.files, FileCheckResult.defaultExtensions);
-
-            if (fileCheck.Success == false)
+            if (ModelState.IsValid)
             {
+                FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(completedProjectViewModel.files, FileCheckResult.defaultExtensions);
+
+                if (fileCheck.Success == false)
+                {
+                    ViewBag.Message = fileCheck.Message;
+                    return View(completedProjectViewModel);
+                }
+
+                string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "projectPhotos", completedProjectViewModel.completedProjectExample!.Title!);
+
+                _dataManager.CompletedProject.Added(CPExample!); // здесь добавляем в базу данных экземпляр CompletedProject
+
+                fileCheck = await FileCheckResult.FileUpload(completedProjectViewModel.files, uploadPath, AddExampleAction);
                 ViewBag.Message = fileCheck.Message;
-                return View(completedProjectViewModel);
+
+                return RedirectToAction("CompletedProjectView");
             }
 
-            string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "projectPhotos", completedProjectViewModel.completedProjectExample!.Title!);
-
-            _dataManager.CompletedProject.Added(CPExample!); // здесь добавляем в базу данных экземпляр CompletedProject
-
-            fileCheck = await FileCheckResult.FileUpload(completedProjectViewModel.files, uploadPath, AddExampleAction);
-            ViewBag.Message = fileCheck.Message;
-
-            return RedirectToAction("CompletedProjectView");
-
-            void AddExampleAction(string filePath)
+            string? errorMessages = "";
+            foreach (var item in ModelState)
             {
+                if (item.Value.ValidationState == ModelValidationState.Invalid)
+                {
+                    errorMessages = $"{errorMessages} \n Ошибки для свойства {item.Key}:\n";
+                    foreach (var error in item.Value.Errors)
+                    {
+                        errorMessages = $"{errorMessages} {error.ErrorMessage} \n";
+                    }
+                }
+            }
+            return RedirectToAction("DefaultErrorPage", "AdminError", new ErrorViewModel { Errors = errorMessages });
+
+
+           async Task AddExampleAction(string filePath, int progress)
+            {
+                await _hubContext.Clients.All.SendAsync("UpdateProgress", progress);
                 CompletedProjectPhoto exampleToDb = new CompletedProjectPhoto { Project = CPExample!, ImagePath = new string(String.Empty).RemoveSubstring(filePath, Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")) };
                 _dataManager.CompletedProjectPhoto.Added(exampleToDb); //здесь добавляем в базу данных экземпляр CompletedProjectPhoto
             }
@@ -117,7 +141,8 @@ namespace VartanMVCv2.Areas.Admin.Controllers
 
         public IActionResult Metrick()
         {
-            return View();
+            string metrickUrl = "https://metrika.yandex.ru/";
+            return Redirect(metrickUrl);
         }
 
         [HttpGet]
@@ -129,6 +154,24 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddWorkServices(WorkServicesViewModel workServicesViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                string? errorMessages = "";
+
+                foreach (var item in ModelState)
+                {
+                    if (item.Value.ValidationState == ModelValidationState.Invalid)
+                    {
+                        errorMessages = $"{errorMessages}\n Ошибки для свойства {item.Key}:\n";
+                        foreach (var error in item.Value.Errors)
+                        {
+                            errorMessages = $"{errorMessages}{error.ErrorMessage}\n";
+                        }
+                    }
+                }
+                return RedirectToAction("DefaultErrorPage", "AdminError", new ErrorViewModel { Errors = errorMessages });
+            }
+
             var WSExample = workServicesViewModel.workServicesExample;
             _workServicesViewModel.worksCategories = workServicesViewModel.worksCategories;
 
@@ -155,18 +198,19 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "servicesImage", workServicesViewModel.workServicesExample!.Title!);
 
             fileCheck = await FileCheckResult.FileUpload(workServicesViewModel.files, uploadPath, AddExampleAction);
-            if (fileCheck.Success == false) 
+            if (fileCheck.Success == false)
             {
                 ViewBag.Message = fileCheck.Message;
                 return View(workServicesViewModel);
             }
 
-            await _dataManager.WorkServices.AddedAsync(WSExample);
+            await _dataManager.Works.AddedAsync(WSExample);
 
             return RedirectToAction("WorkServicesView");
 
-            void AddExampleAction(string filePath)
+            async Task AddExampleAction(string filePath,int progress)
             {
+                await _hubContext.Clients.All.SendAsync("UpdateProgress", progress);
                 WSExample!.TitleImagePath = new string(String.Empty).RemoveSubstring(filePath, Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
             }
 
@@ -193,10 +237,10 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DataInit()
+        public async Task<IActionResult> DataInit(string returnAction = "Index")
         {
             _dataModel = await _modelInitializer.GetDataModelAsync(DataModel.identificator, true);
-            return RedirectToAction("Index");
+            return RedirectToAction(returnAction);
         }
 
         public IActionResult Logout()
@@ -207,7 +251,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         /* **************Selectors Action***************/
         public async Task<IActionResult> EntitySelector(Guid id, string operation, string viewName)
         {
-            if (viewName == nameof(ClientView) || viewName == nameof (CompleteClientView))
+            if (viewName == nameof(ClientView) || viewName == nameof(CompleteClientView))
             {
                 IClientRepository repository = _dataManager.ClientRepository;
 
@@ -247,7 +291,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
 
                 if (operation == "del")
                 {
-                    string directory = "projectPhotos";// не закончил
+                    string directory = "projectPhotos";
                     repository.DeleteEntity(id);
                     FileCheckResult fileCheck = FileCheckResult.FileRemove(directory, completedProject.Title!);
                     ViewBag.Message = fileCheck.Message;
@@ -296,9 +340,34 @@ namespace VartanMVCv2.Areas.Admin.Controllers
             }
             if (viewName == nameof(WorkServicesView))
             {
-                
-            }
+                var workServices = _dataManager.WorkServices.GetById(id);
+                if (workServices == null) 
+                {
+                    string error = "Объект отсутствует в базе данных.";
+                    RedirectToAction("DefaultErrorPage", "AdminError", new ErrorViewModel { Errors=error});
+                }
+                if (operation == "del")
+                {
+                    List<EntitiesBase> allWorks =_dataManager.WorkServices.GetAllWorksAsync().ToList();// получили все объекты works
+                    List<WorksList> worksListsFromDel = allWorks.Where(w => w is WorksList).Cast<WorksList>().Where(w=>w.Services==workServices).ToList();//получили все категории для удаления 
+                    List<WorksName> worksNamesFromDel = allWorks.Where(w => w is WorksName).Cast<WorksName>().Where(wn=>worksListsFromDel.Any(wl=>wl.Equals(wn.WorksCategory))).ToList();// получили все работы для удаления
+                    
+                    foreach (var worksN in worksNamesFromDel)
+                    {                
+                      _dataManager.WorksName.DeleteEntity(worksN.ID); 
+                    }
 
+                    foreach (var worksCategory in worksListsFromDel)
+                    {
+                        _dataManager.WorksList.DeleteEntity(worksCategory.ID);
+                    }
+                    _dataManager.WorkServices.DeleteEntity(workServices!.ID);
+                    string dir = "servicesImage";
+                    FileCheckResult fileCheck = FileCheckResult.FileRemove(dir, workServices.Title!);
+                    ViewBag.Message = fileCheck.Message;
+                    await DataInit();
+                }
+            }
             return RedirectToAction("Index");
         }
         /* **************NonActions***************/

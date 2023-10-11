@@ -5,9 +5,9 @@ namespace VartanMVCv2.Domain.Entities
     public class Feedback : EntitiesBase
     {       
         public override string? TitleImagePath { get => base.TitleImagePath; set => base.TitleImagePath = value; }
-        [Required]
+        [Required(ErrorMessage = "Это поле не должно быть пустым")]
         public string FeedbackClientName { get; set; } = "";
-        [Required]
+        [Required(ErrorMessage = "Это поле не должно быть пустым")]
         public string FeedbackText { get; set; } = "";      
         [EmailAddress(ErrorMessage = "Введите корректный email")]
         public string? FeedbackEmail { get; set; } = "";

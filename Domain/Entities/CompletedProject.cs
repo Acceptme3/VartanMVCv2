@@ -2,12 +2,11 @@
 
 namespace VartanMVCv2.Domain.Entities
 {
-    public class CompletedProject:EntitiesBase
+    public class CompletedProject : EntitiesBase
     {
-        [Required]
+        [Required(ErrorMessage = "Это поле не должно быть пустым")]
         [Display(Name = "Название (Заголовок)")]
-        public override string? Title { get => base.Title; set => base.Title = value; }
-        [Required]
+        public override string Title { get => base.Title!; set => base.Title = value; }
         [Display(Name = "Титульная картинка")]
         public override string? TitleImagePath { get => base.TitleImagePath; set => base.TitleImagePath = value; }
 

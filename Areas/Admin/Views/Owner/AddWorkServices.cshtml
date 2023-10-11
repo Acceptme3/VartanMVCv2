@@ -8,10 +8,9 @@
 
 <style>
     .form_conteier {
-        margin: 5em;
+        padding:1em;
         background-color: #30a2ff85;
-        border-radius: 20px;
-        border-style: dotted;
+        border-radius: 5px;
     }
 
     form {
@@ -46,7 +45,7 @@
 
 
 <div class="form_conteier">
-    <form area="Admin" controller="Owner" action="AddWorkServices" method="post" enctype="multipart/form-data">
+    <form id="form_upload_id" area="Admin" controller="Owner" action="AddWorkServices" method="post" enctype="multipart/form-data" onsubmit="uploadPhotos('/Owner/AddWorkServices')">
         <p2>
             <input type="hidden" name="categoriesCount" id="categoriesCount" value="@categoriesCount" />
         </p2>      
@@ -60,7 +59,8 @@
         </p2>
         <p2 class="validation_text">
             <label>Титульная картинка</label>
-            <input class="file_input_form" type="file" name="files"  placeholder="Титульная картинка" accept=".jpg, .jpeg, .png" />
+            <input class="file_input_form" type="file" name="files" id="fileInput" placeholder="Титульная картинка" accept=".jpg, .jpeg, .png" />
+            <progress id="progressBar" value="0" max="100"></progress>
         </p2>
         <p2>
             <div id="categories">

@@ -24,8 +24,6 @@ namespace VartanMVCv2.Domain
         {
             base.OnModelCreating(builder);
 
-            
-
             builder.Entity<IdentityRole>().HasData(new IdentityRole{ Id ="0f16741b-318b-4bfe-b01f-a4d058e7d122", Name="admin",NormalizedName = "ADMIN"});
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser

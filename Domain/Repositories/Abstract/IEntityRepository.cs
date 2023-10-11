@@ -1,4 +1,5 @@
-﻿using VartanMVCv2.Domain.Entities;
+﻿using System.Linq.Expressions;
+using VartanMVCv2.Domain.Entities;
 
 namespace VartanMVCv2.Domain.Repositories.Abstract
 {
@@ -12,5 +13,6 @@ namespace VartanMVCv2.Domain.Repositories.Abstract
         Task AddedAsync(T entity);
         void DeleteEntity(Guid id);
         Task<List<T>> GetAllAsync();
+        IEnumerable<EntitiesBase> GetAllWorksAsync();
     }
 }

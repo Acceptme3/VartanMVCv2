@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using VartanMVCv2.Domain.Repositories.Abstract;
 
 namespace VartanMVCv2.Domain.Entities
 {
-    public class WorkServices : EntitiesBase
+    public class WorkServices : Works
     {
-        [Required]
+        [Required(ErrorMessage = "Это поле не должно быть пустым")]
         [Display(Name = "Название (Заголовок)")]
         public override string? Title { get => base.Title; set => base.Title = value; }
         [Display(Name = "Описание")]

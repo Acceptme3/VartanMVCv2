@@ -4,10 +4,8 @@ namespace VartanMVCv2.Domain.Entities
 {
     public class CompletedProjectPhoto:EntitiesBase
     {
-        [Required]
-        public CompletedProject Project { get; set; } = null!;
-        [Required]
-        public string ImagePath { get; set; } = null!;
+        public CompletedProject? Project { get; set; }
+        public string? ImagePath { get; set; }
 
         public CompletedProjectPhoto()
         {
