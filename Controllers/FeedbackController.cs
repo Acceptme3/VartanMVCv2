@@ -24,7 +24,7 @@ namespace VartanMVCv2.Controllers
             // _indexViewModel.FeedbackExample = feedback.FeedbackExample;
             _logger.LogInformation("Начинает выполнение Home/AddFeedbackAsync, [тип запроса: POST]");
 
-            _logger.LogInformation($"Все поля модели: Имя {feedback.FeedbackExample.FeedbackClientName} + \n" +
+            _logger.LogInformation($"Все поля модели: Имя {feedback.FeedbackExample!.FeedbackClientName} + \n" +
                 $"Телефон {feedback.FeedbackExample.FeedbackPhone}+\n" +
                 $"Текст отзыва {feedback.FeedbackExample.FeedbackText}");
 
@@ -39,7 +39,7 @@ namespace VartanMVCv2.Controllers
             if (ModelState.IsValid)
             {
                 _logger.LogInformation("Екземпляр отзыва клиента успешно прошел валидацию на стороне сервера [VALIDATE]");
-                await _dataManager.Feedback.AddedAsync(feedback.FeedbackExample);
+                await _dataManager.FeedbackRepository.AddedAsync(feedback.FeedbackExample);
                 return RedirectToAction("Confirm", "Home");
             }
             _logger.LogInformation("Екземпляр клиента НЕ прошел валидацию на стороне сервера [NOT VALID]");

@@ -5,26 +5,24 @@ namespace VartanMVCv2.Domain
 {
     public class DataManager
     {
-        public IEntityRepository<WorkServices> WorkServices { get; set; }
-        public IEntityRepository<WorksList> WorksList { get; set; }
-        public IEntityRepository<WorksName> WorksName { get; set; }
-        public IEntityRepository<Works> Works { get; set; }
-        public IEntityRepository<Feedback> Feedback  { get; set; }
-        public IEntityRepository<CompletedProject> CompletedProject { get; set; }
+        public IEntityRepository<WorkServices> WorkServicesRepository { get; set; }
+        public IEntityRepository<WorksCategory> WorksCategoryRepository{ get; set; }
+        public IEntityRepository<Work> WorksRepository { get; set; }
+        public IEntityRepository<Feedback> FeedbackRepository  { get; set; }
+        public IEntityRepository<CompletedProject> CompletedProjectRepository { get; set; }
         public IEntityRepository<CompletedProjectPhoto> CompletedProjectPhoto { get; set; }
 
         public IClientRepository ClientRepository { get; set; }
 
-        public DataManager(IEntityRepository<WorkServices> workServicesRepository, IEntityRepository<WorksList> worksListRepository, IEntityRepository<WorksName> worksName, IEntityRepository<Works> works, IEntityRepository<Feedback> feedback, IEntityRepository<CompletedProject> completedProject, IEntityRepository<CompletedProjectPhoto> completedProjectPhoto, IClientRepository clientRepository)
+        public DataManager(IEntityRepository<WorkServices> workServicesRepository, IEntityRepository<WorksCategory> worksCategoryRepository, IEntityRepository<Work> works, IEntityRepository<Feedback> feedback, IEntityRepository<CompletedProject> completedProject, IEntityRepository<CompletedProjectPhoto> completedProjectPhoto, IClientRepository clientRepository)
         {
-            WorkServices = workServicesRepository;
-            WorksList = worksListRepository;
-            WorksName = worksName;
-            Feedback = feedback;
-            CompletedProject = completedProject;
+            WorkServicesRepository = workServicesRepository;
+            WorksCategoryRepository = worksCategoryRepository;
+            WorksRepository = works;
+            FeedbackRepository = feedback;
+            CompletedProjectRepository = completedProject;
             CompletedProjectPhoto = completedProjectPhoto;
             ClientRepository = clientRepository;
-            Works = works;
         }
     }
 }

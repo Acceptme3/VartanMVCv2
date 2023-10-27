@@ -1,4 +1,5 @@
-﻿@model VartanMVCv2.ViewModels.IndexViewModel
+﻿@using Recaptcha.Web.Mvc
+@model VartanMVCv2.ViewModels.IndexViewModel
 
 <div class="pop_up" id="feedback_pop_up">
     <div class="pop_up_container">
@@ -24,7 +25,10 @@
                         <p2 class="validation_text">
                             <textarea class="text_input_form" type="text" placeholder="Текст отзыва" asp-for="@Model.FeedbackExample!.FeedbackText" ></textarea>
                             <span asp-validation-for="@Model.FeedbackExample!.FeedbackText" />
-                        </p2>                     
+                        </p2>
+                        <div>
+                            @Html.RecaptchaWidget()
+                        </div>
                         <button name="acceptFeedback" id="feedback_accept" type="submit" value="Send">Добавить отзыв</button>
                         <label class="lab_chk_time" id="feedback_label"> Ваши контактные данные недоступны другим пользователям. Поля "Email" и "Телефон" необязательны. </label>
                     </form>

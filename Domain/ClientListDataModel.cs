@@ -21,7 +21,6 @@ namespace VartanMVCv2.Domain
 
         public static ClientListDataModel GetInstance()
         {
-            Log.Information($"Экземпляр под номером - {_instance.Value.Id}");
             return _instance.Value; 
         }
 
@@ -30,7 +29,6 @@ namespace VartanMVCv2.Domain
             clientsQuery = func();
             clientsList = clientsQuery.ToList();
             InitFlag = true;
-            Log.Information("Переменная _ClientList инициализированна");
         }
 
     }

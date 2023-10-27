@@ -8,22 +8,19 @@
         <h1 class="our_text">Перечень услуг</h1>
         <p class="ipsum_text">@Model.dataModelExample!.workServicesList.ToList().Find(x=>x.ID==ViewBag.SelectedServicesID)!.Title</p>
         <div class="furnitures_section2 layout_padding">
-            <div class="row">
+            <div class="w_serv_conteiner">
                 @{
-                    foreach (WorksList worksList in Model.sortWorksList)
+                    foreach (WorksCategory category in Model.WorkServicesExample!.WorksCategories)
                     {
-                        <div class="col-md-6">
+                        <div class="w_serv_item">
                             <div class="container_main">
-                                <h2 class="temper_text">@worksList.Title</h2>
+                                <h2 class="temper_text">@category.Title</h2>
                                 <ul>
-                                    @foreach (WorksName name in Model.dataModelExample.worksNameList)
+                                    @foreach (Work name in category.Works)
                                     {
-                                        if (name.WorksCategory.ID == worksList.ID)
-                                        {
                                             <li>
                                                 <h2>@name.Title</h2>
-                                            </li>
-                                        }
+                                            </li>                                       
                                     }
                                 </ul>
                             </div>

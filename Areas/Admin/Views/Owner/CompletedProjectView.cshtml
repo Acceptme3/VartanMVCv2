@@ -8,7 +8,6 @@
 
 @{
     var CPList = Model.completedProjects!;
-    var CPPhotos = Model.completedProjectPhotos!;
     _currentViewContext.CurrentViewName = "CompletedProjectView";
 }
 
@@ -46,7 +45,7 @@
                     <tr>
                         <td><a>@CP.Title</a></td>
                         <td style="max-width:200px; overflow-wrap:break-word;"><a>@CP.Description</a></td>
-                        <td><a>@CPPhotos.Where(CPP => CPP.Project.ID==CP.ID).Count()</a></td>
+                        <td><a>@CP.Photos.Count()</a></td>
                         <td>
                             <div class="btn-toolbar">
                                 <form method="post" id="deleteForm" action="">

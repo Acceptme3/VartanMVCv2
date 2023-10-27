@@ -10,21 +10,25 @@ namespace VartanMVCv2.ViewModels
 
         public Client? ClientExample { get; set; } = null;
         public Feedback? FeedbackExample { get; set; } = null;
+        public WorkServices? WorkServicesExample { get; set; } = null;
+        public CompletedProject? CompletedProjectExample { get; set; } = null;
 
-        public IEnumerable<WorksList> sortWorksList { get; set; } = new List<WorksList>();
-        public IEnumerable<Feedback> sortFeedbackList { get; set; } = new List<Feedback>();
-  
+        public IEnumerable<WorksCategory> sortWorksList { get; set; } = new List<WorksCategory>();
+        public IEnumerable<Feedback> sortFeedbackList { get; set; } = new List<Feedback>(); 
 
         private readonly Modelinitializer? _initializer;
 
         public  DataModel? dataModelExample;
 
-        public IndexViewModel() {}
+        public IndexViewModel() 
+        {
+           
+        }
 
         public  IndexViewModel(  Modelinitializer modelinitializer) 
         {        
             _initializer = modelinitializer;
-            dataModelExample = _initializer.dataModel;
+            dataModelExample = _initializer.GetModelObject();
         }
 
         public void SetInstance(DataModel model)

@@ -12,6 +12,7 @@ namespace VartanMVCv2.Domain.Entities
         [EmailAddress(ErrorMessage = "Введите корректный email")]
         public string? FeedbackEmail { get; set; } = "";
         [DataType(DataType.PhoneNumber, ErrorMessage = "Введите корректный номер телефона")]
+        [StringLength(18, MinimumLength = 16, ErrorMessage = "Введите корректный номер телефона")]
         public string? FeedbackPhone { get; set; } = "";
 
         public bool? FeedbackEnabled { get; set; }

@@ -9,7 +9,7 @@ namespace VartanMVCv2.Domain.Entities
         public Guid ID { get; set; }
 
         [Display(Name = "Название (Заголовок)")]
-        public virtual string? Title { get; set; }
+        public virtual string Title { get; set; } = "default";
 
         [Display(Name = "Описание")]
         public virtual string? Description { get; set; }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 using VartanMVCv2.Domain;
 using VartanMVCv2.Domain.Repositories.Abstract;
 using VartanMVCv2.Domain.Repositories.EntityFramework;
@@ -8,6 +9,9 @@ using VartanMVCv2.ViewModels;
 using VartanMVCv2.Domain.Entities;
 using Serilog;
 using VartanMVCv2.Models;
+using Recaptcha.Web.Configuration;
+using System.Configuration;
+using VartanMVCv2.Middleware;
 
 namespace VartanMVCv2
 {
@@ -17,17 +21,14 @@ namespace VartanMVCv2
         {
             /*//настраивваем логгер */
             var configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            
-            .Build();
+            .AddJsonFile("appsettings.json").Build();
 
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .CreateBootstrapLogger();
-
             try
             {
-                Log.Debug("Web-приложение Vartan запущено.");
+                Log.Debug("Web-приложение запущено.");
                 var builder = WebApplication.CreateBuilder(args);
                 builder.Host.UseSerilog();
                 // add services
@@ -62,9 +63,12 @@ namespace VartanMVCv2
                 //сопостовляем конфигурационный json с классом
                 builder.Configuration.AddJsonFile("appsettings.json");
                 Config config = new Config();
+                RecaptchaConfigurationManager.SetConfiguration(configuration);
+                //CaptchaConfiguration captchaConfiguration = new CaptchaConfiguration();
                 builder.Configuration.Bind("Project", config);
+                // builder.Configuration.Bind("Captcha", captchaConfiguration);              
                 //подключаем класс контекста базы данных
-                builder.Services.AddDbContext<AplicationDBContext>(x => x.UseSqlServer(Config.ConnectionString));
+                builder.Services.AddDbContext<AplicationDBContext>(option => option.UseLazyLoadingProxies().UseSqlServer(Config.ConnectionString));
                 //подключаем нужный функционал в качестве сервисов
                 builder.Services.AddMemoryCache();
                 builder.Services.AddDistributedMemoryCache();
@@ -79,13 +83,12 @@ namespace VartanMVCv2
                 builder.Services.AddScoped<CurrentViewContext>();
                 builder.Services.AddScoped<Modelinitializer>();
                 builder.Services.AddTransient<IEntityRepository<WorkServices>, EFEntitiesRepository<WorkServices>>();
-                builder.Services.AddTransient<IEntityRepository<WorksList>, EFEntitiesRepository<WorksList>>();
-                builder.Services.AddTransient<IEntityRepository<WorksName>, EFEntitiesRepository<WorksName>>();
-                builder.Services.AddTransient<IEntityRepository<Works>, EFEntitiesRepository<Works>>();
+                builder.Services.AddTransient<IEntityRepository<WorksCategory>, EFEntitiesRepository<WorksCategory>>();
+                builder.Services.AddTransient<IEntityRepository<Work>, EFEntitiesRepository<Work>>();
                 builder.Services.AddTransient<IEntityRepository<CompletedProject>, EFEntitiesRepository<CompletedProject>>();
                 builder.Services.AddTransient<IEntityRepository<CompletedProjectPhoto>, EFEntitiesRepository<CompletedProjectPhoto>>();
                 builder.Services.AddTransient<IEntityRepository<Feedback>, EFEntitiesRepository<Feedback>>();
-                builder.Services.AddTransient <IClientRepository, ClientRepository>();
+                builder.Services.AddTransient<IClientRepository, ClientRepository>();
                 builder.Services.AddTransient<DataManager>();
                 builder.Services.AddTransient<IndexViewModel>();
                 builder.Services.AddTransient<ClientViewModel>();
@@ -98,6 +101,12 @@ namespace VartanMVCv2
                 {
                     app.UseDeveloperExceptionPage();
                 }
+
+                if (app.Environment.IsProduction())
+                { 
+                    app.UseMiddleware<ExceptionHandlingMiddleware>();
+                }
+
                 app.UseHttpsRedirection();
 
                 app.UseStaticFiles();
@@ -113,7 +122,7 @@ namespace VartanMVCv2
                 app.UseAuthentication();
 
                 app.UseAuthorization();
-
+                
                 //Маршруты для SignalR 
                 app.MapHub<ProgressHub>("/progressHub");
 
@@ -148,6 +157,11 @@ namespace VartanMVCv2
                    areaName: "Admin",
                    pattern: "admin/{controller}/{action}/{id?}",
                    defaults: new { controller = "AdminError", action = "DefaultErrorPage" });
+                app.MapAreaControllerRoute(
+                   name: "getAddWorkServices",
+                   areaName: "Admin",
+                   pattern: "admin/{controller}/{action}/{id?}",
+                   defaults: new { controller = "Owner", action = "GetAddWorkServices" });
 
                 //Маршруты
                 app.MapControllerRoute(

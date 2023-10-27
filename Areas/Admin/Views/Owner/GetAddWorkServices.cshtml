@@ -1,0 +1,229 @@
+﻿@model WorkServicesViewModel
+
+@{
+    var categoriesCount = 0;
+}
+
+<style>
+    /* Стили для контейнера формы */
+    .form_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        margin: 20px;
+        margin-left: 1vw;
+    }
+
+    /* Общие стили для текстовых полей и меток */
+    .validation_text {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0;
+    }
+
+    label {
+        font-weight: bold;
+        color: #2196F3;
+    }
+
+    /* Стили для текстовых полей */
+    .text_input_form {
+        border: 2px solid #2196F3;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        outline: none;
+    }
+
+        .text_input_form:focus {
+            border-color: #FF5722;
+        }
+
+    /* Стили для поля ввода файлов */
+    .file_input_form {
+        display: block;
+        border: 2px dashed #2196F3;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+        outline: none;
+        margin: 5px 0;
+    }
+
+        .file_input_form:focus {
+            border-color: #FF5722;
+        }
+
+    /* Стили для кнопки выбора файлов */
+    .file_input_button {
+        background-color: #2196F3;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+        outline: none;
+        margin: 5px 0;
+    }
+
+        .file_input_button:hover {
+            background-color: #FF5722;
+        }
+
+    /* Стили для кнопок "Добавить категорию" и "Удалить категорию" */
+    #add-category,
+    .remove-category {
+        background-color: #2196F3;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        outline: none;
+        margin: 5px 0;
+    }
+
+        #add-category:hover,
+        .remove-category:hover {
+            background-color: #FF5722;
+        }
+
+    /* Прогресс-бар */
+    progress {
+        width: 100%;
+        height: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+
+        progress::-webkit-progress-bar {
+            background-color: #E0E0E0;
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #2196F3;
+        }
+
+    #WS_accept {
+        background-color: #2196F3;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 10px; /* Добавляем небольшой отступ сверху */
+        transition: background-color 0.3s ease; /* Анимация смены цвета фона */
+        /* Убрать стандартное оформление кнопки */
+        outline: none;
+    }
+
+        /* Анимация при наведении на кнопку */
+        #WS_accept:hover {
+            background-color: #FF5722; /* Цвет фона при наведении */
+        }
+
+</style>
+
+
+
+<div class="form_conteier">
+    <form id="form_upload_id" area="Admin" controller="Owner" action="AddWorkServices" method="post" enctype="multipart/form-data" onsubmit="uploadPhotos('/Owner/AddWorkServices')">
+        <p2>
+            <input type="hidden" name="categoriesCount" id="categoriesCount" value="@categoriesCount" />
+            <input type="hidden" name="workServicesExample.ID"  value="@Model.workServicesExample!.ID" />
+        </p2>
+        <p2 class="validation_text">
+            <label>Заголовок</label>
+            <input class="text_input_form" autocomplete="off" placeholder="Заголовок" name="workServicesExample.Title" value="@Model.workServicesExample!.Title" />
+        </p2>
+        <p2 class="validation_text">
+            <label>Описание</label>
+            <input class="text_input_form" autocomplete="off" placeholder="Описание" name="workServicesExample.Description" value="@Model.workServicesExample!.Description" />
+        </p2>
+        <p2 class="validation_text">
+            <label>Титульная картинка</label>
+            <input class="file_input_form" type="file" name="files" id="fileInput" placeholder="Титульная картинка" accept=".jpg, .jpeg, .png" />
+            <progress id="progressBar" value="0" max="100"></progress>
+        </p2>
+        <p2 class="validation_text">
+            <label>SEO-Метатэг Title</label>
+            <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Title" name="workServicesExample.MetaTitle" value="@Model.workServicesExample!.MetaTitle" />
+        </p2>
+        <p2 class="validation_text">
+            <label>SEO-Метатэг Description</label>
+            <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Description" name="workServicesExample.MetaDescription" value="@Model.workServicesExample!.MetaDescription" />
+        </p2>
+        <p2 class="validation_text">
+            <label>SEO-Метатэг Keywords</label>
+            <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Keywords" name="workServicesExample.MetaKeywords" value="@Model.workServicesExample!.MetaKeywords" />
+        </p2>
+        <p2>
+            <div id="categories">
+                @for (int i = 0; i < categoriesCount; i++)
+                {
+                    <div class="category">
+                        <p2 class="validation_text">
+                            <label>Название категории</label>
+                            <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="@Model.workServicesExample.WorksCategories[i].Title" />
+                        </p2>
+
+                        <p2 class="validation_text">
+                            <label>Перечень работ</label>
+                            <input placeholder="Перечень работ" name = "worksNames[@i]" value = "@Model.worksNames![i]"/>
+                        </p2>
+                        <p2>
+                            <button type="button" class="remove-category">Удалить категорию</button>
+                        </p2>
+                    </div>
+                }
+            </div>
+        </p2>
+        <p2 class="validation_text">
+            <button type="button" id="add-category">Добавить категорию</button>
+        </p2>
+        <button name="acceptWorkServices" id="WS_accept" type="submit" value="Send">Добавить</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(function () {
+        var categoriesCount = parseInt($("#categoriesCount").val());
+        // Добавление новой категории
+        $('#add-category').click(function () {
+            var categoryHtml = '<div class="category">' +
+                '<p2 class="validation_text">' +
+                '<label>Название категории</label>' +
+                '<input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.worksCategories[' + categoriesCount + '].Title" value="@@Model.workServicesExample.worksCategories[' + categoriesCount + '].Title" data-val-required="Это поле не должно быть пустым" />' +
+                '</p2>' +
+                '<p2 class="validation_text">' +
+                '<label>Перечень работ</label>' +
+                '<textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[' + categoriesCount + ']" value="@@Model.worksNames[' + categoriesCount + ']"></textarea>' +
+                '</p2>' +
+                '<p2>' +
+                '<button type="button" class="remove-category">Удалить категорию</button>' +
+                '</p2>' +
+                '</div>';
+            $('#categories').append(categoryHtml);
+            categoriesCount++;
+            $("#categoriesCount").val(categoriesCount);
+        });
+        // Удаление категории
+        $(document).on('click', '.remove-category', function () {
+            $(this).closest('.category').remove();
+            categoriesCount--;
+            $("#categoriesCount").val(categoriesCount);
+        });
+    });
+</script>

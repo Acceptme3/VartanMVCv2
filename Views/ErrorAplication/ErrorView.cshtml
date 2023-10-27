@@ -1,0 +1,15 @@
+﻿@model ErrorViewModel
+
+@await Html.PartialAsync("HeaderWithoutSliderPartial")
+<!-- services section start -->
+<h6 class="furnitures_text">@ViewBag.ErrorTitle</h6>
+<h1 class="dummy_text">@Model.Exception!.Message</h1>
+<!-- services section end -->
+@await Html.PartialAsync("FooterPartial")
+<!-- copyright section start -->
+<div class="copyright_section" />
+<div class="container">
+    @await Html.PartialAsync("AutorPartial")
+</div>
+<!-- copyright section end -->
+@await Html.PartialAsync("ScriptsPartial")

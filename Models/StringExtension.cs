@@ -8,7 +8,7 @@
 
             for (int i = 0; i < substrings.Length; i++)
             {
-                substrings[i] = substrings[i].Replace(" ", "");
+                substrings[i] = substrings[i].Replace(separator + " ", separator);
             }
             List<string> result = substrings.ToList<string>();
             return result;

@@ -3,9 +3,7 @@
     const popUp = document.getElementById("pop_up");
     const popUpPar = document.getElementById("pop_up_paragraph");
     const openPopUpGreen = document.querySelectorAll("div.btn-toolbar button.btn.green");
-    console.log("Колличество зеленых кнопок "+openPopUpGreen.length);
-    const openPopUpRed = document.querySelectorAll("div.btn-toolbar button.btn.red");
-    console.log("Колличество красных кнопок " + openPopUpRed.length);  
+    const openPopUpRed = document.querySelectorAll("div.btn-toolbar button.btn.red"); 
     const popUpNo = document.getElementById("pop_up_No");
 
 
@@ -19,8 +17,6 @@
                     var clientOperation = document.getElementById('moveForm').querySelector('input[name="operation"]').value;
                     var currentViewName = document.getElementById('moveForm').querySelector('input[name="viewName"]').value;
                 }
-                console.log("Операции над клиентом " + clientOperation);
-                console.log("View " + currentViewName);
                 showModal(clientId, clientOperation, currentViewName);
             });
         });
@@ -38,8 +34,6 @@
                     var clientOperation = document.getElementById('deleteForm').querySelector('input[name="operation"]').value;
                     var currentViewName = document.getElementById('deleteForm').querySelector('input[name="viewName"]').value;
                 }
-                console.log("Операции над клиентом " + clientOperation);
-                console.log("View " + currentViewName);
                 showModal(clientId, clientOperation, currentViewName);
             });
         });

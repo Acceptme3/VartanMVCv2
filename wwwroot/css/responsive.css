@@ -228,6 +228,14 @@
         font-size: 14px;
     }
 
+    .w_serv_conteiner {
+        grid-gap: 10px;
+    }
+
+    .w_serv_item {
+        width: 100%;
+        box-sizing: border-box;
+    }
 
     .banner-main .carousel-caption h1 {
         font-size: 36px;
@@ -475,6 +483,10 @@
         top: 0%;
     }
 
+    .w_serv_conteiner {
+        grid-gap: 10px;
+    }
+
     .titlepage h2 {
         font-size: 42px;
         display: block;
@@ -699,6 +711,28 @@
 @media (max-width: 575px) {
     .last {
         display: none;
+    }
+
+    .icon_1 {
+        height: 20vh;
+        width: 30vw;
+    }
+
+    .price_section {
+        margin: 5%;
+        /* margin-left: 20%; */
+        /* margin-right: 20%; */
+        background: #e5c2806e;
+        border-radius: 10px;
+    }
+
+    .w_serv_conteiner {
+        grid-gap: 13vw;
+    }
+
+    .w_serv_item {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .carousel-caption {

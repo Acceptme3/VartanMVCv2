@@ -1,4 +1,5 @@
-﻿using VartanMVCv2.Domain;
+﻿using System.Text;
+using VartanMVCv2.Domain;
 using VartanMVCv2.Domain.Entities;
 
 namespace VartanMVCv2.Models
@@ -53,6 +54,33 @@ namespace VartanMVCv2.Models
                 }
             }
             return result;
+        }
+
+        public static string ConvertPropertyToString<T>(List<T> objects, string propertyName)
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (T obj in objects)
+            {
+                var property = typeof(T).GetProperty(propertyName);
+                if (property != null)
+                {
+                    var value = property.GetValue(obj);
+                    result.Append(value?.ToString() ?? "null");
+                }
+                else
+                {
+                    result.Append("Property not found");
+                }
+                result.Append(',');
+            }
+
+            if (result.Length > 0)
+            {
+                result.Length -= 1;
+            }
+
+            return result.ToString();
         }
     }
 

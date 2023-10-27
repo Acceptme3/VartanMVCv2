@@ -2,40 +2,98 @@
 
 
 <style>
-    .form_conteier {
-        padding: 1em;
-        background-color: #30a2ff85;
+    /* Стили для контейнера формы */
+    .form_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        margin: 20px; /* Добавляем отступы */
+        margin-left: 1vw;
+    }
+
+    /* Общие стили для текстовых полей и меток */
+    .validation_text {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0;
+    }
+
+    label {
+        font-weight: bold;
+        color: #2196F3; /* Цвет текста метки */
+    }
+
+    /* Стили для текстовых полей */
+    .text_input_form {
+        border: 2px solid #2196F3; /* Цвет границы активного поля */
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 16px;
+        transition: border-color 0.3s ease; /* Анимация смены цвета границы */
+        /* Сброс стилей для фокуса на поле ввода */
+        outline: none;
+    }
+
+        /* Анимация при фокусе на текстовых полях */
+        .text_input_form:focus {
+            border-color: #FF5722; /* Цвет границы при фокусе */
+        }
+
+    .file_input_form {
+        display: block; /* Отобразить поле ввода файла */
+        border: 2px dashed #2196F3; /* Стили для рамки вокруг поля */
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.3s ease; /* Анимация смены цвета рамки */
+        /* Сброс стилей для фокуса на поле ввода */
+        outline: none;
+    }
+
+        /* Анимация при фокусе на поле ввода файла */
+        .file_input_form:focus {
+            border-color: #FF5722; /* Цвет рамки при фокусе */
+        }
+
+    /* Обновленные стили для кнопки */
+    #CP_accept {
+        background-color: #2196F3;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 10px; /* Добавляем небольшой отступ сверху */
+        transition: background-color 0.3s ease; /* Анимация смены цвета фона */
+        /* Убрать стандартное оформление кнопки */
+        outline: none;
+    }
+
+        /* Анимация при наведении на кнопку */
+        #CP_accept:hover {
+            background-color: #FF5722; /* Цвет фона при наведении */
+        }
+
+    /* Прогресс-бар */
+    progress {
+        width: 100%;
+        height: 10px;
+        border: none;
         border-radius: 5px;
     }
 
-    form{
-        margin: 15px;
-    }
+        /* Анимация для прогресс-бара */
+        progress::-webkit-progress-bar {
+            background-color: #E0E0E0; /* Цвет фона прогресс-бара */
+        }
 
-    p2{
-        display:block;
-        margin: 2em;
-    }
-
-    input[type="file"]{
-        border: double;
-        margin-left: 3em;
-    }
-
-    #CP_accept {
-        margin-left: 20em;
-        width: 20em;
-        height: 3em;
-    }
-
-    span{
-
-    }
-
-    label{
-        font-size: 22px;
-        color: black;
-    }
+        progress::-webkit-progress-value {
+            background-color: #2196F3; /* Цвет самого прогресс-бара */
+        }
 
 </style>
 <div class="form_conteier">
@@ -52,12 +110,23 @@
         </p2>
         <p2 class="validation_text">
             <label>Фото</label>
-            <input class="file_input_form" type="file" name="files" id="fileInput" placeholder="Фото проекта" asp-for="@Model.completedProjectPhotos" multiple accept=".jpg, .jpeg, .png" />
-            <span asp-validation-for="@Model.completedProjectPhotos" />
+            <input class="file_input_form" type="file" name="files" id="fileInput" placeholder="Фото проекта" asp-for="@Model.completedProjectExample!.Photos" multiple accept=".jpg, .jpeg, .png" />
+            <span asp-validation-for="@Model.completedProjectExample!.Photos" />
             <progress id="progressBar" value="0" max="100"></progress>
         </p2>
         <p2 class="validation_text">
-
+            <label>SEO-Метатэг Title</label>
+            <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Title"  asp-for="@Model.completedProjectExample!.MetaTitle" />
+            <span asp-validation-for="@Model.completedProjectExample!.MetaTitle" />
+        </p2>
+        <p2 class="validation_text">
+            <label>SEO-Метатэг Description</label>
+            <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Description"  asp-for="@Model.completedProjectExample!.MetaDescription" />
+            <span asp-validation-for="@Model.completedProjectExample!.MetaDescription" />
+        <p2 class="validation_text">
+            <label>SEO-Метатэг Keywords</label>
+            <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Keywords"  asp-for="@Model.completedProjectExample!.MetaKeywords" />
+            <span asp-validation-for="@Model.completedProjectExample!.MetaKeywords" />
         </p2>
         <button name="acceptCompletedProject" id="CP_accept" type="submit" value="Send">Добавить</button>
     </form>
