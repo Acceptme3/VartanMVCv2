@@ -18,7 +18,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
 
         private readonly DataManager _dataManager;
         private readonly Modelinitializer _modelInitializer;
-        private DataModel? _dataModel ;
+        private DataModel? _dataModel;
 
         private readonly SortingManager _sortingManager;
         private readonly CurrentViewContext _currentViewContext;
@@ -138,12 +138,25 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         public IActionResult GetAddWorkServices(Guid id)
         {
             var WS = _dataManager.WorkServicesRepository.GetById(id);
+            List<string> workStrings = new List<string>();
+
             if (WS == null)
             {
                 WS = new WorkServices { ID = Guid.NewGuid() };
+                return View(new WorkServicesViewModel { workServicesExample = WS });
             }
-            _logger.LogInformation($"Тайтел {WS.Title} идентификатр {WS.ID}");
-            return View(new WorkServicesViewModel {workServicesExample = WS });
+
+            foreach (var category in WS.WorksCategories) 
+            {
+                workStrings.Add(SortingManager.ConvertPropertyToString(category.Works, "Title"));
+            }
+
+            foreach (var item in workStrings)
+            {
+                _logger.LogInformation($"{item}");
+            }
+
+            return View(new WorkServicesViewModel {workServicesExample = WS});
         }
 
         [HttpPost]
@@ -167,7 +180,11 @@ namespace VartanMVCv2.Areas.Admin.Controllers
                 return RedirectToAction("DefaultErrorPage", "AdminError", new ErrorViewModel { Errors = errorMessages });
             }
 
-            var WSExample = workServicesViewModel.workServicesExample;         
+            var WSExample = workServicesViewModel.workServicesExample;
+
+            _logger.LogInformation($"{WSExample.WorksCategories.Count}");
+
+
 
             for (int i = 0; i < WSExample!.WorksCategories!.Count(); i++)
             {
@@ -175,7 +192,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
                 WSExample.WorksCategories![i].Works = workNameStrings.Select(str => new Work { Title = str, WorksCategory = WSExample.WorksCategories![i] }).ToList();
             }
             
-            FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(workServicesViewModel.files, FileCheckResult.defaultExtensions);
+            FileCheckResult fileCheck = FileCheckResult.CheckUploadFiles(workServicesViewModel.files!, FileCheckResult.defaultExtensions);
             if (fileCheck.Success == false)
             {
                 ViewBag.Message = fileCheck.Message;
@@ -184,7 +201,7 @@ namespace VartanMVCv2.Areas.Admin.Controllers
 
             string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "servicesImage", workServicesViewModel.workServicesExample!.Title!);
 
-            fileCheck = await FileCheckResult.FileUpload(workServicesViewModel.files, uploadPath, AddExampleAction);
+            fileCheck = await FileCheckResult.FileUpload(workServicesViewModel.files!, uploadPath, AddExampleAction);
             if (fileCheck.Success == false)
             {
                 ViewBag.Message = fileCheck.Message;

@@ -1,7 +1,20 @@
-﻿@model WorkServicesViewModel
+﻿@using VartanMVCv2.Models
+@model WorkServicesViewModel
 
 @{
-    var categoriesCount = 0;
+    var existingCategoriesCount = Model.workServicesExample?.WorksCategories.Count ?? 0;
+    var categoriesCount = existingCategoriesCount;
+
+}
+
+
+
+@functions{
+    string SetWorksNames(int index, string propertyName)
+    {
+        List<Work> workResult = Model.workServicesExample!.WorksCategories[index].Works;
+        return SortingManager.ConvertPropertyToString(workResult, propertyName);
+    }
 }
 
 <style>
@@ -140,7 +153,7 @@
     <form id="form_upload_id" area="Admin" controller="Owner" action="AddWorkServices" method="post" enctype="multipart/form-data" onsubmit="uploadPhotos('/Owner/AddWorkServices')">
         <p2>
             <input type="hidden" name="categoriesCount" id="categoriesCount" value="@categoriesCount" />
-            <input type="hidden" name="workServicesExample.ID"  value="@Model.workServicesExample!.ID" />
+            <input type="hidden" name="workServicesExample.ID" value="@Model.workServicesExample?.ID" />
         </p2>
         <p2 class="validation_text">
             <label>Заголовок</label>
@@ -169,18 +182,33 @@
         </p2>
         <p2>
             <div id="categories">
-                @for (int i = 0; i < categoriesCount; i++)
+                @for (int i = 0; i < categoriesCount || (Model.workServicesExample != null && i < Model.workServicesExample.WorksCategories.Count); i++)
                 {
                     <div class="category">
                         <p2 class="validation_text">
                             <label>Название категории</label>
-                            <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="@Model.workServicesExample.WorksCategories[i].Title" />
+                            @if (i < categoriesCount)
+                            {
+                                <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="@Model.workServicesExample?.WorksCategories[i].Title" data-val-required="Это поле не должно быть пустым" />
+                            }
+                            else
+                            {
+                                <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="" data-val-required="Это поле не должно быть пустым" />
+                            }
                         </p2>
 
                         <p2 class="validation_text">
                             <label>Перечень работ</label>
-                            <input placeholder="Перечень работ" name = "worksNames[@i]" value = "@Model.worksNames![i]"/>
+                            @if (i < categoriesCount)
+                            {
+                                <textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[@i]">@SetWorksNames(i,"Title")</textarea>
+                            }
+                            else
+                            {
+                                <textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[@i]"></textarea>
+                            }
                         </p2>
+
                         <p2>
                             <button type="button" class="remove-category">Удалить категорию</button>
                         </p2>
@@ -199,26 +227,33 @@
 
 <script>
     $(function () {
-        var categoriesCount = parseInt($("#categoriesCount").val());
+        // Определите, сколько существующих категорий у вас есть.
+        var existingCategoriesCount = @Model.workServicesExample?.WorksCategories.Count ?? 0;
+        // Установите начальное значение categoriesCount равным существующему количеству категорий.
+        var categoriesCount = existingCategoriesCount;
+
         // Добавление новой категории
         $('#add-category').click(function () {
             var categoryHtml = '<div class="category">' +
                 '<p2 class="validation_text">' +
                 '<label>Название категории</label>' +
-                '<input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.worksCategories[' + categoriesCount + '].Title" value="@@Model.workServicesExample.worksCategories[' + categoriesCount + '].Title" data-val-required="Это поле не должно быть пустым" />' +
+                '<input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[' + categoriesCount + '].Title" value="" data-val-required="Это поле не должно быть пустым" />' +
                 '</p2>' +
                 '<p2 class="validation_text">' +
                 '<label>Перечень работ</label>' +
-                '<textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[' + categoriesCount + ']" value="@@Model.worksNames[' + categoriesCount + ']"></textarea>' +
+                '<textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[' + categoriesCount + ']" value=""></textarea>' +
                 '</p2>' +
                 '<p2>' +
                 '<button type="button" class="remove-category">Удалить категорию</button>' +
                 '</p2>' +
                 '</div>';
+
+            // Добавьте новую категорию после всех существующих.
             $('#categories').append(categoryHtml);
             categoriesCount++;
             $("#categoriesCount").val(categoriesCount);
         });
+
         // Удаление категории
         $(document).on('click', '.remove-category', function () {
             $(this).closest('.category').remove();
