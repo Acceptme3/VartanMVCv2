@@ -225,6 +225,45 @@ button {
     padding-bottom: 0px;
 }
 
+.layout_padding_2 {
+    
+    padding-bottom: 0px;
+}
+
+.head_services {
+    background-image: url(/images/banner-bgb.png);
+    padding: 20vh;
+    opacity: 0; /* Начальное значение прозрачности (блок скрыт) */
+    transform: translateY(20px); /* Начальное значение смещения по вертикали */
+    animation: fadeIn 1s ease-in-out forwards; /* Анимация появления блока */
+}
+
+    .head_services .furniture_text {
+        opacity: 0; /* Начальное значение прозрачности (текст скрыт) */
+        transform: translateY(10px); /* Начальное значение смещения по вертикали */
+        animation: fadeIn 1s ease-in-out 0.5s forwards; /* Анимация появления текста с задержкой */
+        background-color: rgb(245, 245, 237, 0,71);
+    }
+
+.head_services .there_text {
+    opacity: 0; /* Начальное значение прозрачности (текст скрыт) */
+    transform: translateY(10px); /* Начальное значение смещения по вертикали */
+    animation: fadeIn 1s ease-in-out 1s forwards; /* Анимация появления текста с задержкой */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 .padding_0 {
     padding: 0px;
 }
@@ -1398,6 +1437,32 @@ textarea#comment::placeholder {
     font-size: 32px;
 }
 
+.confirm_container {
+    min-height: 94vh;
+    background-image: url('/images/cardboard-house-with-tools-top-view.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+    .confirm_container img {
+        opacity: 0.4;
+        width: 100%;
+        height: auto;
+    }
+
+    .confirm_container h6, .confirm_container h1 {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        margin: 10px;
+    }
+
 #confirm_text {
     font-size: 23px;
 }
@@ -1652,6 +1717,7 @@ textarea#comment::placeholder {
         width: 100%;
     }
 }
+
 
 
 

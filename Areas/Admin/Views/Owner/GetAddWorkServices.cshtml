@@ -4,17 +4,6 @@
 @{
     var existingCategoriesCount = Model.workServicesExample?.WorksCategories.Count ?? 0;
     var categoriesCount = existingCategoriesCount;
-
-}
-
-
-
-@functions{
-    string SetWorksNames(int index, string propertyName)
-    {
-        List<Work> workResult = Model.workServicesExample!.WorksCategories[index].Works;
-        return SortingManager.ConvertPropertyToString(workResult, propertyName);
-    }
 }
 
 <style>
@@ -44,7 +33,7 @@
     .text_input_form {
         border: 2px solid #2196F3;
         border-radius: 4px;
-        padding: 10px;
+        padding: 8px; /* Уменьшаем внутренний отступ для компактности */
         font-size: 16px;
         transition: border-color 0.3s ease;
         outline: none;
@@ -59,7 +48,7 @@
         display: block;
         border: 2px dashed #2196F3;
         border-radius: 4px;
-        padding: 10px;
+        padding: 8px; /* Уменьшаем внутренний отступ для компактности */
         font-size: 16px;
         text-align: center;
         cursor: pointer;
@@ -78,9 +67,9 @@
         color: #fff;
         border: none;
         border-radius: 4px;
-        padding: 10px 20px;
+        padding: 8px 16px; /* Уменьшаем размер кнопки для компактности */
         cursor: pointer;
-        font-size: 18px;
+        font-size: 16px;
         transition: background-color 0.3s ease;
         outline: none;
         margin: 5px 0;
@@ -93,11 +82,11 @@
     /* Стили для кнопок "Добавить категорию" и "Удалить категорию" */
     #add-category,
     .remove-category {
-        background-color: #2196F3;
+        background-color: #4CAF50;
         color: #fff;
         border: none;
         border-radius: 4px;
-        padding: 10px 20px;
+        padding: 8px 16px; /* Уменьшаем размер кнопки для компактности */
         cursor: pointer;
         font-size: 16px;
         transition: background-color 0.3s ease;
@@ -107,7 +96,7 @@
 
         #add-category:hover,
         .remove-category:hover {
-            background-color: #FF5722;
+            background-color: #45a049;
         }
 
     /* Прогресс-бар */
@@ -131,23 +120,61 @@
         color: #fff;
         border: none;
         border-radius: 4px;
-        padding: 10px 20px;
+        padding: 8px 16px; /* Уменьшаем размер кнопки для компактности */
         cursor: pointer;
-        font-size: 18px;
-        margin-top: 10px; /* Добавляем небольшой отступ сверху */
-        transition: background-color 0.3s ease; /* Анимация смены цвета фона */
-        /* Убрать стандартное оформление кнопки */
+        font-size: 16px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
         outline: none;
     }
 
-        /* Анимация при наведении на кнопку */
         #WS_accept:hover {
-            background-color: #FF5722; /* Цвет фона при наведении */
+            background-color: #FF5722;
         }
 
+    /* Стили для блоков ввода работ и категорий */
+    .category {
+        border: 5px solid #4CAF50;
+        border-radius: 4px;
+        margin-top: 10px; /* Уменьшаем верхний отступ */
+        padding: 8px; /* Уменьшаем внутренний отступ для компактности */
+    }
+
+    .work {
+        border: 5px solid #E91E63;
+        border-radius: 4px;
+        margin-top: 5px; /* Уменьшаем верхний отступ */
+        padding: 8px; /* Уменьшаем внутренний отступ для компактности */
+    }
+
+    /* Стили для кнопки "Добавить работу" и "Удалить работу" */
+    .add-work,
+    .remove-work {
+        background-color: #E91E63;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 16px; /* Уменьшаем размер кнопки для компактности */
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        outline: none;
+        margin: 5px 0;
+    }
+
+    .error-message label {
+        color: #E91E63; /* Красный цвет шрифта для ошибок */
+    }
+
+    .error-input {
+        border-color: #E91E63 !important; /* Красная подсветка для ошибочных полей */
+    }
+
+        .add-work:hover,
+        .remove-work:hover {
+            background-color: #D81B60;
+        }
 </style>
-
-
 
 <div class="form_conteier">
     <form id="form_upload_id" area="Admin" controller="Owner" action="AddWorkServices" method="post" enctype="multipart/form-data" onsubmit="uploadPhotos('/Owner/AddWorkServices')">
@@ -157,7 +184,8 @@
         </p2>
         <p2 class="validation_text">
             <label>Заголовок</label>
-            <input class="text_input_form" autocomplete="off" placeholder="Заголовок" name="workServicesExample.Title" value="@Model.workServicesExample!.Title" />
+            <input class="text_input_form" autocomplete="off" placeholder="Заголовок" name="workServicesExample.Title" value="@Model.workServicesExample!.Title" data-rule-required="true" data-msg-required="Это поле не должно быть пустым" />
+            <span class="error-message"></span>
         </p2>
         <p2 class="validation_text">
             <label>Описание</label>
@@ -189,26 +217,32 @@
                             <label>Название категории</label>
                             @if (i < categoriesCount)
                             {
-                                <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="@Model.workServicesExample?.WorksCategories[i].Title" data-val-required="Это поле не должно быть пустым" />
+                                <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="@Model.workServicesExample?.WorksCategories[i].Title" data-rule-required="true" data-msg-required="Это поле не должно быть пустым" />
+                                <span class="error-message"></span>
                             }
                             else
                             {
-                                <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="" data-val-required="Это поле не должно быть пустым" />
+                                <input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[@i].Title" value="" data-rule-required="true" data-msg-required="Это поле не должно быть пустым" />
+                                <span class="error-message"></span>
                             }
                         </p2>
-
                         <p2 class="validation_text">
                             <label>Перечень работ</label>
-                            @if (i < categoriesCount)
-                            {
-                                <textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[@i]">@SetWorksNames(i,"Title")</textarea>
-                            }
-                            else
-                            {
-                                <textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[@i]"></textarea>
-                            }
+                            <div id="works-container-@i">
+                                @if (i < categoriesCount)
+                                {
+                                    @for (int j = 0; j < Model.workServicesExample!.WorksCategories[i].Works.Count; j++)
+                                    {
+                                        <div class="work">
+                                            <input class="text_input_form" autocomplete="off" placeholder="Наименование работы" name="workServicesExample.WorksCategories[@i].Works[@j].Title" value="@Model.workServicesExample.WorksCategories[i].Works[j].Title" data-val-required="Это поле не должно быть пустым" />
+                                            <span class="error-message"></span>
+                                            <button type="button" class="remove-work">Удалить работу</button>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <button type="button" class="add-work">Добавить работу</button>
                         </p2>
-
                         <p2>
                             <button type="button" class="remove-category">Удалить категорию</button>
                         </p2>
@@ -219,7 +253,7 @@
         <p2 class="validation_text">
             <button type="button" id="add-category">Добавить категорию</button>
         </p2>
-        <button name="acceptWorkServices" id="WS_accept" type="submit" value="Send">Добавить</button>
+        <button name="acceptWorkServices" id="WS_accept" type="submit" value="Send">Создать/изменить услугу</button>
     </form>
 </div>
 
@@ -229,7 +263,6 @@
     $(function () {
         // Определите, сколько существующих категорий у вас есть.
         var existingCategoriesCount = @Model.workServicesExample?.WorksCategories.Count ?? 0;
-        // Установите начальное значение categoriesCount равным существующему количеству категорий.
         var categoriesCount = existingCategoriesCount;
 
         // Добавление новой категории
@@ -237,11 +270,13 @@
             var categoryHtml = '<div class="category">' +
                 '<p2 class="validation_text">' +
                 '<label>Название категории</label>' +
-                '<input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[' + categoriesCount + '].Title" value="" data-val-required="Это поле не должно быть пустым" />' +
+                '<input class="text_input_form" autocomplete="off" placeholder="Наименование категории работ" name="workServicesExample.WorksCategories[' + categoriesCount + '].Title" value="" data-rule-required="true" data-msg-required="Это поле не должно быть пустым" />' + 
+                '<span class="error-message"></span>'+
                 '</p2>' +
                 '<p2 class="validation_text">' +
                 '<label>Перечень работ</label>' +
-                '<textarea autocomplete="off" placeholder="Перечень работ" name="worksNames[' + categoriesCount + ']" value=""></textarea>' +
+                '<div id="works-container-' + categoriesCount + '"></div>' +
+                '<button type="button" class="add-work">Добавить работу</button>' +
                 '</p2>' +
                 '<p2>' +
                 '<button type="button" class="remove-category">Удалить категорию</button>' +
@@ -254,6 +289,24 @@
             $("#categoriesCount").val(categoriesCount);
         });
 
+        // Добавление новой работы
+        $(document).on('click', '.add-work', function () {
+            var categoryIndex = $(this).closest('.category').index();
+            var worksContainer = $('#works-container-' + categoryIndex);
+            var workCount = worksContainer.children('.work').length;
+            var workHtml = '<div class="work">' +
+                '<input class="text_input_form" autocomplete="off" placeholder="Наименование работы" name="workServicesExample.WorksCategories[' + categoryIndex + '].Works[' + workCount + '].Title" value="" data-rule-required="true" data-msg-required="Это поле не должно быть пустым" />' +
+                '<span class="error-message"></span>'+
+                '<button type="button" class="remove-work">Удалить работу</button>' +
+                '</div>';
+            worksContainer.append(workHtml);
+        });
+
+        // Удаление работы
+        $(document).on('click', '.remove-work', function () {
+            $(this).closest('.work').remove();
+        });
+
         // Удаление категории
         $(document).on('click', '.remove-category', function () {
             $(this).closest('.category').remove();
@@ -262,3 +315,42 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        $("#form_upload_id").validate({
+            errorPlacement: function (error, element) {
+            error.appendTo(element.closest(".validation_text").find(".error-message"));
+            element.addClass("error-input");
+
+            }
+        });
+
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#fileInput').change(function () {
+            var fileInput = $(this);
+            var file = fileInput[0].files[0];
+
+            // Проверка типа файла
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!allowedExtensions.exec(file.name)) {
+                alert('Пожалуйста, выберите файл с расширением .jpg, .jpeg или .png.');
+                fileInput.val(''); // Сброс поля ввода файла
+                return;
+            }
+
+            // Проверка размера файла (в данном примере максимальный размер - 6 МБ)
+            var maxSize = 6 * 1024 * 1024; // 5 МБ
+            if (file.size > maxSize) {
+                alert('Файл слишком большой. Максимальный размер файла: 6 МБ.');
+                fileInput.val(''); // Сброс поля ввода файла
+                return;
+            }            
+        });
+    });
+</script>
+

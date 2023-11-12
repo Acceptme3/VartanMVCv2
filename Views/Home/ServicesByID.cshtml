@@ -1,12 +1,18 @@
 ﻿@using VartanMVCv2.ViewModels
 @using VartanMVCv2.Domain.Entities
+@using VartanMVCv2.Models
 @model IndexViewModel
 @await Html.PartialAsync("HeaderWithoutSliderPartial")
+
 <!-- furnitures section start -->
-<div class="furnitures_section layout_padding">
-    <div class="container">
+<div class="furnitures_section layout_padding_2">
+    <div class="head_services" style="background-image:url('@Url.PathToUrl(Model.WorkServicesExample!.TitleImagePath!)')">
+        <h1 class="furniture_text">Lorem ipsum</h1>
+        <p class="there_text">Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</p>
+    </div>
+    <div class="container" style="padding-top:3vh">
         <h1 class="our_text">Перечень услуг</h1>
-        <p class="ipsum_text">@Model.dataModelExample!.workServicesList.ToList().Find(x=>x.ID==ViewBag.SelectedServicesID)!.Title</p>
+        <p class="ipsum_text">@Model.WorkServicesExample?.Title</p>
         <div class="furnitures_section2 layout_padding">
             <div class="w_serv_conteiner">
                 @{

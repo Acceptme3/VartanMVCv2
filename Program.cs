@@ -162,6 +162,11 @@ namespace VartanMVCv2
                    areaName: "Admin",
                    pattern: "admin/{controller}/{action}/{id?}",
                    defaults: new { controller = "Owner", action = "GetAddWorkServices" });
+                app.MapAreaControllerRoute(
+                   name: "getAddCompletedProject",
+                   areaName: "Admin",
+                   pattern: "admin/{controller}/{action}/{id?}",
+                   defaults: new { controller = "Owner", action = "AddCompletedProject" });
 
                 //Маршруты
                 app.MapControllerRoute(

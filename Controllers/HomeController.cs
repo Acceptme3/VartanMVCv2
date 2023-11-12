@@ -35,14 +35,14 @@ namespace VartanMVCv2.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            _dataModel = await _modelinitializer.GetDataModelAsync(DataModel.identificator);
+            /*_dataModel = await _modelinitializer.GetDataModelAsync(DataModel.identificator);
             if (_dataModel == null) 
             {
                Exception ex = new Exception("Сервис временно не доступен. Обновите страницу или попробуйте выполнить запрос позднее");
                 _logger.LogError(ex.Message);
                 return RedirectToAction("DataModelError", "ErrorAplication",new ErrorViewModel { Exception = ex});
             }
-            else { _logger.LogInformation("Объект _dataModel (Home/Index) инициализирован."); }
+            else { _logger.LogInformation("Объект _dataModel (Home/Index) инициализирован."); }*/
             FeedbackInit();
             return View(_indexViewModel);
         }
@@ -127,6 +127,15 @@ namespace VartanMVCv2.Controllers
         {
             ViewBag.SelectedServicesID = id;
             _indexViewModel.WorkServicesExample = _dataModel!.workServicesList.FirstOrDefault(ws=>ws.ID == id);
+            foreach (var category in _indexViewModel.WorkServicesExample!.WorksCategories)
+            {
+                foreach (var item in category.Works)
+                {
+                    _logger.LogInformation($"{item.ID}");
+                }
+            }
+            _logger.LogInformation($"{_indexViewModel.WorkServicesExample?.ID}");
+            ViewBag.SelectedServicesImagePath = _indexViewModel.WorkServicesExample?.TitleImagePath;
             return View("ServicesByID", _indexViewModel);
         }
 

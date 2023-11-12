@@ -1,5 +1,8 @@
 ﻿@model CompletedProjectViewModel
 
+@{
+    var photoCounter = 0;
+}
 
 <style>
     /* Стили для контейнера формы */
@@ -10,6 +13,26 @@
         padding: 20px;
         margin: 20px; /* Добавляем отступы */
         margin-left: 1vw;
+    }
+
+    .preview-image-container {
+        display: inline-block;
+        text-align: center;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    .preview-image {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    .description-input {
+        display: none;
+    }
+
+    .preview-image-container:hover .description-input {
+        display: block;
     }
 
     /* Общие стили для текстовых полей и меток */
@@ -95,12 +118,19 @@
             background-color: #2196F3; /* Цвет самого прогресс-бара */
         }
 
+    .preview-image-container input[type="checkbox"]{
+        left:auto;
+        position:relative;
+        opacity:100%;
+    }
+        
+
 </style>
 <div class="form_conteier">
     <form id ="form_upload_id" asp-area="Admin" asp-controller="Owner" asp-action="AddCompletedProject" method="post" enctype="multipart/form-data" onsubmit="uploadPhotos('/Owner/AddCompletedProject')">
         <p2 class="validation_text">
             <label>Заголовок</label>
-            <input class="text_input_form" placeholder="Заголовок" asp-for="@Model.completedProjectExample!.Title" data-val-required="Это поле не должно быть пустым" />
+            <input class="text_input_form" placeholder="Заголовок" autocomplete = "off" asp-for="@Model.completedProjectExample!.Title" data-val-required="Это поле не должно быть пустым" />
             <span asp-validation-for="@Model.completedProjectExample!.Title" />
         </p2>
         <p2 class="validation_text">
@@ -113,6 +143,16 @@
             <input class="file_input_form" type="file" name="files" id="fileInput" placeholder="Фото проекта" asp-for="@Model.completedProjectExample!.Photos" multiple accept=".jpg, .jpeg, .png" />
             <span asp-validation-for="@Model.completedProjectExample!.Photos" />
             <progress id="progressBar" value="0" max="100"></progress>
+            <div id="imagePreviewContainer">
+                @for (int i = 0; i < photoCounter; i++)
+                {
+                    <div class="preview-image-container">
+                        <img src="" class="preview-image" />
+                        <textarea name="completedProjectExample.Photos[@i].Description" class="description-input" style="display: none;"></textarea>
+                        <input type="checkbox" name="completedProjectExample.Photos[@i].IsSelected"/>
+                    </div>
+                }
+            </div>
         </p2>
         <p2 class="validation_text">
             <label>SEO-Метатэг Title</label>
@@ -123,6 +163,7 @@
             <label>SEO-Метатэг Description</label>
             <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Description"  asp-for="@Model.completedProjectExample!.MetaDescription" />
             <span asp-validation-for="@Model.completedProjectExample!.MetaDescription" />
+        </p2>
         <p2 class="validation_text">
             <label>SEO-Метатэг Keywords</label>
             <input class="text_input_form" autocomplete="off" placeholder="SEO-Метатэг Keywords"  asp-for="@Model.completedProjectExample!.MetaKeywords" />
@@ -131,3 +172,74 @@
         <button name="acceptCompletedProject" id="CP_accept" type="submit" value="Send">Добавить</button>
     </form>
 </div>
+
+<script>
+    function previewImages() {
+        var previewContainer = document.getElementById("imagePreviewContainer");
+        var fileInput = document.getElementById("fileInput");
+        var checkboxes = document.querySelectorAll("input[type='checkbox']");
+        previewContainer.innerHTML = "";
+
+        for (var i = 0; i < fileInput.files.length; i++) {
+            (function (index) {
+                var file = fileInput.files[index];
+                var reader = new FileReader();
+
+                reader.onload = function (event) {
+                    var img = document.createElement("img");
+                    img.src = event.target.result;
+                    img.className = "preview-image";
+
+                    var descriptionInput = document.createElement("textarea");
+                    descriptionInput.type = "text";
+                    descriptionInput.placeholder = "Описание фото";
+                    descriptionInput.className = "description-input";
+                    descriptionInput.name = `completedProjectExample.Photos[${index}].Description`;
+
+                    var checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.name = `completedProjectExample.Photos[${index}].IsSelected`;
+                    checkbox.className = "select-checkbox";
+                    checkbox.value = "true"; // Устанавливаем значение "true" для чекбокса
+
+                    // Устанавливаем начальное состояние чекбокса в false
+                    checkbox.checked = false;
+
+                    // Добавляем обработчик для установки значения чекбокса перед отправкой формы
+                    checkbox.addEventListener("change", function () {
+                        checkbox.value = checkbox.checked ? "true" : "false";
+                    });
+
+                    var imageContainer = document.createElement("div");
+                    imageContainer.className = "preview-image-container";
+                    imageContainer.appendChild(img);
+                    imageContainer.appendChild(descriptionInput);
+                    imageContainer.appendChild(checkbox);
+
+                    imageContainer.addEventListener("click", function () {
+                        descriptionInput.style.display = "block";
+                        descriptionInput.focus();
+                    });
+
+                    descriptionInput.addEventListener("blur", function () {
+                        if (descriptionInput.value.trim() === "") {
+                            descriptionInput.style.display = "none";
+                        }
+                    });
+
+                    previewContainer.appendChild(imageContainer);
+                };
+
+                reader.readAsDataURL(file);
+            })(i);
+        }
+    }
+
+    var fileInput = document.getElementById("fileInput");
+    fileInput.addEventListener("change", previewImages);
+</script>
+
+
+
+
+

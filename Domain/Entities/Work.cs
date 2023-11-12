@@ -8,7 +8,6 @@ namespace VartanMVCv2.Domain.Entities
         [Required(ErrorMessage = "Укажите наименование работы")]
         public override string Title { get => base.Title; set => base.Title = value; }
         public virtual WorksCategory WorksCategory { get; set; }
-        public Guid WorkId { get; set; }
 
         public Work() 
         {

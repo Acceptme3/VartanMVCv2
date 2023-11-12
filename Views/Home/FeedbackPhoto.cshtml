@@ -13,7 +13,7 @@
         {
             if (photo.Project!.ID == ViewBag.SelectedCompletedProjectID)
             {
-                <img src="@photo.ImagePath" data-fancybox = "gallery" />
+                <img src="@photo.ImagePath" data-fancybox="gallery" data-caption = "@photo.Description"/>
             }          
         }
     </div>

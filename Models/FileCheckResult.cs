@@ -95,7 +95,7 @@ namespace VartanMVCv2.Models
             }
         }
 
-        public static async Task<FileCheckResult> FileUpload(List<IFormFile> files, string uploadPath, Func<string,int,Task> accompanyingAction) 
+        public static async Task<FileCheckResult> FileUpload(List<IFormFile> files, string uploadPath, Func<string,int,int,Task> accompanyingAction) 
         {
             FileCheckResult result = new FileCheckResult();
             int filesCount = files.Count;
@@ -106,18 +106,18 @@ namespace VartanMVCv2.Models
                 Directory.CreateDirectory(uploadPath);
             }
 
-            foreach (var file in files)
+            for ( int i=0; i<files.Count(); i++)
             {
-                if (file.Length > 0)
+                if (files[i].Length > 0)
                 {
-                    var filePath = Path.Combine(uploadPath, file.FileName);
+                    var filePath = Path.Combine(uploadPath, files[i].FileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await file.CopyToAsync(stream);
+                        await files[i].CopyToAsync(stream);
                     }
                     uploadedFilesCount++;
                     int progress = (int)(uploadedFilesCount * 100 / filesCount);
-                    await accompanyingAction.Invoke(filePath,progress);
+                    await accompanyingAction.Invoke(filePath,progress,i);
                 }
             }
             result.Message = "Файлы загружены успешно";

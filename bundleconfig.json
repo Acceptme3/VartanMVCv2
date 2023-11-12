@@ -1,12 +1,13 @@
 [
   {
-    "outputFileName": "wwwroot/js/scripts.bundle.js",
+    "outputFileName": "wwwroot/js/bundle-all-custom-scripts.js",
     "inputFiles": [
-      "wwwroot/js/jquery.min.js",
-      "wwwroot/js/jquery-3.0.0.min.js",
-      "wwwroot/js/bootstrap.bundle.min.js",
-      "wwwroot/js/popper.min.js",
-      "wwwroot/js/plugin.js"
+      "wwwroot/js/entryFormScript.js" ,
+      "wwwroot/js/phoneMaskScript.js",
+      "wwwroot/js/showBtnScript.js",
+      "wwwroot/js/feedbackFormScript.js",
+      "wwwroot/js/stringElementCopyScript.js",
+      "wwwroot/js/swiperInitScript.js"
     ]
   }
 ]
