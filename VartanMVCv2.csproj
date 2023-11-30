@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\pages\**" />
+    <Content Remove="wwwroot\js\pages\**" />
+    <EmbeddedResource Remove="wwwroot\js\pages\**" />
+    <None Remove="wwwroot\js\pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\js\scripts.bundle.js" />
   </ItemGroup>
@@ -20,7 +27,6 @@
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\images\servicesImage\" />
-    <Folder Include="wwwroot\js\pages\" />
     <Folder Include="wwwroot\sass\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>

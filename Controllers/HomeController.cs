@@ -5,6 +5,7 @@ using VartanMVCv2.Domain;
 using VartanMVCv2.ViewModels;
 using Recaptcha.Web.Mvc;
 using Recaptcha.Web;
+using VartanMVCv2.Services;
 
 namespace VartanMVCv2.Controllers
 {
@@ -20,9 +21,11 @@ namespace VartanMVCv2.Controllers
         // экземпляр класса инициализатора модели 
         private readonly Modelinitializer _modelinitializer;
         private readonly DataManager _dataManager;
+        private readonly IConfiguration _config ;
 
-        public HomeController(AplicationDBContext appDbContext, IndexViewModel indexViewModel, ILogger<HomeController> logger, Modelinitializer modelinitializer, DataManager dataManager) 
+        public HomeController(IConfiguration configuration, AplicationDBContext appDbContext, IndexViewModel indexViewModel, ILogger<HomeController> logger, Modelinitializer modelinitializer, DataManager dataManager) 
         {
+            _config = configuration;
             _dbContext = appDbContext;
             _indexViewModel = indexViewModel;
             _logger = logger;
@@ -33,16 +36,9 @@ namespace VartanMVCv2.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            /*_dataModel = await _modelinitializer.GetDataModelAsync(DataModel.identificator);
-            if (_dataModel == null) 
-            {
-               Exception ex = new Exception("Сервис временно не доступен. Обновите страницу или попробуйте выполнить запрос позднее");
-                _logger.LogError(ex.Message);
-                return RedirectToAction("DataModelError", "ErrorAplication",new ErrorViewModel { Exception = ex});
-            }
-            else { _logger.LogInformation("Объект _dataModel (Home/Index) инициализирован."); }*/
+            SetMetaTags(_config["Index:Title"]!, String.Format(_config["Index:Description"]!, Config.CompanyPhone, Config.CompanySecondPhone, Config.CompanyName), String.Format(_config["Index:Keywords"]!,Config.CompanyName));
             FeedbackInit();
             return View(_indexViewModel);
         }
@@ -119,7 +115,7 @@ namespace VartanMVCv2.Controllers
 
         public IActionResult Services()
         {
-            _logger.LogInformation("Начинает выполнение Home/Services [тип запроса: GET]");
+            SetMetaTags(_config["Services:Title"]!, String.Format(_config["Services:Description"]!, Config.CompanyPhone, Config.CompanySecondPhone, Config.CompanyName), _config["Services:Keywords"]!);
             return View( _indexViewModel);
         }
 
@@ -136,11 +132,13 @@ namespace VartanMVCv2.Controllers
             }
             _logger.LogInformation($"{_indexViewModel.WorkServicesExample?.ID}");
             ViewBag.SelectedServicesImagePath = _indexViewModel.WorkServicesExample?.TitleImagePath;
+            SetMetaTags(_indexViewModel.WorkServicesExample?.MetaTitle!, _indexViewModel.WorkServicesExample?.MetaDescription!, _indexViewModel.WorkServicesExample?.MetaKeywords!);
             return View("ServicesByID", _indexViewModel);
         }
 
         public IActionResult Feedback(IndexViewModel feedback)
         {
+            SetMetaTags(String.Format(_config["Feedback:Title"]!, Config.CompanyName), String.Format(_config["Feedback:Description"]!, Config.CompanyPhone, Config.CompanySecondPhone, Config.CompanyName), _config["Feedback:Keywords"]!);
             FeedbackInit();
             return View(_indexViewModel);
         }
@@ -149,16 +147,19 @@ namespace VartanMVCv2.Controllers
         {
             ViewBag.SelectedCompletedProjectID = id;
             _indexViewModel.CompletedProjectExample = _dataModel!.completedProjectsList.FirstOrDefault(ws=>ws.ID == id); 
+            SetMetaTags(_indexViewModel.CompletedProjectExample!.MetaTitle!, _indexViewModel.CompletedProjectExample?.MetaDescription!, _indexViewModel.CompletedProjectExample!.MetaKeywords!);
             return View(_indexViewModel);
         }
 
         public IActionResult About()
         {
+            SetMetaTags(String.Format(_config["AboutUs:Title"]!,Config.CompanyName), String.Format(_config["AboutUs:Description"]!, Config.CompanyPhone, Config.CompanySecondPhone, Config.CompanyName), _config["AboutUs:Keywords"]!);
             return View();
         }
     
         public IActionResult Contact()
         {
+            SetMetaTags(_config["Contact:Title"]!, String.Format(_config["Contact:Description"]!, Config.CompanyPhone, Config.CompanySecondPhone, Config.CompanyName), _config["Contact:Keywords"]!);
             return View();
         }
 
@@ -177,6 +178,13 @@ namespace VartanMVCv2.Controllers
         {
             _logger.LogInformation("Начинает выполнение метод инициализации списка отображаемых отзывов [тип запроса: NonAction]");
             _indexViewModel.sortFeedbackList = from f in _indexViewModel.dataModelExample!.feedbackList where f.FeedbackEnabled == true select f;
+        }
+        [NonAction]
+        private void SetMetaTags(string title, string description, string keywords) 
+        {
+            ViewBag.Title = title;
+            ViewBag.Description = description;
+            ViewBag.Keywords = keywords;
         }
     }
 }

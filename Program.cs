@@ -22,7 +22,6 @@ namespace VartanMVCv2
             /*//настраивваем логгер */
             var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json").Build();
-
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .CreateBootstrapLogger();
@@ -62,11 +61,13 @@ namespace VartanMVCv2
                 }).AddSessionStateTempDataProvider();
                 //сопостовляем конфигурационный json с классом
                 builder.Configuration.AddJsonFile("appsettings.json");
+                builder.Configuration.AddJsonFile("metasettings.json");
                 Config config = new Config();
                 RecaptchaConfigurationManager.SetConfiguration(configuration);
                 //CaptchaConfiguration captchaConfiguration = new CaptchaConfiguration();
                 builder.Configuration.Bind("Project", config);
-                // builder.Configuration.Bind("Captcha", captchaConfiguration);              
+                // builder.Configuration.Bind("Captcha", captchaConfiguration);
+                
                 //подключаем класс контекста базы данных
                 builder.Services.AddDbContext<AplicationDBContext>(option => option.UseLazyLoadingProxies().UseSqlServer(Config.ConnectionString));
                 //подключаем нужный функционал в качестве сервисов
@@ -103,8 +104,8 @@ namespace VartanMVCv2
                 }
 
                 if (app.Environment.IsProduction())
-                { 
-                    app.UseMiddleware<ExceptionHandlingMiddleware>();
+                {
+                    //app.UseMiddleware<ExceptionHandlingMiddleware>();
                 }
 
                 app.UseHttpsRedirection();

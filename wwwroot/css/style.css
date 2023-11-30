@@ -1718,6 +1718,18 @@ textarea#comment::placeholder {
     }
 }
 
+#colorReplaceH1, #colorReplaceP {
+    background-color: rgba(255, 255, 255, 0.4); /* белый цвет с прозрачностью 40% */
+    float:none;
+
+}
+
+    #work_main_container {
+        display:block;
+    }
+}
+
+
 
 
 
