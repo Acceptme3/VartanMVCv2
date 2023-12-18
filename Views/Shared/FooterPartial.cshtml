@@ -14,10 +14,10 @@
             <div class="col-lg-3 col-sm-6">
                 <h1 class="customer_text">Компания "@Config.CompanyName"</h1>
                 <a href="@Url.Action("About","Home")">
-                    <img class ="footer_img" src ="~/images/4318759.jpg"/>
+                    <img class ="footer_img" src ="~/images/new_logo.png"/>
                 </a>
                 <p class="footer_lorem_text">
-                    Компания «RENOVO» – строительная компания с большим опытом в ремонтных работах, гарантия качества и профессионализм штата сотрудников.
+                    Компания «@Config.CompanyName» – строительная компания с большим опытом в ремонтных работах, гарантия качества и профессионализм штата сотрудников.
                 </p>
             </div>
             <div class="col-lg-3 col-sm-6">
@@ -32,10 +32,10 @@
             <div class="col-lg-3 col-sm-6">
                 <h1 class="customer_text">Дополнительная информация</h1>
                 <a class="footer_contact" href="@Url.Action("ResourseUsed", "Home")">Special thanks to</a>
-                <a class="footer_contact" href="#">Политика конфиденциальности</a>
+                <a class="footer_contact" href="DownloadDocument?documentName=privacy.docx&contentType=application/msword">Политика конфиденциальности</a>
                 <h2 class="footer_lorem_text1" style="font-size:18px; margin:0px; padding:3px" > По вопросам сотрудничества: </h2> 
                 <a class="footer_contact" style="margin-top:3px" href="tel:@Config.CompanyCooperationPhoneShort">@Config.CompanyCooperationPhone</a>
-                <a class="footer_contact" href="#">Вакансии в @Config.CompanyName</a>
+                <a class="footer_contact" hidden href="#">Вакансии в @Config.CompanyName</a>
             </div>
         </div>
         <div class="row">

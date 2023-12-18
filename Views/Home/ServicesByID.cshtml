@@ -4,9 +4,78 @@
 @model IndexViewModel
 @await Html.PartialAsync("HeaderWithoutSliderPartial")
 
+<style>
+    .tick {
+        font-size: 1rem;
+        white-space: nowrap;
+        font-family: arial,sans-serif;
+    }
+
+    .tick-flip, .tick-text-inline {
+        font-size: 2.5em;
+    }
+
+    .tick-label {
+        margin-top: 1em;
+        font-size: 1em;
+    }
+
+    .tick-char {
+        width: 1.5em;
+    }
+
+    .tick-text-inline {
+        display: inline-block;
+        text-align: center;
+        min-width: 1em;
+    }
+
+        .tick-text-inline + .tick-text-inline {
+            margin-left: -.325em;
+        }
+
+    .tick-group {
+        margin: 0 .5em;
+        text-align: center;
+    }
+
+    body {
+        background-color: rgb(255, 255, 255) !important;
+    }
+
+    .tick-text-inline {
+        color: rgb(90, 93, 99) !important;
+    }
+
+    .tick-label {
+        color: rgb(90, 93, 99) !important;
+    }
+
+    .tick-flip-panel {
+        color: rgb(255, 255, 255) !important;
+    }
+
+    .tick-flip {
+        font-family: !important;
+    }
+
+    .tick-flip-panel-text-wrapper {
+        line-height: 1.45 !important;
+    }
+
+    .tick-flip-panel {
+        background-color: rgb(59, 61, 59) !important;
+    }
+
+    .tick-flip {
+        border-radius: 0.54em !important;
+    }
+</style>
+
+
 <!-- furnitures section start -->
 <div class="furnitures_section layout_padding_2" >
-    <div class="head_services" id="imageBlock" style="background-image:url('@Url.PathToUrl(Model.WorkServicesExample!.TitleImagePath!)')">
+    <div class="head_services" id="imageBlock" style="background:url('@Url.PathToUrl(Model.WorkServicesExample!.TitleImagePath!)'); background-size:cover">
         <h1 class="furniture_text" id="colorReplaceH1">@Model.WorkServicesExample.Title</h1>
         <p class="there_text" id="colorReplaceP">@Model.WorkServicesExample.Description</p>
     </div>
@@ -35,7 +104,7 @@
                 }
             </div>
             <div class="price_section">
-                <div class="read_bt"><a href="#">Получить пример сметы</a> </div>
+                <div class="read_bt"><a href="#">@Model.WorkServicesExample.Price</a> </div>
                 <p class="micro_p">*стоимость на комплексные услуги складывается из множества факторов и меняется время от времени, пожалуйста, уточняйте цены по телефону.</p>             
             </div>
         </div>
@@ -95,7 +164,7 @@
         <div class="row">
             <div class="col-md-6">
                 <h1 class="purchase_text">Специальное предожение</h1>
-                <p class="lorem_text">Оставьте заявку сейчас, и получите 3% скидку на стройматериалы</p>
+                <p class="lorem_text">Оставьте заявку до конца месяца, и получите 5% скидку на ремонт.</p>
                 <div class="read_bt" id="read_bt_final"><a href="@Url.Action("Contact","Home")">Оставить заявку</a> </div>
             </div>
             <div class="col-md-6">
@@ -114,3 +183,4 @@
 </div>
 <!-- copyright section end -->
 @await Html.PartialAsync("ScriptsPartial")
+

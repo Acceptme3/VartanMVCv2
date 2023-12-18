@@ -479,6 +479,12 @@
         display: none;
     }
 
+    .flexible_box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+
     .banner-main .carousel-caption {
         top: 0%;
     }
@@ -712,6 +718,12 @@
     .last {
         display: none;
     }
+
+    .flexible_box {
+        flex-direction: column;
+        text-align: center;
+    }
+
 
     .icon_1 {
         height: 20vh;
@@ -1002,4 +1014,19 @@
     {
 
     }
+
+    
+
+    /* Медиа-запрос для экранов с шириной менее 768px */
+    @media screen and (max-width: 768px) {
+        .flexible_box {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    /* Дополнительные стили, если необходимо, для других медиа-запросов */
+    /* @media screen and (max-width: ...) { ... } */
+
+
 }

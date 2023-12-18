@@ -205,7 +205,11 @@ namespace VartanMVCv2
                     name: "account",
                     pattern: "account/{controller}/{action}/{id?}",
                     defaults: new { controller = "Account", action = "Login" });
-            
+                app.MapControllerRoute(
+                    name: "download",
+                    pattern: "download/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "DownloadDocument" });
+
                 app.MapFallbackToController("ErrorPage", "ErrorAplication");
 
                 app.Run();

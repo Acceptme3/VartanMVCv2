@@ -495,6 +495,16 @@ button {
     padding-top: 20px;
 }
 
+.furnitures_text_photo {
+    width: 100%;
+    float: left;
+    font-size: 24px;
+    color: #090808;
+    text-align: center;
+    padding-top: 20px;
+}
+
+
 .dummy_text {
     width: 100%;
     float: left;
@@ -1601,7 +1611,9 @@ textarea#comment::placeholder {
 .grid-container_photo_box {
     display: inline-grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin: 20px;
+    margin: 6vw;
+    margin-bottom:2vh;
+    margin-top:2vh;
     grid-column-gap: 10px;
     grid-row-gap: 1em;
 }
@@ -1727,7 +1739,66 @@ textarea#comment::placeholder {
     #work_main_container {
         display:block;
     }
+
+.flexible_box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between; 
+    width: 80%;
+    margin:0 auto;
 }
+.flex_item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    flex: 1; /* Занимает все доступное пространство, делит равномерно соседние элементы */
+}
+.img_box {
+    margin:auto;
+    
+}
+
+.img_conteiner {
+    margin-left:10vw;
+}
+.offer_conteiner{
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    margin:0 auto;
+}
+
+#offer_in_corporat {
+    width:60%;
+    margin:0 auto;
+}
+
+.in_txt {
+    width:80%;
+    margin:0 auto;
+    color:white;
+}
+.commerce{
+    padding-top:0px;
+
+}
+
+.innav p {
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+    .innav p:hover {
+        transform: scale(1.05);
+        background-color: #4fa3d1; /* Голубой цвет для выделения */
+        border-bottom: inset;
+        border-radius: 5px;
+    }
+    
+
+
 
 
 

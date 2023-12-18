@@ -173,6 +173,23 @@ namespace VartanMVCv2.Controllers
             return View();
         }
 
+        public IActionResult DownloadDocument(string documentName, string contentType)
+        {
+            
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","doc", documentName);
+
+            if(!System.IO.File.Exists(filePath)) 
+            {
+                return NotFound();
+            }
+
+            // Заголовок Content-Disposition, для того чтобы сказать браузеру что нужно скачать этот файл
+            Response.Headers.Add("Content-Disposition", "attachment; filename=" + documentName);
+            Response.ContentType = contentType;
+
+            return PhysicalFile(filePath, contentType, documentName);
+        }
+
         [NonAction]
         private void FeedbackInit() 
         {

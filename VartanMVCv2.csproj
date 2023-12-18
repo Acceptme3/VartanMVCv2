@@ -29,6 +29,7 @@
     <Folder Include="wwwroot\images\servicesImage\" />
     <Folder Include="wwwroot\sass\" />
     <Folder Include="wwwroot\lib\" />
+    <Folder Include="wwwroot\doc\" />
   </ItemGroup>
 
   <ItemGroup>

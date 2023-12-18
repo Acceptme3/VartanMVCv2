@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using VartanMVCv2.Domain.Repositories.Abstract;
 
 namespace VartanMVCv2.Domain.Entities
@@ -13,6 +14,8 @@ namespace VartanMVCv2.Domain.Entities
         public override string? Description { get => base.Description; set => base.Description = value; }
         [Display(Name = "Титульная картинка")]
         public override string? TitleImagePath { get => base.TitleImagePath; set => base.TitleImagePath = value; }
+        [Display(Name = "Стоимость услуги")]
+        public string Price { get; set; } = "default_price";
 
         public virtual List<WorksCategory> WorksCategories { get; set; }  = new List<WorksCategory>();
 
@@ -20,6 +23,7 @@ namespace VartanMVCv2.Domain.Entities
         {
             //ID = Guid.NewGuid();
             Title = "default_Services";
+            Price = "default_Price";
         }
     }
 }

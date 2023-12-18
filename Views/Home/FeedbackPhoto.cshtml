@@ -5,9 +5,9 @@
 
 @await Html.PartialAsync("HeaderWithoutSliderPartial")
 
-<div>
+<div class="parent_box">
     <h6 class="furnitures_text">@Model.CompletedProjectExample!.Title</h6>
-    <p class="furnitures_text">@Model.CompletedProjectExample.Description </p>
+    <p class="furnitures_text_photo">@Model.CompletedProjectExample.Description </p>
     <div class="grid-container_photo_box" >
         @foreach (CompletedProjectPhoto photo in Model.CompletedProjectExample!.Photos)
         {
