@@ -232,7 +232,7 @@ button {
 
 .head_services {
     background-image: url(/images/banner-bgb.png);
-    padding: 20vh;
+    padding: 20%;
     opacity: 0; /* Ќачальное значение прозрачности (блок скрыт) */
     transform: translateY(20px); /* Ќачальное значение смещени€ по вертикали */
     animation: fadeIn 1s ease-in-out forwards; /* јнимаци€ по€влени€ блока */
