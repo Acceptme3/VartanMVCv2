@@ -603,7 +603,7 @@ button {
 .lorem_text {
     width: 100%;
     float: left;
-    font-size: 20px;
+    font-size: 150%;
     color: #ffffff;
     margin-left: 0px;
     padding-top: 40px;
