@@ -27,9 +27,6 @@ namespace VartanMVCv2.Controllers
             _logger.LogInformation($"Все поля модели: Имя {feedback.FeedbackExample!.FeedbackClientName} + \n" +
                 $"Телефон {feedback.FeedbackExample.FeedbackPhone}+\n" +
                 $"Текст отзыва {feedback.FeedbackExample.FeedbackText}");
-
-
-
             foreach (var item in ModelState)
             {
                 _logger.LogInformation($"Пара ключ значение {item}");
@@ -40,7 +37,7 @@ namespace VartanMVCv2.Controllers
             {
                 _logger.LogInformation("Екземпляр отзыва клиента успешно прошел валидацию на стороне сервера [VALIDATE]");
                 await _dataManager.FeedbackRepository.AddedAsync(feedback.FeedbackExample);
-                return RedirectToAction("Confirm", "Home");
+                return RedirectToAction("ConfirmFeedback", "Home");
             }
             _logger.LogInformation("Екземпляр клиента НЕ прошел валидацию на стороне сервера [NOT VALID]");
             string validErrors = "";

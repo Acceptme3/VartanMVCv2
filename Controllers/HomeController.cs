@@ -90,7 +90,7 @@ namespace VartanMVCv2.Controllers
             {
                 _logger.LogInformation("Екземпляр отзыва клиента успешно прошел валидацию на стороне сервера [VALIDATE]");
                 await _dataManager.FeedbackRepository.AddedAsync(feedback.FeedbackExample!);
-                return View("Confirm");
+                return View("ConfirmFeedback");
             }
             _logger.LogInformation("Екземпляр клиента НЕ прошел валидацию на стороне сервера [NOT VALID]");
             string validErrors = "";
@@ -112,6 +112,7 @@ namespace VartanMVCv2.Controllers
             //_indexViewModel.FeedbackExample = feedback.FeedbackExample;
             return RedirectToAction("Index", feedback);
         }
+
 
         public IActionResult Services()
         {
