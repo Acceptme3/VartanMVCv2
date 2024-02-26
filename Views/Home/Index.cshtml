@@ -1,5 +1,22 @@
 ﻿    @using VartanMVCv2.Domain.Entities
     @using VartanMVCv2.ViewModels
+    @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@functions {
+
+    bool IsDevice()
+    {
+        string? userAgent;
+        bool isMobileDevice = false;
+        if (HttpContextAccessor.HttpContext != null)
+        {
+            userAgent = HttpContextAccessor.HttpContext.Request.Headers["User-Agent"].ToString();
+            isMobileDevice = userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase);
+        }
+        return isMobileDevice;
+    }
+
+}
 
 @await Html.PartialAsync("HeaderPartial")
 
@@ -74,7 +91,15 @@
         <p class="lorem_ipsum_text">-<strong><span style="font-size: 1.2em;">При заказе комплексных услуг действуют персональные скидки</span></strong></p>
     </div>
     <div class="get_bt_main">
-        <div class="get_bt"><a href="@Url.Action("Contact", "Home")">Заказать замер</a></div>
+        @if (IsDevice())
+        {
+            <div class="get_bt"><a href="tel:@Config.CompanyPhoneShort">Заказать замер</a></div>
+        }
+        else
+        {
+            <div class="get_bt"><a href="@Url.Action("Contact", "Home")">Заказать замер</a></div>
+        }
+
     </div>
 </div>
 <!-- who section end -->
