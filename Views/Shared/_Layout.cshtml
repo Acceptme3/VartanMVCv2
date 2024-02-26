@@ -23,9 +23,14 @@
    @await Html.PartialAsync("MetaPartial")
    @await Html.PartialAsync("CssPartial")
 </head>
-<body>
-    @await Html.PartialAsync("EntryFormPartial")
+<body class="building_version" data-spy="scroll" data-target=".header">
+    <!-- LOADER -->
+    <div id="preloader">
+        <img class="preloader" src="images/loaders/loader-building2.gif" alt="">
+    </div>
+    <!-- end loader -->
     @RenderBody()
+    <a href="#home" data-scroll class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
 </body>
     
 </html>

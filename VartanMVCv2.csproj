@@ -25,7 +25,6 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\images\servicesImage\" />
     <Folder Include="wwwroot\sass\" />
     <Folder Include="wwwroot\lib\" />

@@ -1,127 +1,46 @@
-﻿
-<!-- header section start -->
-<div class="header_section">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="logo"><a href="@Url.Action("Index", "Home")"><img src="/images/new_logo.png"></a></div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href=@Url.Action("Index", "Home")>Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=@Url.Action("Services", "Home")>Услуги</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=@Url.Action("About", "Home")>Информация</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=@Url.Action("Feedback", "Home")>Портфолио</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=@Url.Action("Contact", "Home")>Контакты</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="search_icon">
-                        <ul>
-                            <li><a><&#9742></a></li>
-                            <li>
-                                <a href="tel:@Config.CompanyPhoneShort" class="ref_phone" id="ref_phone">@Config.CompanyPhone</a>
-                            </li>
-                            <li><a href="tel:@Config.CompanySecondPhoneShort" class="ref_phone" id="ref_phone">@Config.CompanySecondPhone</a></li>
-                        </ul>
-                    </div>
-                    <div class="search_icon">
-                        <ul>
-                            <li><a href="#" class="btn_show_entryForm" id="btn_show_entryForm">Заказать звонок</a></li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
-        </nav>
-    </div>
-    <!-- banner section start -->
-    <div class="banner_section layout_padding">
-        <div class="container">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <h1 class="furniture_text">Гарантия</h1>
-                        <p class="second_text">Ремонт вашей недвижимости в Краснодаре и Краснодарском крае с гарантией</p>
-                        <p class="there_text">Даем 100 процентную гарантию качества. Профессионализм наших специалистов, эффективные технологии и новейшие материалы обеспечивают прочность и надежность всех аспектов ремонта.</p>
-                        <div class="carousel_grid_container">
-                            <div class="carousel_grid_item">
-                                <img src="~/images/measuring-tape.png" />
-                                <p class="s_text">Выезд замерщика бесплатно.</p>
-                            </div>
-                            <div class="carousel_grid_item">
-                                <img src="~/images/shield.png" />
-                                <p class="s_text">Гарантия на ремонт от 1 года.</p>
-                            </div>
-                            <div class ="carousel_grid_item" id="item_3">
-                                <img src="~/images/offer.png" />
-                                <p class="s_text">Персональные предложения.</p>
+﻿<header class="header header_style_01">
+    <nav class="megamenu navbar navbar-default" data-spy="affix">
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-hidden">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-hidden">
+                            <div class="gem-contacts-item gem-contacts-phone">
+                                <a class="phone-icon" href="tel:@Config.CompanyPhoneShort" target="_blank" title="phone"><i class="fa fa-phone" aria-hidden="true"></i>@Config.CompanyPhone</a>
+                                <a class="phone-icon" style="padding-left:3vw;" href="tel:@Config.CompanySecondPhoneShort" target="_blank" title="phone"><i class="fa fa-phone" aria-hidden="true"></i>@Config.CompanySecondPhone</a>
                             </div>
                         </div>
-                        <div class="contact_bt_main">
-                            <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Связаться с нами</a></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <h1 class="furniture_text">Опыт</h1>
-                        <p class="second_text">Мы занимаемся ремонтом квартир и частных домов более 8 лет </p>
-                        <p class="there_text">Мы гарантируем соблюдение сроков, чтобы вы могли наслаждаться обновленной квартирой в кратчайшие сроки.</p>
-                        <div class="carousel_grid_container">
-                            <div class="carousel_grid_item">
-                                <img src="~/images/clock.png" />
-                                <p class="s_text">Прораб доступен 24/7</p>
+                        <div class="top-area-block top-area-socials socials-colored-hover">
+                            <div class="socials inline-inside">
+                                <a class="socials-item" href="#" target="_blank" title="whatsapp"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                                <a class="socials-item" href="#" target="_blank" title="telegram"><i class="fa fa-telegram" aria-hidden="true"></i></a>                       
+                                <a class="socials-item" href="#" target="_blank" title="youtube"><i class="fa fa-youtube" aria-hidden="true"></i></a>
                             </div>
-                            <div class="carousel_grid_item">
-                                <img src="~/images/megaphone.png" />
-                                <p class="s_text">Скидки на стройматериалы.</p>
-                            </div>
-                            <div class="carousel_grid_item" id="item_3">
-                                <img src="~/images/home.png" />
-                                <p class="s_text">Соблюдаем страховые соглашения.</p>
-                            </div>
-                        </div>
-                        <div class="contact_bt_main">
-                            <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Узнать стоимость</a></div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <h1 class="furniture_text">Доверие</h1>
-                        <p class="second_text">Мы бережно относимся к вашему бюджету</p>
-                        <p class="there_text"> Всегда стараемся предложить оптимальное решение для вас. Мы работаем без посредников, что позволяет нам предлагать конкурентные цены на рынке ремонтных услуг.</p>
-                        <div class="carousel_grid_container">
-                            <div class="carousel_grid_item">
-                                <img src="~/images/file.png" />
-                                <p class="s_text">Не выходим за рамки сметы.</p>
-                            </div>
-                            <div class="carousel_grid_item">
-                                <img src="~/images/offer.png" />
-                                <p class="s_text">Фотоотчет хоть каждый день</p>
-                            </div>
-                            <div class="carousel_grid_item" id="item_3">
-                                <img src="~/images/offer.png" />
-                                <p class="s_text">Проверяем квалификацию персонала</p>
-                            </div>
-                        </div>
-                        <div class="contact_bt_main">
-                            <div class="contact_bt" id="btn_show_entryForm_2"><a href="#">Заказать звонок</a></div>
                         </div>
                     </div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-scrollbar"></div>
             </div>
         </div>
-    </div>
-    <!-- banner section end -->
-</div>
-<!-- header section end -->
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="images/41174714.png" alt="image"><span></span></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a data-scroll href="#home">На главную</a></li>
+                    <li><a data-scroll href="#services">О нас</a></li>
+                    <li><a data-scroll href="#projects">Портфолио</a></li>
+                    <li><a data-scroll href="#testimonials">Отзывы</a></li>
+                    <li><a data-scroll href="#price">Стоимость</a></li>
+                    <li><a data-scroll href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

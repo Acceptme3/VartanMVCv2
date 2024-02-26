@@ -1,52 +1,80 @@
-﻿
-<!-- footer section start -->
-<div class="footer_section layout_padding">
-    <div class="container">
+﻿<!-- footer -->
+<footer id="footer">
+    <div id="footer-widgets" class="container style-1">
         <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <h1 class="customer_text">Мы находимся по адресу:</h1>
-                <p class="footer_lorem_text">@Config.CompanyAddress</p>
-                <a class="footer_contact" href="tel:@Config.CompanyPhoneShort">@Config.CompanyPhone</a>
-                <a class="footer_contact" href="tel:@Config.CompanySecondPhoneShort">@Config.CompanySecondPhone</a>
-                <p class="footer_lorem_text">@Config.CompanyWorkTime</p>               
-                <a class="footer_contact" href="#" data-copy="true">@Config.CompanyEmail</a>
+            <div class="col-md-4">
+                <div class="widget widget_text">
+                    <h2 class="widget-title"><span>О Нас</span></h2>
+                    <div class="textwidget">
+                        <a class="navbar-brand" href="index-building.html"><img src="images/logo-icon.png" alt="image"><span>ВАРТАНОВ</span></a>
+                        <p>Мощная компания!Мощная компания!Мощная компания!Мощная компания!Мощная компания!Мощная компания!</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <h1 class="customer_text">Компания "@Config.CompanyName"</h1>
-                <a href="@Url.Action("About","Home")">
-                    <img class ="footer_img" src ="~/images/new_logo.png"/>
-                </a>
-                <p class="footer_lorem_text">
-                    Компания «@Config.CompanyName» – строительная компания с большим опытом в ремонтных работах, гарантия качества и профессионализм штата сотрудников.
-                </p>
+            <div class="col-md-4">
+                <div class="widget widget_links">
+                    <h2 class="widget-title"><span>Навигация</span></h2>
+                    <ul class="wprt-links clearfix col2">
+                        <li><a data-scroll="" href="#home">на главную</a></li>
+                        <li><a data-scroll="" href="#about">о нас</a></li>
+                        <li><a data-scroll="" href="#services">наш сервис</a></li>
+                        <li><a data-scroll="" href="#projects">перечень услуг</a></li>
+                        <li><a data-scroll="" href="#testimonials">отзывы</a></li>
+                        <li><a data-scroll="" href="#price">стоимость</a></li>
+                        <li><a data-scroll="" href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <h1 class="customer_text">Навигация по сайту</h1>
-                <ol class="footer_lorem_text1" title="Навигация по сайту">
-                    <li><a class="footer_contact" href="@Url.Action("About", "Home")">Информация</a></li>
-                    <li><a class="footer_contact" href="@Url.Action("Services", "Home")">Услуги</a></li>
-                    <li><a class="footer_contact" href="@Url.Action("Feedback", "Home")">Портфолио</a></li>
-                    <li><a class="footer_contact" href="@Url.Action("Contact", "Home")">Контакты</a></li>                 
-                </ol>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <h1 class="customer_text">Дополнительная информация</h1>
-                <a class="footer_contact" href="@Url.Action("ResourseUsed", "Home")">Special thanks to</a>
-                <a class="footer_contact" href="DownloadDocument?documentName=privacy.docx&contentType=application/msword">Политика конфиденциальности</a>
-                <h2 class="footer_lorem_text1" style="font-size:18px; margin:0px; padding:3px" > По вопросам сотрудничества: </h2> 
-                <a class="footer_contact" style="margin-top:3px" href="tel:@Config.CompanyCooperationPhoneShort">@Config.CompanyCooperationPhone</a>
-                <a class="footer_contact" hidden href="#">Вакансии в @Config.CompanyName</a>
-                <iframe src="https://yandex.ru/sprav/widget/rating-badge/103752062896?type=rating&theme=dark" width="300" height="100" frameborder="0"></iframe>
+            <div class="col-md-4">
+                <div class="widget widget_information">
+                    <h2 class="widget-title"><span>CONTACT INFO</span></h2>
+                    <ul>
+                        <li class="address clearfix">
+                            <span class="hl">Address:</span>
+                            <span class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+                        </li>
+                        <li class="phone clearfix">
+                            <span class="hl">Phone:</span>
+                            <span class="text">+56 (0) 012 345 6789</span>
+                        </li>
+                        <li class="email clearfix">
+                            <span class="hl">E-mail:</span>
+                            <span class="text">business@support.com</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="widget widget_socials">
+                    <div class="socials">
+                        <a target="_blank" href="#"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" href="#"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" href="#"><i class="fa fa-google-plus"></i></a>
+                        <a target="_blank" href="#"><i class="fa fa-pinterest"></i></a>
+                        <a target="_blank" href="#"><i class="fa fa-dribbble"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="footer_grid">
-                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/watsapp.png" alt="WhatsApp" /></a>
-                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/telegram.png" alt="Telegram" /></a>
-                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/insta.png" alt="Instagram" /></a>
-                <a href="#" target="_blank"><img class="social_icon_mini" src="~/images/youtube.png" alt="YouTube" /></a>
+    </div>
+    <div id="bottom" class="clearfix style-1">
+        <div class="container">
+            <div id="bottom-bar-inner" class="wprt-container">
+                <div class="bottom-bar-inner-wrap">
+                    <div class="bottom-bar-content">
+                        <div id="copyright">All Rights Reserved. Company Name © 2018</div>
+                        <!-- /#copyright -->
+                    </div>
+                    <!-- /.bottom-bar-content -->
+                    <div class="bottom-bar-menu pull-right">
+                        <ul class="bottom-nav">
+                            <li><a href="#/">HISTORY</a></li>
+                            <li><a href="#/">FAQ</a></li>
+                            <li><a href="#/">EVENTS</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.bottom-bar-menu -->
+                </div>
             </div>
-        </div>      
-    </div>  
-</div>
-<!--  footer section end -->
+        </div>
+    </div>
+</footer>
+<!-- end footer -->

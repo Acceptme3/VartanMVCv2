@@ -1,1033 +1,381 @@
-/*--------------------------------------------------------------------- File Name: responsive.css ---------------------------------------------------------------------*/
+/******************************************
+    File Name: responsive.css
+/****************************************** */
 
-
-/*------------------------------------------------------------------- 991px x 768px ---------------------------------------------------------------------*/
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-
-    .header-search {
-        padding: 15px 0px;
-    }
+.container {
+    width: 1140px;
 }
 
-
-/*------------------------------------------------------------------- 767px x 599px ---------------------------------------------------------------------*/
-
-@media only screen and (min-width: 599px) and (max-width: 767px) {
-    .logo {
+@media (max-width: 1199px) {
+    body.watch_version .image-center img {
+        max-width: 660px;
+        top: 0;
+        left: -12%;
+        position: absolute !important;
+        z-index: 10;
         text-align: center;
     }
-
-    .cart-content-right {
-        padding-bottom: 5px;
+    body.politics_version .app_iphone_01 {
+        left: -5%;
     }
-
-    .mg {
-        margin: 0px 0px;
+    body.watch_version .macbookright {
+        right: -7%;
     }
-
-    .menu-area-main {
-        height: 256px;
-        overflow-y: auto;
+    .header_style_01 .navbar-brand {
+        padding-right: 0;
     }
-
-    .megamenu > .row [class*="col-"] {
-        padding: 0px;
-    }
-
-    .menu-area-main .megamenu .men-cat {
-        padding: 0px 15px;
-    }
-
-    .menu-area-main .megamenu .women-cat {
-        padding: 0px 15px;
-    }
-
-    .menu-area-main .megamenu .el-cat {
-        padding: 0px 15px;
-    }
-
-    .mean-container .mean-nav ul li a.mean-expand {
-        height: 19px;
-    }
-
-    .category-box.women-box {
-        display: none;
-    }
-
-    .cart-box {
-        display: inline-block;
-        margin: 0px 30px;
-    }
-
-    .wish-box {
-        float: none;
-        margin: 0px 30px;
-        display: inline-block;
-    }
-
-    .menu-add {
-        display: none;
-    }
-
-    .category-box {
-        display: none;
-    }
-
-    .mean-container .mean-nav ul li ol {
-        padding: 0px;
-    }
-
-    .mean-container .mean-nav ul li a {
-        padding: 10px 20px;
-        width: 94.8%;
-    }
-
-    .mean-container .mean-nav ul li li a {
-        width: 92%;
-        padding: 1em 4%;
-    }
-
-    .mean-container .mean-nav ul li li li a {
+    .container-fluid {
         width: 100%;
+        padding: 0 15px;
     }
-
-    .header-search {
-        padding: 15px 0px;
+    .container {
+        width: 1140px;
     }
-
-    #collapseFilter.d-md-block {
-        padding: 30px 0px;
-    }
-}
-
-
-/*------------------------------------------------------------------- 599px x 280px ---------------------------------------------------------------------*/
-
-@media only screen and (min-width: 280px) and (max-width: 599px) {
-    .cart-content-right {
-        padding-bottom: 5px;
-    }
-
-    .megamenu > .row [class*="col-"] {
-        padding: 0px;
-    }
-
-    .menu-area-main .megamenu .men-cat {
-        padding: 0px 15px;
-    }
-
-    .menu-area-main .megamenu .women-cat {
-        padding: 0px 15px;
-    }
-
-    .menu-area-main .megamenu .el-cat {
-        padding: 0px 15px;
-    }
-
-    .mean-container .mean-nav ul li a {
-        padding: 1em 4%;
-        width: 92%;
-    }
-
-    .mean-container .mean-nav ul li li a {
-        width: 90%;
-        padding: 1em 5%;
-    }
-
-    .mean-container .sub-full.megamenu-categories ol li a {
-        padding: 5px 0px;
-        text-transform: capitalize;
-        width: 100%;
-    }
-
-    .megamenu .sub-full.megamenu-categories .women-box .banner-up-text a {
-        width: auto;
-        border: none;
-        float: none;
-    }
-
-    .menu-area-main {
-        height: 45px;
-        overflow-y: auto;
-    }
-
-    .mean-container .mean-nav ul li a.mean-expand {
-        top: 0;
+    .first-section h2 {
+        font-size: 48px;
     }
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {
-
-    .titlepage h2::after {
-        width: 58%;
+@media (max-width: 1158px) {
+    body.clinic_version .app_iphone_01 {
+        right: -5%;
     }
-
-    .about-box .titlepage h2::after {
-        width: 52%;
-        right: -221px;
+    body.clinic_version .app_iphone_02 {
+        right: 15%;
     }
-
-    .Nursery-img .text-box h3 {
-        padding: 111px 50px;
+    body.clinic_version .app_iphone_03 {
+        right: -10%;
     }
-
-    .contact .titlepage h2::after {
-        left: -650px;
-        width: 30%;
-    }
-
-    .navbar-toggler {
-        background-color: #ffffff;
-    }
-
-    .logo {
-        width: 20%;
-    }
-
-    .navbar-expand-lg .navbar-nav .nav-link {
-        padding-left: 16px;
-    }
-
-    .navbar-light .navbar-nav .nav-link {
-        font-size: 16px;
-    }
-
-    .call_text {
-        font-size: 16px;
-    }
-
-    .search_icon li {
-        padding-left: 8px;
-        font-size: 16px;
-    }
-
-    .banner_section {
-        padding-top: 15px;
-    }
-
-    .contact_bt {
-        margin-top: 100px;
-    }
-
-    .banner_section {
-        padding-bottom: 40px;
-    }
-
-    .contact_section {
-        background-size: cover;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .main-menu ul > li a {
-        padding: 7px 6px;
-    }
-
-    .main-menu ul > li a {
+    .header_style_01 .navbar-default .navbar-nav > li > a {
         font-size: 14px;
     }
-
-    .w_serv_conteiner {
-        grid-gap: 10px;
+    .first-section .lead {
+        font-size: 18px;
     }
+    .navbar-default .btn-light {
+        display: none;
+    }
+    body.app_version .app_iphone_01 {
+        right: -5% !important;
+    }
+    body.app_version .app_iphone_02 {
+        right: -15% !important;
+    }
+}
 
-    .w_serv_item {
+@media (max-width: 1120px) {
+    .iphones {
+        right: -30%;
+    }
+    .macbookright {
+        bottom: -10%;
+        right: -35%;
+    }
+    .how-its-work .hc {
+        width: 50% !important;
+    }
+    body.clinic_version .how-its-work .hc {
+        width: 33.3333% !important;
+    }
+    body.clinic_version .dev-list .widget img {
         width: 100%;
-        box-sizing: border-box;
     }
+}
 
-    .banner-main .carousel-caption h1 {
-        font-size: 36px;
-        padding-top: 0px;
+@media (max-width: 992px) {
+    body.clinic_version .service-widget {
+        margin: 15px 0;
     }
-
-    .banner-main .carousel-caption p {
-        margin-bottom: 7px;
-        display: none;
+    .m40 {
+        margin-top: 40px;
     }
-
-    .main {
-        width: 15%;
+    body.host_version .stat-wrap {
+        text-align: center;
     }
-
-    .info_icon {
-        min-width: 10%;
+    body.host_version .stat-wrap .alignleft {
+        float: none;
+        margin: 0 auto;
     }
-
-    #main_slider a.carousel-control-prev {
-        display: none;
+    .apple-button i {
+        font-size: 32px;
+        margin: 0px 20px 0 0;
+        vertical-align: middle;
     }
-
-    .btn_main {
-        margin-top: 58px;
-        width: 65%;
+    body.clinic_version .affix,
+    body.clinic_version .header_style_01,
+    body.app_version .header_style_01 {
+        width: 100% !important;
+        padding: 20px 0 !important;
     }
-
-    #main_slider a.carousel-control-next {
-        display: none;
-    }
-
-    .sporrt_text {
-        margin-top: 0px;
+    .apple-button strong {
         font-size: 24px;
     }
-
-    .email_btn {
-        padding: 41px;
+    body.app_version .header_style_01 {
+        top: 0 !important;
     }
-
-    .btn-primary {
-        max-width: 144px;
+    .pricing-table {
+        margin: 15px 0 !important;
     }
-
-    .titlepage h2::after {
-        width: 79%;
-    }
-
-    .about-box .titlepage h2::after {
-        width: 73%;
-        right: -88px;
-    }
-
-    .contact .titlepage h2::after {
-        left: -403px;
-        width: 41%;
-    }
-
-    .paddimg-right {
-        padding-right: 15px;
-    }
-
-    .paddimg-left {
-        padding-left: 15px;
-    }
-
-
-    .navbar-toggler {
-        background-color: #ffffff;
-    }
-
-    .logo {
-        width: 50%;
-    }
-
-    .header_section {
-        background-size: cover;
-    }
-
-    .banner_section {
-        padding-top: 20px;
-        padding-bottom: 28PX;
-    }
-
-    .furniture_text {
-        font-size: 50px;
-    }
-
-    .there_text {
-        width: 100%;
-        font-size: 15px;
-    }
-
-    .contact_bt_main {
-        width: 150px;
-    }
-
-    .contact_bt {
-        margin-top: 80px;
-    }
-
-    .dummy_text {
-        font-size: 15px;
-    }
-
-    .services_section2 {
-        padding-top: 30px;
-    }
-
-    .icon_1 {
-        padding-top: 30px;
-    }
-
-    .read_bt_main {
-        width: 150px;
-    }
-
-    .lorem_text {
-        padding-top: 0px;
-        font-size: 150%;
-    }
-
-    .read_bt1 {
-        width: 150px;
-        margin-top: 20px;
-    }
-
-    .image_1 {
-        padding-top: 50px;
-    }
-
-    .get_bt_main {
-        width: 150px;
-    }
-
-    .get_bt {
-        margin-top: 20PX;
-    }
-
-    .client_text {
-        font-size: 22PX;
-    }
-
-    .client_1 {
-        width: 70%;
-    }
-
-    .client_2 {
-        width: 70%;
-    }
-
-    .quote_icon {
-        bottom: 87px;
-    }
-
-    .carousel-indicators {
+    hr.hr2 {
         display: none;
     }
-
-    .overlay {
-        top: 35px;
+    .stat-wrap .col-md-3,
+    .icon-wrapper,
+    .message-box {
+        margin-bottom: 30px;
     }
-
-    .icon {
-        font-size: 70px;
+    .owl-prev i {
+        left: 0;
+        border-radius: 0;
     }
-
-    .dololr_text {
-        font-size: 16px;
+    .owl-next i {
+        right: 0;
+        border-radius: 0;
     }
-
-    .contact_section {
-        background-size: cover;
-    }
-
-    .send_bt a {
-        width: 130px;
-        padding: 5px 0px;
-    }
-
-    .input-group {
-        width: 290px;
-    }
-
-    .container_main1::after {
-        width: 88%;
-        height: 88%;
-    }
-
-    .modern_text {
-        font-size: 12px;
-        top: -30px;
-    }
-
-    .text {
-        font-size: 8px;
-    }
-
-    .temper_text {
-        font-size: 15px;
-    }
-
-    .email-bt {
-        margin-top: 10px;
-    }
-
-    .massage-bt {
-        margin-top: 10px;
-    }
-
-    .send_bt {
-        margin-top: 20px;
-    }
-
-    .mb-lg-0, .my-lg-0 {
-        width: 100%;
-    }
-
-    .search_icon {
-        width: 100%;
-    }
-
-    #costum_slider a.carousel-control-next {
-        display: none;
-    }
-
-    #costum_slider a.carousel-control-prev {
-        display: none;
-    }
-
-    .carousel_grid_container p {
-        font-size: 100%;
-        color: black;
-        font-weight: 500;
+    body.clinic_version .how-its-work .hc {
+        width: 100% !important;
     }
 }
 
-@media (min-width: 576px) and (max-width: 767px) {
-    .last {
+@media (max-width: 1000px) {
+    body.politics_version .header_style_01 {
+        position: relative;
+        top: 0;
+        background-color: #1f1f1f !important;
+    }
+    body.realestate_version .message-box,
+    body.realestate_version .service-widget {
+        margin: 15px 0;
+    }
+    body.realestate_version .property-detail .col-md-2 {
+        margin: 15px 0;
+    }
+    body.realestate_version .first-section {
+        padding: 10em 0 !important;
+    }
+    body.realestate_version .header_style_01 {
+        position: relative;
+        background-color: #1f1f1f;
+    }
+    .footer .col-xs-12 {
+        margin: 15px 0;
+        width: 100% !important;
+    }
+    body.clinic_version .app_iphone_01,
+    body.clinic_version .app_iphone_02,
+    body.clinic_version .app_iphone_03 {
         display: none;
     }
-
-    .flexible_box {
-        flex-direction: column;
-        text-align: center;
+    body.seo_version .header_style_01 {
+        background-color: #0e0e2e;
     }
-
-
-    .banner-main .carousel-caption {
-        top: 0%;
+    .navbar-default .btn-light {
+        display: block;
+        width: 100%;
+        border: 0 !important;
+        padding: 0 !important;
+        margin: -8px -2px 0 !important;
+        line-height: 1 !important;
     }
-
-    .w_serv_conteiner {
-        grid-gap: 10px;
+    .navbar-collapse {
+        margin-top: 15px;
     }
-
-    .titlepage h2 {
-        font-size: 42px;
+    .header_style_01 {
+        background-color: #1f1f1f;
+        display: block;
+        left: 0;
+        padding: 20px 40px !important;
+        position: relative;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 111;
+    }
+    .navbar-default .navbar-toggle {
+        border-color: #1f1f1f;
+        color: #fff !important;
+        background-color: #1f1f1f !important;
+    }
+    .navbar-default .navbar-collapse,
+    .navbar-default .navbar-form {
+        border-color: transparent;
+    }
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,
+    .navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
         display: block;
     }
-
-    #main_slider a.carousel-control-prev {
-        position: absolute;
-        left: 25%;
-        top: 64%;
-        display: none;
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
-
-    .btn_main {
-        margin-top: 58px;
-        width: 80%;
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
     }
-
-    #main_slider a.carousel-control-next {
-        position: absolute;
-        left: 50px;
-        top: 64%;
-        display: none;
+    .navbar-collapse.collapse {
+        display: none!important;
     }
-
-    .btn-primary {
-        margin-top: 0px;
-        margin-left: -7px;
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
     }
-
-    .banner-main .carousel-caption h1 {
-        font-size: 50px;
+    .navbar-nav>li {
+        float: none;
     }
-
-    .titlepage h2::after {
-        width: 88%;
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
-
-    .about-box .titlepage h2::after {
-        width: 45%;
-        right: -281px;
+    .collapse.in {
+        display: block !important;
     }
-
-    .sporrt_text {
-        margin-top: 0px;
+    .affix-top {
+        overflow: hidden;
+        visibility: visible;
+        opacity: 1;
+        top: 0 !important;
     }
-
-    .Nursery-img .text-box h3 {
-        font-size: 36px;
-        padding: 126px 40px;
+    .header_style_01 .navbar-default .navbar-nav > li a {
+        padding: 10px 5px;
     }
-
-    .main {
-        width: 20%;
-    }
-
-    .contact .titlepage h2::after {
-        left: -234px;
-        width: 55%;
-    }
-
-    .navbar-toggler {
-        background-color: #ffffff;
-    }
-
-    .logo {
-        width: 50%;
-    }
-
-    .header_section {
-        background-size: cover;
-    }
-
-    .banner_section {
-        background-size: cover;
-        padding-top: 20px;
-    }
-
-    .furniture_text {
-        font-size: 50px;
-    }
-
-    .there_text {
+    .first-section .col-md-6 {
         width: 100%;
-        font-size: 15px;
-    }
-
-    .contact_bt_main {
-        width: 150px;
-    }
-
-    .contact_bt {
-        margin-top: 70px;
-    }
-
-    .dummy_text {
-        font-size: 15px;
-    }
-
-    .services_section2 {
-        padding-top: 30px;
-    }
-
-    .icon_1 {
-        padding-top: 30px;
-    }
-
-    .read_bt_main {
-        width: 150px;
-    }
-
-    .lorem_text {
-        padding-top: 0px;
-        font-size: 150%;
-    }
-
-    .read_bt1 {
-        width: 150px;
-        margin-top: 20px;
-    }
-
-    .image_1 {
-        padding-top: 50px;
-    }
-
-    .get_bt_main {
-        width: 150px;
-    }
-
-    .get_bt {
-        margin-top: 20PX;
-    }
-
-    .client_text {
-        font-size: 22PX;
-    }
-
-    .client_1 {
-        width: 100%;
-    }
-
-    .client_2 {
-        width: 100%;
-    }
-
-    .quote_icon {
-        bottom: 82px;
-    }
-
-    .carousel-indicators {
-        display: none;
-    }
-
-    .overlay {
-        top: 35px;
-    }
-
-    .icon {
-        font-size: 70px;
-    }
-
-    .dololr_text {
-        font-size: 16px;
-    }
-
-    .contact_section {
-        background-size: cover;
-    }
-
-    .send_bt a {
-        width: 130px;
-        padding: 5px 0px;
-    }
-
-    .input-group {
-        width: 290px;
-    }
-
-    .container_main1::after {
-        width: 84%;
-        height: 84%;
-    }
-
-    .modern_text {
-        font-size: 12px;
-        top: -30px;
-    }
-
-    .text {
-        font-size: 8px;
-    }
-
-    .mb-lg-0, .my-lg-0 {
-        width: 100%;
-    }
-
-    .search_icon {
-        width: 100%;
-    }
-
-    #costum_slider a.carousel-control-next {
-        display: none;
-    }
-
-    #costum_slider a.carousel-control-prev {
-        display: none;
-    }
-
-    .carousel_grid_container p {
-        font-size: 100%;
-        color: black;
-        font-weight: 400;
-    }
-
-    .carousel_grid_container img {
-        margin:5px;
-        max-height: 30px;
-        max-width: 30px;
-    }
-}
-
-
-@media (max-width: 575px) {
-    .last {
-        display: none;
-    }
-
-    .flexible_box {
-        flex-direction: column;
         text-align: center;
     }
-
-
-    .icon_1 {
-        height: 20vh;
-        width: 30vw;
+    .social-links,
+    .macbookright {
+        display: none !important;
     }
-
-    .price_section {
-        margin: 5%;
-        /* margin-left: 20%; */
-        /* margin-right: 20%; */
-        background: #e5c2806e;
-        border-radius: 10px;
+    .footer-distributed form input {
+        width: 300px;
     }
-
-    .w_serv_conteiner {
-        grid-gap: 13vw;
+    .footer-distributed {
+        padding: 30px;
+        text-align: center;
+        font: bold 14px sans-serif;
     }
-
-    .w_serv_item {
-        width: 100%;
-        box-sizing: border-box;
+    .footer-distributed .footer-company-name {
+        margin-top: 10px;
+        font-size: 12px;
     }
-
-    .carousel-caption {
-        display: none;
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-right {
+        float: none;
+        max-width: 100%;
+        margin: 0 auto;
     }
-
-    .header {
-        padding-top: 0px;
+    .footer-distributed .footer-left {
+        margin-bottom: 20px;
     }
-
-    .btn-primary {
-        max-width: 126px;
-        margin-right: 2px;
-        font-size: 14px;
-    }
-
-    .banner-main .carousel-caption h1 {
-        font-size: 30px;
-        line-height: 38px;
-    }
-
-    .titlepage h2 {
-        font-size: 27px;
-    }
-
-    .sporrt_text {
-        font-size: 23px;
-        margin-top: 0px;
-    }
-
-    .main {
+    .footer-distributed form input {
         width: 100%;
     }
+}
 
-    .btn_main {
+@media (max-width: 768px) {
+    body.building_version .first-section h2 {
+        font-size: 34px;
+    }
+    body.politics_version .issuse-wrap2 {
         margin-top: 30px;
-        padding-bottom: 30px;
-        width: 55%;
     }
-
-    #main_slider a.carousel-control-prev {
-        position: absolute;
-        left: 175px;
-        top: 90%;
-        display: none;
+    body.seo_version .nopadtop {
+        padding-top: 120px;
     }
-
-    #main_slider a.carousel-control-next {
-        position: absolute;
-        left: 236px;
-        top: 90%;
-        display: none;
+    body.host_version .affix,
+    body.host_version .header_style_01 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
-
-    .titlepage h2::after {
-        width: 93%;
+    body.host_version .stat-wrap .col-md-4 {
+        margin: 15px 0;
     }
-
-    .about-box .titlepage h2::after {
-        width: 238px;
-        right: -50px;
+    .how-its-work .hc {
+        width: 100% !important;
     }
-
-    .Gallery .titlepage h2 {
-        font-size: 47px;
-    }
-
-        .Gallery .titlepage h2::after {
-            width: 89%;
-        }
-
-    .paddimg-right {
+    .affix,
+    .header_style_01 {
+        padding-left: 15px;
         padding-right: 15px;
     }
-
-    .paddimg-left {
-        padding-left: 15px;
+    .m130 {
+        margin-top: 0;
     }
-
-    .Nursery-img .text-box h3 {
-        font-size: 23px;
-        padding: 30px 14px;
+    .footer .widget,
+    .logos .col-md-2,
+    .service-widget {
+        margin: 15px 0;
     }
-
-    .contact .titlepage h2::after {
-        left: -8px;
-        width: 281px;
+    .features-left i {
+        float: left;
+        margin-right: 20px !important;
     }
-
-    .footer .headinga span {
-        font-size: 16px;
+    .fl-inner {
+        text-align: left;
+        margin-right: 0;
     }
-
-    .menu-bottom {
-        margin-bottom: 45px;
+    .effect-1:after {
+        border: 0 !important;
+        box-shadow: none !important;
     }
-
-    ul.link li {
-        padding: 8px 12px;
-        padding-bottom: 0px;
+    .first-section {
+        padding: 8em 0 6em !important;
     }
+    .first-section h2 {
+        font-size: 32px;
+    }
+}
 
-
-    .navbar-toggler {
+@media (max-width: 600px) {
+    body.host_version .btn-light,
+    body.app_version .btn-light {
+        font-size: 14px;
+        margin: 0 auto;
+        padding: 10px 20px;
+        text-align: center;
+        width: 40% !important;
+    }
+    body.app_version .btn-light i {
+        display: none !important;
+    }
+    .copyrights {
+        padding: 40px 10px;
+    }
+    .footer-distributed {
+        padding: 0;
+    }
+    .section-title p {
+        font-size: 14px;
+        line-height: 25px;
+    }
+    .section-title h3 {
+        font-size: 28px;
+    }
+    .portfolio-filter ul li .btn-dark {
+        border: 0 !important;
+        width: 100%;
+        display: block;
         background-color: #ffffff;
+        border-radius: 0;
     }
-
-    .logo {
-        width: 50%;
-    }
-
-    .header_section {
-        background-size: cover;
-    }
-
-    .banner_section {
-        background-size: cover;
-        padding-top: 20px;
-    }
-
-    .furniture_text {
-        font-size: 50px;
-    }
-
-    .there_text {
-        width: 100%;
-        font-size: 15px;
-    }
-
-    .contact_bt_main {
-        width: 150px;
-    }
-
-    .contact_bt {
-        margin-top: 20px;
-    }
-
-    .dummy_text {
-        font-size: 15px;
-    }
-
-    .services_section2 {
-        padding-top: 30px;
-    }
-
-    .icon_1 {
-        padding-top: 30px;
-        margin-bottom: 5%;
-    }
-
-    .read_bt_main {
-        width: 150px;
-    }
-
-    .lorem_text {
-        padding-top: 0px;
-        font-size: 150%;
-    }
-
-    .read_bt1 {
-        width: 150px;
-        margin-top: 20px;
-    }
-
-    .image_1 {
-        padding-top: 0px;
-        width: 50%;
-        float: right;
-        height: auto;
-    }
-
-    .get_bt_main {
-        width: 150px;
-    }
-
-    .get_bt {
-        margin-top: 20PX;
-    }
-
-    .client_text {
-        font-size: 22PX;
-    }
-
-    .client_1 {
-        width: 100%;
-    }
-
-    .client_2 {
-        width: 100%;
-    }
-
-    .quote_icon {
-        width: 150px;
-        bottom: -8px;
-    }
-
-    .loksans_text {
-        padding-top: 20px;
-    }
-
-    .carousel-indicators {
-        display: none;
-    }
-
-    .overlay {
-        top: 35px;
-    }
-
-    .icon {
-        font-size: 70px;
-    }
-
-    .dololr_text {
-        font-size: 16px;
-    }
-
-    .contact_section {
-        background-size: cover;
-    }
-
-    .send_bt a {
-        width: 130px;
-        padding: 5px 0px;
-    }
-
-    .input-group {
-        width: 290px;
-    }
-
-    .container_main1::after {
-        width: 98%;
-        height: 93%;
-    }
-
-    #costum_slider a.carousel-control-next {
-        display: none;
-    }
-
-    #costum_slider a.carousel-control-prev {
-        display: none;
-    }
-
-    .carousel_grid_container p {
-        font-size: 70%;
-        color: black;
-        font-weight: 400;
-        line-height: 1.0;
-    }
-
-    .carousel_grid_container img {
-        margin: 5px;
-        max-height: 30px;
-        max-width: 30px;
+    .portfolio-filter ul li {
+        border-radius: 0;
+        padding: 1px;
+        display: inline-block;
+        margin: 0 1px 2px 1px;
+        text-decoration: none;
+        text-transform: uppercase;
+        background-color: #ededed;
+        vertical-align: middle;
+        width: 49%;
+        float: left;
+        border: 0 solid #ededed;
     }
 }
 
-@media (max-height: 896px) {
-    
-    .pop_up_body p {
-        font-family: Oswald;
-        font-size: 1.7em;
-        font-weight: 400;
-        color: black;
-        margin-bottom: 15px;
-    }
-
-    @media (max-width:1400px) 
-    {
-
-    }
-
-    
-
-    /* Медиа-запрос для экранов с шириной менее 768px */
-    @media screen and (max-width: 768px) {
-        .flexible_box {
-            flex-direction: column;
-            text-align: center;
-        }
-    }
-
-    /* Дополнительные стили, если необходимо, для других медиа-запросов */
-    /* @media screen and (max-width: ...) { ... } */
-
-
-}
