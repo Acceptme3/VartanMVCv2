@@ -1,4 +1,20 @@
-﻿
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@functions {
+
+    bool IsDevice()
+    {
+        string? userAgent;
+        bool isMobileDevice = false;
+        if (HttpContextAccessor.HttpContext != null)
+        {
+            userAgent = HttpContextAccessor.HttpContext.Request.Headers["User-Agent"].ToString();
+            isMobileDevice = userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase);
+        }
+        return isMobileDevice;
+    }
+
+}
 <!-- header section start -->
 <div class="header_section">
     <div class="container">
@@ -47,78 +63,34 @@
     <!-- banner section start -->
     <div class="banner_section layout_padding">
         <div class="container">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <h1 class="furniture_text">Гарантия</h1>
-                        <p class="second_text">Ремонт вашей недвижимости в Краснодаре и Краснодарском крае с гарантией</p>
-                        <p class="there_text">Даем 100 процентную гарантию качества. Профессионализм наших специалистов, эффективные технологии и новейшие материалы обеспечивают прочность и надежность всех аспектов ремонта.</p>
-                        <div class="carousel_grid_container">
-                            <div class="carousel_grid_item">
-                                <img src="~/images/measuring-tape.png" />
-                                <p class="s_text">Выезд замерщика бесплатно.</p>
-                            </div>
-                            <div class="carousel_grid_item">
-                                <img src="~/images/shield.png" />
-                                <p class="s_text">Гарантия на ремонт от 1 года.</p>
-                            </div>
-                            <div class ="carousel_grid_item" id="item_3">
-                                <img src="~/images/offer.png" />
-                                <p class="s_text">Персональные предложения.</p>
-                            </div>
-                        </div>
-                        <div class="contact_bt_main">
-                            <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Связаться с нами</a></div>
-                        </div>
+            <div class="swiper-slide">
+                <h1 class="furniture_text">Доступный ремонт</h1>
+                <p class="second_text">Закажите ремонт жилого или коммерческого помещения "под-ключ", прямо сейчас и получите скидку 12%</p>
+                <div class="carousel_grid_container">
+                    <div class="carousel_grid_item">
+                        <img src="~/images/measuring-tape.png" />
+                        <p class="s_text">Выезд замерщика бесплатно.</p>
                     </div>
-                    <div class="swiper-slide">
-                        <h1 class="furniture_text">Опыт</h1>
-                        <p class="second_text">Мы занимаемся ремонтом квартир и частных домов более 8 лет </p>
-                        <p class="there_text">Мы гарантируем соблюдение сроков, чтобы вы могли наслаждаться обновленной квартирой в кратчайшие сроки.</p>
-                        <div class="carousel_grid_container">
-                            <div class="carousel_grid_item">
-                                <img src="~/images/clock.png" />
-                                <p class="s_text">Прораб доступен 24/7</p>
-                            </div>
-                            <div class="carousel_grid_item">
-                                <img src="~/images/megaphone.png" />
-                                <p class="s_text">Скидки на стройматериалы.</p>
-                            </div>
-                            <div class="carousel_grid_item" id="item_3">
-                                <img src="~/images/home.png" />
-                                <p class="s_text">Соблюдаем страховые соглашения.</p>
-                            </div>
-                        </div>
-                        <div class="contact_bt_main">
-                            <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Узнать стоимость</a></div>
-                        </div>
+                    <div class="carousel_grid_item">
+                        <img src="~/images/shield.png" />
+                        <p class="s_text">Гарантия на ремонт от 1 года.</p>
                     </div>
-                    <div class="swiper-slide">
-                        <h1 class="furniture_text">Доверие</h1>
-                        <p class="second_text">Мы бережно относимся к вашему бюджету</p>
-                        <p class="there_text"> Всегда стараемся предложить оптимальное решение для вас. Мы работаем без посредников, что позволяет нам предлагать конкурентные цены на рынке ремонтных услуг.</p>
-                        <div class="carousel_grid_container">
-                            <div class="carousel_grid_item">
-                                <img src="~/images/file.png" />
-                                <p class="s_text">Не выходим за рамки сметы.</p>
-                            </div>
-                            <div class="carousel_grid_item">
-                                <img src="~/images/offer.png" />
-                                <p class="s_text">Фотоотчет хоть каждый день</p>
-                            </div>
-                            <div class="carousel_grid_item" id="item_3">
-                                <img src="~/images/offer.png" />
-                                <p class="s_text">Проверяем квалификацию персонала</p>
-                            </div>
-                        </div>
-                        <div class="contact_bt_main">
-                            <div class="contact_bt" id="btn_show_entryForm_2"><a href="#">Заказать звонок</a></div>
-                        </div>
+                    <div class="carousel_grid_item" id="item_3">
+                        <img src="~/images/offer.png" />
+                        <p class="s_text">Скидки на стройматериалы</p>
                     </div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-scrollbar"></div>
+                <div class="contact_bt_main">
+                    @if (IsDevice())
+                    {
+                        <div class="contact_bt"><a href="tel:@Config.CompanyPhoneShort">Получить консультацию</a></div>
+                    }
+                    else
+                    {
+                        <div class="contact_bt"><a href="@Url.Action("Contact", "Home")">Получить консультацию</a></div>
+                    }
+                    
+                </div>
             </div>
         </div>
     </div>

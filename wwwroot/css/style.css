@@ -43,7 +43,7 @@ html {
 body {
     color: #666666;
     font-size: 14px;
-    font-family: Oswald;
+    font-family: system-ui;
     line-height: 1.80857;
     font-weight: normal;
     overflow-x: hidden;
@@ -231,7 +231,7 @@ button {
 }
 
 .head_services {
-    background-image: url(/images/banner-bgb.png);
+    background-image: url(/images/banner-bgb.jpg);
     padding: 20%;
     opacity: 0; /* Ќачальное значение прозрачности (блок скрыт) */
     transform: translateY(20px); /* Ќачальное значение смещени€ по вертикали */
@@ -385,7 +385,7 @@ button {
 
 
 .contact_bt_main {
-    width: 17%;
+    width: 50%;
     margin: 0 auto;
     text-align: center;
 }
@@ -1795,6 +1795,27 @@ textarea#comment::placeholder {
         background-color: #4fa3d1; /* √олубой цвет дл€ выделени€ */
         border-bottom: inset;
         border-radius: 5px;
+    }
+
+.mobile-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 10px 0;
+    text-align: center;
+    display: none; /* скрыть панель по умолчанию */
+}
+
+    .mobile-panel a {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    .mobile-panel img {
+        width: 50px; /* установка ширины изображени€ */
+        height: auto; /* автоматическое определение высоты дл€ сохранени€ пропорций */
     }
     
 
