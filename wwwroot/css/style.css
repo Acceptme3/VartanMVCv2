@@ -4,6 +4,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700');
 @import url('https://fonts.googleapis.com/css?family=Oswald:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 @font-face {
     font-family: "Righteous";
@@ -43,7 +44,7 @@ html {
 body {
     color: #666666;
     font-size: 14px;
-    font-family: system-ui;
+    font-family: Raleway;
     line-height: 1.80857;
     font-weight: normal;
     overflow-x: hidden;
@@ -293,7 +294,7 @@ button {
 
     .navbar-light .navbar-nav .nav-link:focus,
     .navbar-light .navbar-nav .nav-link:hover {
-        color: #07d9ff;
+        color: #578a93;
     }
 
 .mr-auto, .mx-auto {
@@ -401,7 +402,7 @@ button {
         float: left;
         font-size: 18px;
         color: #ffffff;
-        background-color: #07d9ff;
+        background-color: #578a93;
         text-align: center;
         padding: 10px 0px;
         border-radius: 5px;
@@ -448,7 +449,7 @@ button {
 }
 
     #costum_slider .carousel-control-prev:hover, #costum_slider .carousel-control-next:hover, #costum_slider .carousel-control-prev:focus, #costum_slider .carousel-control-next:focus {
-        background: #07d9ff;
+        background: #578a93;
         color: #fff;
     }
 
@@ -552,7 +553,7 @@ button {
 .about_section {
     width: 100%;
     float: left;
-    background-color: #07d9ff;
+    background-color: #578a93;
     height: auto;
     padding-bottom: 0px;
 }
@@ -570,7 +571,7 @@ button {
 .purchese_section {
     width: 100%;
     float: left;
-    background-color: #0795ff;
+    background-color: #578a93;
     height: auto;
     padding-bottom: 0px;
 }
@@ -683,7 +684,7 @@ button {
 }
 
 .furnitures_section_secondary {
-    background-color: #07d9ff;
+    background-color: #a7cdd3;
     width: 100%;
     float: left;
     padding-bottom: 20px;
@@ -730,7 +731,7 @@ a:hover {
     width: 15%;
     opacity: 0;
     transition: .3s ease;
-    background-color: #07d9ff;
+    background-color: #578a93;
     margin: 0 auto;
     border-radius: 100px;
     top: 130px;
@@ -760,7 +761,7 @@ a:hover {
     display: flex;
     justify-content: space-around;
     font-size: 18px;
-    color: #07d9ff;
+    color: #578a93;
     text-transform: uppercase;
     font-weight: bold;
     padding-top: 35px;
@@ -778,8 +779,8 @@ a:hover {
 .who_section {
     width: 100%;
     float: left;
-    background-color:#07d9ff;
-    padding-bottom:30px;
+    background-color: #578a93;
+    padding-bottom: 30px;
 }
 
 .who_taital {
@@ -950,7 +951,7 @@ a:hover {
 }
 
     #main_slider .carousel-control-prev:hover, #main_slider .carousel-control-next:hover, #main_slider .carousel-control-prev:focus, #main_slider .carousel-control-next:focus {
-        background: #07d9ff;
+        background: #578a93;
         color: #fff;
     }
 
@@ -979,7 +980,7 @@ a:hover {
 .client_1 {
     width: 60%;
     float: left;
-    border: 3px solid #1da2e1;
+    border: 3px solid #578a93;
     border-radius: 15px;
     padding: 10px 10px 10px 10px;
 }
@@ -1017,8 +1018,8 @@ a:hover {
 .client_2 {
     width: 60%;
     float: right;
-    border: 3px solid #1da2e1;
-    border-radius:15px;
+    border: 3px solid #578a93;
+    border-radius: 15px;
     padding: 10px 10px 10px 10px;
     margin-top: 30px;
 }
@@ -1026,7 +1027,7 @@ a:hover {
 .carousel-indicators li {
     width: 20px;
     height: 20px;
-    background-color: #07d9ff;
+    background-color: #578a93;
     border-radius: 20px;
 }
 
@@ -1272,7 +1273,7 @@ textarea#comment::placeholder {
     }
 
         .copyright_text a:hover {
-            color: #07d9ff;
+            color: #578a93;
         }
 
 .pop_up {
@@ -1394,7 +1395,7 @@ textarea#comment::placeholder {
     border: none;
     color: #fff;
     border-radius: 10px;
-    background-color: #07d9ff;
+    background-color: #578a93;
 }
 
 .pop_up_close {
@@ -1792,7 +1793,7 @@ textarea#comment::placeholder {
 
     .innav p:hover {
         transform: scale(1.05);
-        background-color: #4fa3d1; /* √олубой цвет дл€ выделени€ */
+        background-color: #578a93; /* √олубой цвет дл€ выделени€ */
         border-bottom: inset;
         border-radius: 5px;
     }
@@ -1817,10 +1818,35 @@ textarea#comment::placeholder {
         width: 50px; /* установка ширины изображени€ */
         height: auto; /* автоматическое определение высоты дл€ сохранени€ пропорций */
     }
-    
 
 
+@keyframes slideInBackground {
+    from {
+        background-size: 0% 100%; /* начальный размер фона (0% ширина, 100% высота) */
+    }
 
+    to {
+        background-size: 100% 100%; /* конечный размер фона (100% ширина, 100% высота) */
+    }
+}
+
+.text-with-background {
+    display: inline-block;
+    padding: 5px 10px; /* настройка отступов текста от фона */
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)); /* градиентный фон */
+    background-repeat: no-repeat;
+    animation: slideInBackground 2s ease; /* плавное добавление фона к тексту */
+    border-radius:12px;
+}
+
+.text-with-background-black {
+    display: inline-block;
+    padding: 5px 10px; /* настройка отступов текста от фона */
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* градиентный фон */
+    background-repeat: no-repeat;
+    animation: slideInBackground 2s ease; /* плавное добавление фона к тексту */
+    border-radius: 12px;
+}
 
 
 

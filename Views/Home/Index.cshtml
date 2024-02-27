@@ -26,7 +26,9 @@
         <div class="row">
             <div class="col-md-6">
                 <h1 class="about_text">О компании</h1>
-                <p class="lorem_text">Компания «@Config.CompanyName» – строительная компания с большим опытом в ремонтных работах, гарантия качества и профессионализм штата сотрудников. Дизайнеры интерьера помогут переосмыслить зонирование вашей квартиры и создать еще более комфортные условия для жизни, а строители реализуют их смелые идеи точно так, как задумано.</p>
+                <p class="lorem_text text-with-background-black"><strong>Компания «@Config.CompanyName»</strong> стабильно работает на рынке строительных и ремонтных услуг с 2011 года.</p>
+                <p class="lorem_text text-with-background-black">Сдано более чем 700 объектов</p>
+                <p class="lorem_text text-with-background-black">Охватываем весь спектр ремонтных и строительных услуг</p>
                 <div class="read_bt1"><a href="@Url.Action("About","Home")">Подробнее</a> </div>
             </div>
             <div class="col-md-6">
@@ -36,47 +38,7 @@
     </div>
 </div>
 <!-- about section end -->
-<!-- contact section start -->
-<div class="contact_section layout_padding commerce_tab" style="background-image: url(../images/block.jpg);">
-    <div class="flexible_box">
-        <div class="flex_item">
-            <h1 class="about_text">Мы работаем c коммерческими клиентами </h1>
-            <p class="lorem_text commerce">Наша компания @Config.CompanyName, занимается ремонтом не только частных домов и квартир, с гордостью предлагает свои услуги и коммерческому сектору. Независимо от типа вашего объекта - офисного пространства, магазина, ресторана или другого коммерческого помещения - мы гарантируем высококачественное выполнение всех необходимых работ.</p>
-            <div class="offer_conteiner">
-                <div class="carousel_grid_item st_tub">
-                    <img src="~/images/icon5.png" id="offer_in_corporat" />
-                    <p class="in_txt">Подберем решение под любой бюджет</p>
-                </div>
-                <div class="carousel_grid_item">
-                    <img src="~/images/icon2.png" id="offer_in_corporat" />
-                    <p class="in_txt">Опыт проектирования с 2015 года.</p>
-                </div>
-            </div>
-        </div>
-        <div class="flex_item">
-            <div class="img_box">
-                <img src="~/images/5219925.png" />
-            </div>
-        </div>
-        <div class="flex_item">
-            <h1 class="about_text">Что вы получаете от сотрудничества с нами:</h1>
-            <p class="lorem_text commerce">-При заказе ремонта у нас, скидки на стройматериалы у наших партнеров достигают <strong><span style="font-size: 1.2em;">30%</span></strong></p>
-            <p class="lorem_text commerce">-С вами будет работать наш прораб, который в любой момент ответит на все ваши вопросы и проконсультирует <strong><span style="font-size: 1.2em;">бесплатно</span></strong></p>
-            <p class="lorem_text commerce">-Фотоотчет или видеодемонстрация с объекта</p>
-            <div class="offer_conteiner">
-                <div class="carousel_grid_item" id="item_3">
-                    <img src="~/images/icon54.jpg" id="offer_in_corporat" />
-                    <p class="in_txt">Фиксированная стоимость в договоре</p>
-                </div>
-                <div class="carousel_grid_item">
-                    <img src="~/images/20943572.png" id="offer_in_corporat" />
-                    <p class="in_txt">Бесплатные консультации и замер</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- contact section end -->
+
 
 @await Html.PartialAsync("~/Views/Shared/Section/ServicesSectionPartial.cshtml")
 <!-- who section start -->
