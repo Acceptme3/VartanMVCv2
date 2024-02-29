@@ -1,5 +1,6 @@
 ﻿@using VartanMVCv2.Domain.Entities
 @using VartanMVCv2.ViewModels
+@using System.IO;
 @model IndexViewModel
 
 @{
@@ -10,8 +11,10 @@
     if (parityCounter > feedbackOnPageCount)
     {
         parityCounter = feedbackOnPageCount;
-        indicatorsCount = feedbackOnPageCount/2;
+        indicatorsCount = feedbackOnPageCount / 2;
     }
+
+
 }
 
 <!-- projects section start -->
@@ -22,10 +25,26 @@
         <div class="swiper">
             <div class="swiper-wrapper">
                 @{
-                    int i = 0;
-                    while (i < Model.dataModelExample!.completedProjectsList.Count())
+                    if (Config.PhotoMode == PhotoMode.single)
                     {
-                         <div class="swiper-slide">
+                        <div class="grid-container">
+                            @for (int i = 0; i < Model.dataModelExample!.completedProjectsList.Count; i++)
+                            {
+                                foreach (var photo in Model.dataModelExample.completedProjectsList[i].Photos)
+                                {
+                                    <div class="grid-item">
+                                        <img src="@photo.ImagePath" data-fancybox="gallery" data-caption="@photo.Description" />
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                    else if(Config.PhotoMode == PhotoMode.group)
+                    {
+                        int i = 0;
+                        while (i < Model.dataModelExample!.completedProjectsList.Count())
+                        {
+                            <div class="swiper-slide">
                                 <div class="projects_section2">
                                     <div class="container_main2">
                                         <div class="row">
@@ -49,7 +68,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                      
+                            </div>
+                        }
                     }
                 }
             </div>
@@ -131,8 +151,7 @@
 
 <h1 class="present_text">Уже стали нашим клиентом? Оставьте отзыв о нас.</h1>
 
-<div class="contact_bt_main" >
+<div class="contact_bt_main">
     <div class="contact_bt" style="margin-top:25px; margin-bottom:20px"><a id="feedbackForm_open" href="#">Добавить отзыв</a></div>
 </div>
 <!-- client section end -->
-

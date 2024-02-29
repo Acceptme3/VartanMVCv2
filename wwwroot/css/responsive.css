@@ -715,6 +715,24 @@
 
 
 @media (max-width: 575px) {
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Three columns with equal width */
+        grid-gap: 10px; /* Adjust the gap between grid items */
+    }
+
+    .grid-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .grid-item img {
+            max-width: 100%;
+            height: auto;
+        }
+
     .last {
         display: none;
     }
