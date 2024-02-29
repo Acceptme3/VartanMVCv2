@@ -2,7 +2,7 @@
 
 @functions {
 
-    bool IsDevice()
+    bool IsMobileDevice()
     {
         string? userAgent;
         bool isMobileDevice = false;
@@ -64,8 +64,8 @@
     <div class="banner_section layout_padding">
         <div class="container">
             <div class="swiper-slide">
-                <h1 class="furniture_text text-with-background">Скидка 12%</h1>
-                <p class="second_text">Закажите ремонт жилого или коммерческого помещения "под-ключ", прямо сейчас и получите скидку</p>
+                <h1 class="furniture_text text-with-background">Скидка 15% на ремонт любой сложности!</h1>
+                <p class="second_text">Консультация по телефону и выезд специалиста для расчета сметы БЕСПЛАТНО!</p>
                 <p class="present_text text-with-background">Компания Эталон-ПРО работает по Краснодару и Краснодарскому Краю </p>
                 <div class="carousel_grid_container">
                     <div class="carousel_grid_item">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="contact_bt_main">
-                    @if (IsDevice())
+                    @if (IsMobileDevice())
                     {
                         <div class="contact_bt"><a href="tel:@Config.CompanyPhoneShort">Получить консультацию</a></div>
                     }

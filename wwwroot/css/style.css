@@ -1848,6 +1848,9 @@ textarea#comment::placeholder {
     border-radius: 12px;
 }
 
+.image_7 img {
+    max-height: 6vh;
+}
 
 
 
