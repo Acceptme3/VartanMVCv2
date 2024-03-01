@@ -1807,6 +1807,7 @@ textarea#comment::placeholder {
     padding: 10px 0;
     text-align: center;
     display: none; /* скрыть панель по умолчанию */
+    z-index:1000;
 }
 
     .mobile-panel a {
@@ -1870,3 +1871,251 @@ textarea#comment::placeholder {
         max-width: 100%;
         height: auto;
     }
+
+/* стили для прайса */
+
+.pricing-container {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 2vw 0;
+}
+
+    .pricing-container .plan:hover {
+        -webkit-box-shadow: 0px 0px 43px -1px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 0px 43px -1px rgba(0,0,0,0.2);
+        box-shadow: 0px 0px 43px -1px rgba(0,0,0,0.1);
+        transform: scale(1.02);
+    }
+
+    .pricing-container .spsl-plan {
+        margin-top: -20px;
+        position: relative;
+    }
+
+        .pricing-container .spsl-plan .plans-footer a {
+            font-weight: bold;
+            border: 2px solid #955db8;
+            padding: 7px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: #fff !important;
+            background: #955db8;
+        }
+
+            .pricing-container .spsl-plan .plans-footer a:hover {
+                color: #955db8 !important;
+                background: #fff !important;
+                text-decoration: none;
+            }
+
+    .pricing-container .plan .paln-head {
+        background-size: 100%;
+        height: 154px;
+        text-align: center;
+        padding-top: 40px;
+        position: relative;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .pricing-container .plan .planone {
+        background: url(https://bootstraptema.ru/snippets/price/2018/pricesbest/price-1.jpg) no-repeat top center;
+    }
+
+    .pricing-container .plan .plantwo {
+        background: url(https://bootstraptema.ru/snippets/price/2018/pricesbest/price-2.jpg) no-repeat top center;
+    }
+
+    .pricing-container .plan .plantree {
+        background: url(https://bootstraptema.ru/snippets/price/2018/pricesbest/price-3.jpg) no-repeat top center;
+    }
+
+    .pricing-container .plan .paln-head > span {
+        z-index: 2;
+        position: relative;
+        color: #fff;
+        font-weight: bold;
+        font-size: 27px;
+    }
+
+        .pricing-container .plan .paln-head > span > b {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
+            font-size: 19px;
+        }
+
+        .pricing-container .plan .paln-head > span > i {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
+            display: block;
+            color: #fff;
+            position: relative;
+            z-index: 3;
+            font-size: 12px;
+            margin-top: -8px;
+        }
+
+    .pricing-container .plan .paln-head:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(61, 148, 206, 0.74);
+        top: 0;
+        border-radius: 12px 12px 0 0;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .pricing-container .plan:hover .paln-head:after {
+        background: rgba(44, 119, 169, 0.74);
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .pricing-container .plan .plans-tag {
+        background: -webkit-linear-gradient(left, #06a8f1, #22ce9c);
+        background: -o-linear-gradient(right, #06a8f1, #22ce9c);
+        background: -moz-linear-gradient(right, #06a8f1, #22ce9c);
+        background: linear-gradient(to right, #06a8f1, #22ce9c);
+        font-family: 'Roboto', sans-serif;
+        font-weight: bold;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 13px;
+        display: block;
+        max-width: 67vw;
+        text-align: center;
+        padding: 11px;
+        border-radius: 41px;
+        margin: auto;
+        margin-top: -20px;
+        position: relative;
+    }
+
+    .pricing-container .plan .plans-body {
+        background: rgba(238, 241, 241, 0.68);
+        margin-top: -20px;
+        padding: 30px;
+        padding-top: 41px;
+        color: #afbac3;
+        font-family: 'Roboto', sans-serif;
+        font-weight: normal;
+        font-size: 14px;
+    }
+
+        .pricing-container .plan .plans-body ul {
+            padding-left: 0;
+        }
+
+            .pricing-container .plan .plans-body ul > li {
+                list-style: none;
+                margin: 18px 0;
+                font-size: 20px;
+                cursor: pointer;
+                color: #9ba6af;
+            }
+
+                .pricing-container .plan .plans-body ul > li > i {
+                    margin-right: 5px;
+                }
+
+                .pricing-container .plan .plans-body ul > li:hover {
+                    color: #7e8a94;
+                }
+
+    .pricing-container .plan .plans-footer {
+        background: rgba(243, 246, 246, 0.54);
+        padding: 30px;
+        text-align: center;
+        border-top: 1px solid rgba(227, 232, 232, 0.55);
+    }
+
+        .pricing-container .plan .plans-footer a {
+            color: #955db8;
+            font-weight: bold;
+            border: 2px solid #955db8;
+            padding: 7px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+        }
+
+            .pricing-container .plan .plans-footer a:hover {
+                color: #ffffff;
+                background: #955db8;
+                text-decoration: none;
+            }
+
+.plans-footer {
+    margin-bottom: 30px;
+}
+
+.pricing-container .spsl-plan {
+    margin-bottom: -20px;
+}
+
+.pricing-container .plan .ribbon {
+    position: relative;
+    margin-bottom: 80px;
+}
+
+    .pricing-container .plan .ribbon span {
+        position: absolute;
+        display: -webkit-box;
+        -ms-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(-90deg);
+        top: 28px;
+        margin-left: 2px;
+        font-weight: bold;
+        font-size: 13px;
+        text-transform: uppercase;
+        color: rgba(3, 36, 58, 0.52);
+    }
+
+.pricing-container .plan:hover .ribbon span {
+    opacity: 0;
+}
+
+.pricing-container .plan .ribbon:before, .pricing-container .plan .ribbon:after {
+    content: "";
+    position: absolute;
+}
+
+.pricing-container .plan .ribbon {
+    width: 35px;
+    height: 70px;
+    background: #efe94f;
+    top: -6px;
+    left: 8px;
+    position: absolute;
+    z-index: 22;
+}
+
+.pricing-container .plan:hover .ribbon {
+    height: 20px;
+}
+
+.pricing-container .plan .ribbon:before {
+    height: 0;
+    width: 0;
+    border-bottom: 6px solid #cac441;
+    border-right: 6px solid transparent;
+    right: -6px;
+}
+
+.pricing-container .plan .ribbon:after {
+    height: 0;
+    width: 0;
+    border-left: 18px solid #efe94f;
+    border-right: 17px solid #efe94f;
+    border-bottom: 18px solid transparent;
+    bottom: -17px;
+}

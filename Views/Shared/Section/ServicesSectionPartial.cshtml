@@ -1,6 +1,23 @@
 ﻿@using VartanMVCv2.Domain.Entities
+@using VartanMVCv2.Models
 @using VartanMVCv2.ViewModels
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model IndexViewModel
+
+@functions
+{
+    bool IsMobileDevice()
+    {
+        string? userAgent;
+        bool isMobileDevice = false;
+        if (HttpContextAccessor.HttpContext != null)
+        {
+            userAgent = HttpContextAccessor.HttpContext.Request.Headers["User-Agent"].ToString();
+            isMobileDevice = userAgent.Contains("Mobile", StringComparison.OrdinalIgnoreCase);
+        }
+        return isMobileDevice;
+    }
+}
 
 <!-- furnitures section start -->
 <div class="furnitures_section layout_padding">
@@ -8,26 +25,48 @@
         <h1 class="our_text">Услуги</h1>
         <p class="ipsum_text">Подберем вариант подходящий именно вам</p>
         <div class="furnitures_section2 layout_padding">
-            <div class="row">
+            <div class="pricing-container">
+                <div class="row">
                 @{
-                    foreach( WorkServices service in Model.dataModelExample!.workServicesList)
-                {
-                    <div class="col-md-6">
-                        <div class="container_main">
-                            <img src="@service.TitleImagePath" alt="Avatar" class="image">
-                            <div class="overlay">
-                                <a href="@Url.Action("ServicesByID","Home",new {service.ID})" class="icon" title="User Profile" id="cat_full">
-                                    <i class="fa fa-search"></i>
-                                </a>
+                    foreach (WorkServices service in Model.dataModelExample!.workServicesList)
+                    {
+                        <div class="col-md-4">
+                            <div class="plan spsl-plan">
+                                <div class="ribbon"><span>-15%</span></div>
+                                    <div class="paln-head plantwo" style="background:url('@Url.PathToUrl(service.TitleImagePath!)') no-repeat top center;">
+                                    <span>@service.Price<b></b> <i></i></span>
+                                </div>
+                                <div class="plans-tag">@service.Title</div>
+                                <div class="plans-body">
+                                    <ul>
+                                            <li><i class="fa fa-calendar" aria-hidden="true"></i> <b>Сроки выполнения: </b>@service.Deadline</li>
+                                        <li><i class="fa fa-check" aria-hidden="true"></i> <b>Подойдет Вам, если необходимо: </b></li>
+                                            @{
+                                                foreach(var item in service.WorksCategories)
+                                                {
+                                                    <li><i class="fa fa-award" aria-hidden="true"></i> <b></b>@item.Title</li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div class="plans-footer">
+                                        @if (IsMobileDevice())
+                                        {
+                                            <a href="tel:@Config.CompanyPhoneShort">Заказать замер бесплатно</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Contact", "Home")">Заказать замер бесплатно</a>
+                                        }
+                                    </div>
                             </div>
                         </div>
-                        <h3 class="temper_text">@service.Title</h3>
-                        <p class="dololr_text">@service.Description</p>
-                    </div>
+                    }
                 }
-                }
+                </div>
             </div>
-        </div>      
+        </div>
     </div>
 </div>
 <!-- furnitures section end -->
+

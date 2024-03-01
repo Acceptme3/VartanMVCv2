@@ -7,8 +7,8 @@ using VartanMVCv2.Services;
 
 namespace VartanMVCv2.Domain
 {
-    public class AplicationDBContext:IdentityDbContext<IdentityUser>
-    {  
+    public class AplicationDBContext : IdentityDbContext<IdentityUser>
+    {
         public AplicationDBContext(DbContextOptions<AplicationDBContext> options) : base(options) { }
         //наши таблицы с услугами
         public DbSet<WorkServices> WorkServices { get; set; }

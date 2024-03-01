@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using VartanMVCv2.Domain.Repositories.Abstract;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace VartanMVCv2.Domain.Entities
 {
@@ -16,6 +14,7 @@ namespace VartanMVCv2.Domain.Entities
         public override string? TitleImagePath { get => base.TitleImagePath; set => base.TitleImagePath = value; }
         [Display(Name = "Стоимость услуги")]
         public string Price { get; set; } = "default_price";
+        public string Deadline { get; set; } = "default_deadline";
 
         public virtual List<WorksCategory> WorksCategories { get; set; }  = new List<WorksCategory>();
 

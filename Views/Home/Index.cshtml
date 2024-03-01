@@ -4,7 +4,7 @@
 
 @functions {
 
-    bool IsDevice()
+    bool IsMobileDevice()
     {
         string? userAgent;
         bool isMobileDevice = false;
@@ -53,7 +53,7 @@
         <p class="lorem_ipsum_text">-<strong><span style="font-size: 1.2em;">При заказе комплексных услуг действуют персональные скидки</span></strong></p>
     </div>
     <div class="get_bt_main">
-        @if (IsDevice())
+        @if (IsMobileDevice())
         {
             <div class="get_bt"><a href="tel:@Config.CompanyPhoneShort">Заказать замер</a></div>
         }

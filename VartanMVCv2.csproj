@@ -9,12 +9,20 @@
   <ItemGroup>
     <Compile Remove="wwwroot\fonts\**" />
     <Compile Remove="wwwroot\js\pages\**" />
+    <Compile Remove="wwwroot\lib\**" />
+    <Compile Remove="wwwroot\sass\**" />
     <Content Remove="wwwroot\fonts\**" />
     <Content Remove="wwwroot\js\pages\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\sass\**" />
     <EmbeddedResource Remove="wwwroot\fonts\**" />
     <EmbeddedResource Remove="wwwroot\js\pages\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\sass\**" />
     <None Remove="wwwroot\fonts\**" />
     <None Remove="wwwroot\js\pages\**" />
+    <None Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\sass\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,8 +39,6 @@
     <Folder Include="Migrations\" />
     <Folder Include="wwwroot\images\projectPhotos\SharedPhoto\" />
     <Folder Include="wwwroot\images\servicesImage\" />
-    <Folder Include="wwwroot\sass\" />
-    <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\doc\" />
   </ItemGroup>
 
