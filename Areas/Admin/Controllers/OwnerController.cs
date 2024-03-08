@@ -82,7 +82,6 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddCompletedProject(CompletedProjectViewModel completedProjectViewModel)
         {
             var CPExample = completedProjectViewModel.completedProjectExample;
@@ -160,7 +159,6 @@ namespace VartanMVCv2.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddWorkServices(WorkServicesViewModel workServicesViewModel)
         {
             if (!ModelState.IsValid)
