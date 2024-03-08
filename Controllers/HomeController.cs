@@ -43,6 +43,7 @@ namespace VartanMVCv2.Controllers
             return View(_indexViewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IndexViewModel client)
         {
             _logger.LogInformation("Начинает выполнение Home/Index, [тип запроса: POST]");
@@ -70,6 +71,7 @@ namespace VartanMVCv2.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddFeedbackAsync(IndexViewModel feedback)
         {
             _logger.LogInformation("Начинает выполнение Home/AddFeedbackAsync, [тип запроса: POST]");

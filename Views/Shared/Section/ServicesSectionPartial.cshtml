@@ -6,6 +6,10 @@
 
 @functions
 {
+    List<WorkServices> OrderByDisplayOrder()
+    {
+        return Model.dataModelExample!.workServicesList.OrderBy(a => a.DisplayOrder).ToList();  
+    } 
     bool IsMobileDevice()
     {
         string? userAgent;
@@ -28,7 +32,7 @@
             <div class="pricing-container">
                 <div class="row">
                 @{
-                    foreach (WorkServices service in Model.dataModelExample!.workServicesList)
+                    foreach (WorkServices service in OrderByDisplayOrder())
                     {
                         <div class="col-md-4">
                             <div class="plan spsl-plan">

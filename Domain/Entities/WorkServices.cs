@@ -15,12 +15,12 @@ namespace VartanMVCv2.Domain.Entities
         [Display(Name = "Стоимость услуги")]
         public string Price { get; set; } = "default_price";
         public string Deadline { get; set; } = "default_deadline";
+        public int DisplayOrder { get; set; }
 
         public virtual List<WorksCategory> WorksCategories { get; set; }  = new List<WorksCategory>();
 
         public WorkServices()
         {
-            //ID = Guid.NewGuid();
             Title = "default_Services";
             Price = "default_Price";
         }

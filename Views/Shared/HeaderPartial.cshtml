@@ -14,6 +14,30 @@
         return isMobileDevice;
     }
 
+    Month GetCurrentMouth()
+    {
+        DateTime now = DateTime.Now;
+        int currentMonth = now.Month;
+        Month month = (Month)currentMonth;
+        return month;
+    } 
+
+    enum Month
+    {
+        ЯНВАРЕ = 1,
+        ФЕВРАЛЕ,
+        МАРТЕ,
+        АПРЕЛЕ,
+        МАЕ,
+        ИЮНЕ,
+        ИЮЛЕ,
+        АВГУСТЕ,
+        СЕНТЯБРЕ,
+        ОКТЯБРЕ,
+        НОЯБРЕ,
+        ДЕКАБРЕ
+    }
+
 }
 <!-- header section start -->
 <div class="header_section">
@@ -64,7 +88,7 @@
     <div class="banner_section layout_padding">
         <div class="container">
             <div class="swiper-slide">
-                <p class="second_text">Получите </p>
+                <p class="second_text">Дарим в @GetCurrentMouth()</p>
                 <h1 class="furniture_text text-with-background">скидку 15%</h1>
                 <p class="second_text">На ремонт любой сложности</p>
                 <p class="second_text">Консультация по телефону и выезд специалиста для расчета сметы БЕСПЛАТНО!</p>
