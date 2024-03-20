@@ -28,17 +28,17 @@ namespace VartanMVCv2.Domain
 
             builder.Entity<IdentityUser>().HasData(new IdentityUser
             {
-                Id = "9690ccb5-3b89-457b-a2ee-b7dfab3526a0",
+                Id = "0EE7504A-74DD-41B1-8660-1ECD8B4D2AF7",
                 UserName = "admin",
                 NormalizedUserName = "ADMIN",
                 Email = "my@email.com",
                 NormalizedEmail = "MY@EMAIL.COM",
                 EmailConfirmed = true,
-                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null!,"superpassword"),
-                SecurityStamp=string.Empty
+                PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null!, "VartanMVCv2"),
+                SecurityStamp = string.Empty
             });
 
-            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> {RoleId= "0f16741b-318b-4bfe-b01f-a4d058e7d122" , UserId= "9690ccb5-3b89-457b-a2ee-b7dfab3526a0" });
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> {RoleId= "0f16741b-318b-4bfe-b01f-a4d058e7d122" , UserId = "0EE7504A-74DD-41B1-8660-1ECD8B4D2AF7" });
             builder.Entity<WorkServices>().HasMany(ws => ws.WorksCategories).WithOne(cat => cat.Services).HasForeignKey(ws => ws.WorkServicesID);
             builder.Entity<WorksCategory>().HasMany(cat => cat.Works).WithOne(w => w.WorksCategory);
             //тут мы редактируем таблицы с услугами
